@@ -1,0 +1,21 @@
+# Player fields (kind F), named after the accessors: getId, getController, isAlive,
+# getFaction, getTeam, getResources, getAvailableUnitTypes, getFogOfWar, getUnitGroups,
+# isExplorationEnabled (field l), isFogEnabled (field m), getStatistics.
+#
+# Left blank: c (long, only the obfuscated c() reads it), h (long, read by the obfuscated l())
+# and n (int, read by the obfuscated o()).
+com.desertstormfront.game.player.Player	F	a	I	id
+com.desertstormfront.game.player.Player	F	b	Lcom/desertstormfront/game/player/Controller;	controller
+com.desertstormfront.game.player.Player	F	c	J	
+com.desertstormfront.game.player.Player	F	d	Z	alive
+com.desertstormfront.game.player.Player	F	e	Lcom/desertstormfront/game/player/Faction;	faction
+com.desertstormfront.game.player.Player	F	f	Lcom/desertstormfront/game/player/Team;	team
+com.desertstormfront.game.player.Player	F	g	J	resources
+com.desertstormfront.game.player.Player	F	h	J	
+com.desertstormfront.game.player.Player	F	i	Lcom/desertstormfront/game/model/UnitTypeList;	availableUnitTypes
+com.desertstormfront.game.player.Player	F	j	Lcom/desertstormfront/game/player/FogOfWar;	fogOfWar
+com.desertstormfront.game.player.Player	F	k	Lcom/desertstormfront/game/player/UnitGroupSet;	unitGroups
+com.desertstormfront.game.player.Player	F	l	Z	explorationEnabled
+com.desertstormfront.game.player.Player	F	m	Z	fogEnabled
+com.desertstormfront.game.player.Player	F	n	I	
+com.desertstormfront.game.player.Player	F	o	Lcom/desertstormfront/game/player/PlayerStatistics;	statistics

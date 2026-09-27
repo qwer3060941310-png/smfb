@@ -1,0 +1,8 @@
+# map package tail: owner <TAB> M <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# One override family: MapDefinition.g() is abstract and TsfRuleset/DsfRuleset return this.v.length,
+# where v is the per-unit-type cargo list that getCargoUnits(int) indexes. All three become
+# getUnitTypeCount().
+com.desertstormfront.map.DsfRuleset	M	g	()I	getUnitTypeCount
+com.desertstormfront.map.MapDefinition	M	g	()I	getUnitTypeCount
+com.desertstormfront.map.TsfRuleset	M	g	()I	getUnitTypeCount

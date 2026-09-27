@@ -1,0 +1,44 @@
+# Method batch: ai.intent.IntentGroup (21 methods, was 100% obfuscated).
+#
+# The class is the AI's unit "squad": a set of requested unit types (UnitRequestList b) plus the
+# units actually assigned to it (UnitList c), with a target (UnitPosition f + flag g) and a mode.
+#
+# Evidence (two independent sources per row):
+#  * getters/setters are paired on the same field, and the static factory a() shows the initial
+#    value of every field (empty request list, empty unit list, flag false, mode a, empty position).
+#  * behaviour comes from the bodies: b() returns the assigned unit with the highest
+#    UnitType.getSortWeight(); c() walks Domain[]{Water, Air, Ground, Amphibian} in that order and
+#    returns the first one present among the assigned units or the requests; d() returns the
+#    position of the first unit/request of that domain; g() delegates to UnitList.b(), which is
+#    "any assigned unit has canCapture()".
+#  * the target pair: j()/k() return the position / the unit only when the flag g is set, and
+#    a(float,float) / a(Unit) are the only writers that set it, so they are the target setters.
+#  * m() (field d) is set true only in MoveToTargetPlan L183, right after the target position was
+#    resolved and the mode was switched to b - i.e. "this group has been ordered to move" - and it
+#    is cleared again by the Monitor* plans once the group engages a unit instead of travelling.
+#    AdvanceToTargetNode then reads it to choose between following the lead unit and heading
+#    straight for the target position.
+#
+# Descriptors come from javap: do not edit them, the renamer matches on them.
+# Columns: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> new
+com.desertstormfront.ai.intent.IntentGroup	M	a	()Lcom/desertstormfront/ai/intent/IntentGroup;	create
+com.desertstormfront.ai.intent.IntentGroup	M	b	()Lcom/desertstormfront/game/model/Unit;	getHighestSortWeightUnit
+com.desertstormfront.ai.intent.IntentGroup	M	c	()Lcom/desertstormfront/game/model/Domain;	getDomain
+com.desertstormfront.ai.intent.IntentGroup	M	d	()Lcom/desertstormfront/world/Vec2;	getAnchorPosition
+com.desertstormfront.ai.intent.IntentGroup	M	e	()Z	hasRequests
+com.desertstormfront.ai.intent.IntentGroup	M	a	(Lcom/desertstormfront/game/model/UnitType;)Z	hasRequestFor
+com.desertstormfront.ai.intent.IntentGroup	M	f	()Z	hasUnits
+com.desertstormfront.ai.intent.IntentGroup	M	b	(Lcom/desertstormfront/game/model/UnitType;)Z	hasUnitOfType
+com.desertstormfront.ai.intent.IntentGroup	M	g	()Z	hasCapturingUnit
+com.desertstormfront.ai.intent.IntentGroup	M	h	()Lcom/desertstormfront/ai/intent/UnitRequestList;	getRequests
+com.desertstormfront.ai.intent.IntentGroup	M	a	(Lcom/desertstormfront/ai/intent/UnitRequestList;)V	setRequests
+com.desertstormfront.ai.intent.IntentGroup	M	i	()Lcom/desertstormfront/game/model/UnitList;	getUnits
+com.desertstormfront.ai.intent.IntentGroup	M	a	(Lcom/desertstormfront/game/model/UnitList;)V	setUnits
+com.desertstormfront.ai.intent.IntentGroup	M	j	()Lcom/desertstormfront/world/Vec2;	getTargetPosition
+com.desertstormfront.ai.intent.IntentGroup	M	k	()Lcom/desertstormfront/game/model/Unit;	getTargetUnit
+com.desertstormfront.ai.intent.IntentGroup	M	a	(FF)V	setTargetPosition
+com.desertstormfront.ai.intent.IntentGroup	M	a	(Lcom/desertstormfront/game/model/Unit;)V	setTargetUnit
+com.desertstormfront.ai.intent.IntentGroup	M	l	()Lcom/desertstormfront/ai/intent/IntentGroupMode;	getMode
+com.desertstormfront.ai.intent.IntentGroup	M	a	(Lcom/desertstormfront/ai/intent/IntentGroupMode;)V	setMode
+com.desertstormfront.ai.intent.IntentGroup	M	m	()Z	hasMoveOrder
+com.desertstormfront.ai.intent.IntentGroup	M	a	(Z)V	setHasMoveOrder

@@ -1,0 +1,23 @@
+# final cleanup batch
+#
+# WorldSerializer.a(String, String[]): splits a "key = value" line into the two-element array the
+#   loader reads (throws IOException when the '=' is missing) -> parseProperty.
+#
+# Left obfuscated on purpose, with the reason recorded here so the next pass need not re-derive it:
+#   UnitCommander.b(Unit) / DirectUnitCommander.b(Unit) / NetworkedUnitCommander.b(Unit) and the
+#     static UnitCommander.b(World,Player,Unit) are pure pass-through aliases of isCommandable -
+#     the static one literally returns UnitCommander.isCommandable(world, player, unit), and each
+#     implementation mirrors isCommandable(Unit). Naming them isCommandable is rejected by the
+#     collision check, and inventing a different name would invent a difference that is not there.
+#   Unit's duplicate accessors (Y/Z/ad/ag/ai/ak/ae/af and the static k, plus the c/d/b setters)
+#     return or write exactly what getPosition/isGuarding/getSubUnits/getGuardFollowers/
+#     isVolleyActive/isEffectActive/hasMoveTarget/getMoveTargetPosition/setSubUnits/
+#     setGuardFollowers/setVolley/setMoveTargetPosition already expose; all were rejected by the
+#     collision check earlier in this session.
+#   Label.a(int) delegates to setColor(int); RoadTile.b()/a(boolean) and the RoadMask constants need
+#     an atlas/format decision; DirectionFieldPathFinder.a()[int[] is a javac switch-map; License.d()
+#     and ScriptStep.d()'s sibling have no reader; AIContext.c()/a(int) and their field are written
+#     once at create; Player.c()/o() are only serialized (o() merely compared with game time by
+#     AIPlanner); UnitType.r(), CampaignGameMode.p(), the empty TutorialGameMode/TestScenarioMode
+#     e()/f() hooks and SelectionPanelBase.a(String,Zx6) have no call site that fixes a name.
+com.desertstormfront.io.WorldSerializer	M	a	(Ljava/lang/String;[Ljava/lang/String;)V	parseProperty

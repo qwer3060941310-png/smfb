@@ -1,0 +1,28 @@
+# UnitType accessors: owner | M | old | descriptor | new (from reverse\mapping\members.tsv)
+# Source: reverse\mapping/members.tsv (already reviewed there; this file is a run-time input)
+com/desertstormfront/game/model/UnitType	M	a	()I	getId
+com/desertstormfront/game/model/UnitType	M	b	()Ljava/lang/String;	getName
+com/desertstormfront/game/model/UnitType	M	c	()Ljava/lang/String;	getKey
+com/desertstormfront/game/model/UnitType	M	d	()C	getCode
+com/desertstormfront/game/model/UnitType	M	e	()J	getHealth
+com/desertstormfront/game/model/UnitType	M	f	()Z	isBuilding
+com/desertstormfront/game/model/UnitType	M	h	()I	getHealthInt
+com/desertstormfront/game/model/UnitType	M	i	()Lcom/desertstormfront/game/model/Layer;	getLayer
+com/desertstormfront/game/model/UnitType	M	j	()Lcom/desertstormfront/game/model/Domain;	getDomain
+com/desertstormfront/game/model/UnitType	M	k	()Z	isImmobile
+com/desertstormfront/game/model/UnitType	M	l	()F	getSpeed
+com/desertstormfront/game/model/UnitType	M	m	()F	getSize
+com/desertstormfront/game/model/UnitType	M	o	()Z	isFlying
+com/desertstormfront/game/model/UnitType	M	p	()F	getAltitude
+com/desertstormfront/game/model/UnitType	M	q	()F	getVerticalOffset
+com/desertstormfront/game/model/UnitType	M	t	()Lcom/desertstormfront/game/model/AmmoType;	getAmmoType
+com/desertstormfront/game/model/UnitType	M	u	()F	getDamage
+com/desertstormfront/game/model/UnitType	M	v	()F	getRange
+com/desertstormfront/game/model/UnitType	M	w	()Z	hasSalvo
+com/desertstormfront/game/model/UnitType	M	x	()I	getSalvo
+com/desertstormfront/game/model/UnitType	M	H	()F	getSightRange
+com/desertstormfront/game/model/UnitType	M	I	()Lcom/desertstormfront/game/model/UnitType;	getProducer
+com/desertstormfront/game/model/UnitType	M	J	()Lcom/desertstormfront/game/model/UnitTypeList;	getProducedBy
+com/desertstormfront/game/model/UnitType	M	L	()Lcom/desertstormfront/game/model/UnitTypeList;	getCanProduce
+com/desertstormfront/game/model/UnitType	M	M	()I	getCapacity
+com/desertstormfront/game/model/UnitType	M	O	()I	getSortWeight

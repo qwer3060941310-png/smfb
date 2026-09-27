@@ -1,0 +1,35 @@
+{
+  "_comment": "New units appended to every ruleset. 'id' is auto-assigned (list.size()) so id == index for the cost matrix. Keys follow UnitType field letters (see 16_数据外置与Mod加载.md); UPPER-CASE fields MUST use a trailing underscore (A_ B_ C_ D_ H_ I_) because libGDX JsonValue key lookup is case-insensitive.",
+  "units": [
+    {
+      "d": "FlameTank[i18n]: Flame Tank",
+      "e": "FLAME_TANK",
+      "f": "Y",
+      "g": 220,
+      "h": false,
+      "i": "Base",
+      "j": "Ground",
+      "k": 0.33,
+      "l": 0.17,
+      "m": 0.22,
+      "n": 0.0,
+      "o": false,
+      "p": true,
+      "r": "Shell",
+      "s": 0.28,
+      "t": 0.30,
+      "u": 0,
+      "v": 1.5,
+      "w": false,
+      "x": false,
+      "y": false,
+      "z": false,
+      "A_": false,
+      "B_": 2,
+      "C_": 3,
+      "D_": 5.0,
+      "H_": 0,
+      "I_": false
+    }
+  ]
+}

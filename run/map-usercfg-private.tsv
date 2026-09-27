@@ -1,0 +1,5 @@
+# UserConfig private helpers: old<TAB>new
+# B() reads every key out of user.config into the static fields.
+# C() writes the static fields back into user.config.
+B	loadFromProperties
+C	saveToProperties

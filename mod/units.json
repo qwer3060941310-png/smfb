@@ -1,0 +1,12 @@
+{
+  "_comment": "Unit overrides. Key = unit key (BATTLE_TANK, ARTILLERY, ...). 'health' is a confirmed alias; 'fields' addresses any declared UnitType field by name. SEMANTICS CONFIRMED in 17: g=health, m=speed (NOT l), n=altitude, s=damage, t=range, D=sight/attack range, H=capacity. Do not write o/E/J (computed). UPPER-CASE fields need a trailing underscore (D_ H_ ...) because libGDX JsonValue lookup is case-insensitive.",
+  "BATTLE_TANK": {
+    "health": 150,
+    "fields": { "m": 0.25, "s": 0.3 }
+  },
+  "ARTILLERY": { "health": 250 },
+  "FIGHTER_PLANE": {
+    "health": 300,
+    "fields": { "s": 0.35 }
+  }
+}

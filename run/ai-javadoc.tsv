@@ -1,0 +1,82 @@
+AIPlanner.java	AI 规划器总控：编排「意图评估 → HTN 规划 → 行为树执行」三层 AI，持有 UnitCommander 下发指令
+behavior/ActionNode.java	行为树动作节点基类（叶子节点），执行具体单位动作
+behavior/BehaviorNode.java	行为树节点基类，定义节点执行与子节点管理
+behavior/BehaviorTreePool.java	行为树对象池，复用节点实例以降低 GC 开销
+behavior/BlackboardPool.java	黑板对象池，复用 UnitBlackboard 实例
+behavior/CompositeNode.java	行为树组合节点基类，持有并调度子节点
+behavior/ConditionNode.java	行为树条件节点，按黑板状态返回成功/失败
+behavior/ConditionNodeBase.java	条件节点基础实现，封装判定逻辑
+behavior/NodeStatus.java	节点执行状态枚举（成功/失败/运行中）
+behavior/SelectorNode.java	行为树选择节点，依次尝试子节点直至成功
+behavior/SequenceNode.java	行为树顺序节点，依次执行子节点直至失败
+behavior/UnitBlackboard.java	单位黑板，承载单个单位的 AI 共享数据
+behavior/nodes/AdvanceToTargetNode.java	动作：向当前目标推进
+behavior/nodes/AttackNearestNode.java	动作：攻击射程内最近的敌方单位
+behavior/nodes/AutoEngageNode.java	动作：进入自动交战状态
+behavior/nodes/DeployUnloadNode.java	动作：部署并卸载搭载单位
+behavior/nodes/EmbarkTransportNode.java	动作：登上运输载具
+behavior/nodes/EvadeThreatNode.java	动作：规避受到的威胁
+behavior/nodes/HasIntentGroup.java	条件：单位是否已分配意图分组
+behavior/nodes/HasTargetInRange.java	条件：射程内是否存在可打击目标
+behavior/nodes/IsAdvanceMode.java	条件：是否处于推进模式
+behavior/nodes/IsDeployMode.java	条件：是否处于部署模式
+behavior/nodes/IsEmbarkMode.java	条件：是否处于登乘模式
+behavior/nodes/IsThreatened.java	条件：是否正受到威胁
+behavior/nodes/NeedsRepair.java	条件：是否需要维修
+behavior/nodes/ReturnToBaseNode.java	动作：返回基地
+behavior/nodes/TargetSelector.java	目标选择：为单位挑选最优攻击目标
+intent/AIContext.java	AI 上下文，承载全局态势与评估输入
+intent/InfluenceMap.java	影响力图，用于威胁与控制区域评估
+intent/Intent.java	意图实体，描述 AI 想达成的目标
+intent/IntentEvaluator.java	意图评估器，对候选意图做效用打分
+intent/IntentGroup.java	意图分组，聚合同类意图统一调度
+intent/IntentGroupList.java	意图分组列表
+intent/IntentGroupMode.java	意图分组模式枚举
+intent/IntentList.java	意图列表
+intent/IntentType.java	意图类型枚举（攻击/防御/探索/巡逻等）
+intent/UnitRequest.java	单位请求，描述意图对单位的需求
+intent/UnitRequestList.java	单位请求列表
+plan/ActionPlanNode.java	HTN 规划动作节点，表示可执行原子任务
+plan/CompositePlanNode.java	HTN 组合规划节点，聚合子规划
+plan/ConditionPlanNode.java	HTN 条件规划节点，判定前置条件
+plan/DecoratorNode.java	HTN 装饰器节点，包装并修饰子规划
+plan/GuardPlanNode.java	HTN 守卫规划节点，带前置条件校验
+plan/PlanContext.java	规划上下文，保存单次规划的状态与参数
+plan/PlanContextList.java	规划上下文列表
+plan/PlanNode.java	HTN 规划节点基类，定义规划分解与执行
+plan/PlanNodeList.java	规划节点列表
+plan/PlanResult.java	规划结果枚举（成功/失败/进行中）
+plan/SelectorPlanNode.java	HTN 选择规划节点，选取首个可行子规划
+plan/SequencePlanNode.java	HTN 顺序规划节点，依次完成子规划
+plan/nodes/AssignAirPlan.java	规划：分配空中单位
+plan/nodes/AssignCarrierPlan.java	规划：分配航母
+plan/nodes/AssignCruiserPlan.java	规划：分配巡洋舰
+plan/nodes/AssignDestroyerPlan.java	规划：分配驱逐舰
+plan/nodes/AssignGuardPlan.java	规划：分配守卫单位
+plan/nodes/AssignTransportPlan.java	规划：分配运输单位
+plan/nodes/InitAttackPlan.java	规划：发起攻击任务
+plan/nodes/InitCommandPlan.java	规划：执行玩家/指挥官指令
+plan/nodes/InitConquerPlan.java	规划：攻占据点
+plan/nodes/InitExplorePlan.java	规划：探索未知区域
+plan/nodes/InitRoguePlan.java	规划：处理游离单位
+plan/nodes/InitTruckPlan.java	规划：调度卡车补给
+plan/nodes/IsAttackCondition.java	条件：是否满足攻击前提
+plan/nodes/IsCommandCondition.java	条件：是否存在待执行指令
+plan/nodes/IsConquerCondition.java	条件：是否满足攻占前提
+plan/nodes/IsDefendCondition.java	条件：是否满足防御前提
+plan/nodes/IsExploreCondition.java	条件：是否满足探索前提
+plan/nodes/IsPatrolCondition.java	条件：是否满足巡逻前提
+plan/nodes/IsRogueCondition.java	条件：是否存在游离单位
+plan/nodes/IsTruckCondition.java	条件：是否需要卡车调度
+plan/nodes/LoadPlan.java	规划：装载单位上载具
+plan/nodes/MonitorEngagePlan.java	规划：监视交战过程
+plan/nodes/MonitorPlanBase.java	监视类规划基类
+plan/nodes/MonitorReachPlan.java	规划：监视单位是否抵达目标
+plan/nodes/MoveRoguePlan.java	规划：移动游离单位
+plan/nodes/MoveToTargetPlan.java	规划：移动至目标位置
+plan/nodes/RequireObjectiveNode.java	节点：要求具备作战目标
+plan/nodes/ResetPlan.java	规划：重置当前规划状态
+plan/nodes/UnitAssignPlanBase.java	单位分配规划基类
+plan/nodes/UnloadPlan.java	规划：卸载单位
+plan/nodes/VerifyConquerPlan.java	规划：验证攻占是否完成
+plan/nodes/WaitBuildPlan.java	规划：等待单位建造完成

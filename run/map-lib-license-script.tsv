@@ -1,0 +1,54 @@
+# lib.license + lib.script batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# Scope: com.noblemaster.lib.license (18 methods) and com.noblemaster.lib.script (11 methods).
+# Evidence per symbol:
+#
+# License (the 3 implementations repeat the same six members, so one naming covers them):
+#   BootScreen.update() is the decisive reader: license.b() decides whether the game may start
+#   (-> isValid), license.c() is passed to GameConfig.setMacBuild (-> isMacBuild) and license.a()
+#   is logged as the license name (-> getName, "Accept" / "Expiring"). a(LicenseCallback) is the
+#   asynchronous check entry point -> check ; e() is called from GameApplication.dispose
+#   -> dispose. d() has no reader anywhere in the tree and is left unnamed.
+#   ExpiringLicense's single field marks the 90-day trial as run out -> expired.
+#
+# ScriptStep: TutorialHintBox reads all four columns - a() goes through Messages.get
+#   (-> getTextKey), b() is split on ':' and parsed as "L:10" / "C:..." (-> getPositionSpec),
+#   c() being null decides isWaitingForConfirmation (-> getExpectedInput, the answer that advances
+#   the step). The fourth string has no reader in this tree yet and is left unnamed.
+# StepListener: the single callback fired when the player advances -> onStepChanged.
+# StepSequencePlayer: a() / a(String) try to advance (the string form only when it matches the
+#   current step's expected input) -> advance ; b() -> getCurrentStep ; a(ScriptStepList) ->
+#   setSteps ; a(StepListener) -> addListener ; the private c() fans out to the listeners ->
+#   notifyListeners.
+#
+# Nothing here is looked up by name (licenses are interfaces, tutorial steps come from a
+# String[][] table), so renaming cannot change behaviour or data.
+com.noblemaster.lib.license.AcceptedLicense	M	a	()Ljava/lang/String;	getName
+com.noblemaster.lib.license.AcceptedLicense	M	b	()Z	isValid
+com.noblemaster.lib.license.AcceptedLicense	M	c	()Z	isMacBuild
+com.noblemaster.lib.license.AcceptedLicense	M	d	()Z	
+com.noblemaster.lib.license.AcceptedLicense	M	a	(Lcom/noblemaster/lib/license/LicenseCallback;)V	check
+com.noblemaster.lib.license.AcceptedLicense	M	e	()V	dispose
+com.noblemaster.lib.license.ExpiringLicense	M	a	()Ljava/lang/String;	getName
+com.noblemaster.lib.license.ExpiringLicense	M	b	()Z	isValid
+com.noblemaster.lib.license.ExpiringLicense	M	c	()Z	isMacBuild
+com.noblemaster.lib.license.ExpiringLicense	M	d	()Z	
+com.noblemaster.lib.license.ExpiringLicense	M	a	(Lcom/noblemaster/lib/license/LicenseCallback;)V	check
+com.noblemaster.lib.license.ExpiringLicense	M	e	()V	dispose
+com.noblemaster.lib.license.License	M	a	()Ljava/lang/String;	getName
+com.noblemaster.lib.license.License	M	b	()Z	isValid
+com.noblemaster.lib.license.License	M	c	()Z	isMacBuild
+com.noblemaster.lib.license.License	M	d	()Z	
+com.noblemaster.lib.license.License	M	a	(Lcom/noblemaster/lib/license/LicenseCallback;)V	check
+com.noblemaster.lib.license.License	M	e	()V	dispose
+com.noblemaster.lib.script.ScriptStep	M	a	()Ljava/lang/String;	getTextKey
+com.noblemaster.lib.script.ScriptStep	M	b	()Ljava/lang/String;	getPositionSpec
+com.noblemaster.lib.script.ScriptStep	M	c	()Ljava/lang/String;	getExpectedInput
+com.noblemaster.lib.script.ScriptStep	M	d	()Ljava/lang/String;	
+com.noblemaster.lib.script.StepListener	M	a	()V	onStepChanged
+com.noblemaster.lib.script.StepSequencePlayer	M	a	()V	advance
+com.noblemaster.lib.script.StepSequencePlayer	M	a	(Ljava/lang/String;)V	advance
+com.noblemaster.lib.script.StepSequencePlayer	M	b	()Lcom/noblemaster/lib/script/ScriptStep;	getCurrentStep
+com.noblemaster.lib.script.StepSequencePlayer	M	a	(Lcom/noblemaster/lib/script/ScriptStepList;)V	setSteps
+com.noblemaster.lib.script.StepSequencePlayer	M	a	(Lcom/noblemaster/lib/script/StepListener;)V	addListener
+com.noblemaster.lib.script.StepSequencePlayer	M	c	()V	notifyListeners

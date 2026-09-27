@@ -1,0 +1,47 @@
+# BatchRenderer batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# Evidence, field by field - every name comes from the constructor that initialises it:
+#   j/k/l = shader attribute locations a_position / a_texCoord / a_color
+#   m/n/o = shader uniform locations   s_texture / u_mvpMatrix / u_texScale
+#   e/f/g = float vertex array, its write cursor, its capacity (i2 = f/16 vertices, f*4 bytes)
+#   a/b/c = short array, its write cursor, its capacity (SpriteBatch flushes when b >= c)
+#   d     = true on Desktop/WebGL, selecting the float VBO vertex format over the packed short one
+#   q     = GL_ELEMENT_ARRAY_BUFFER (34963) holding the 6-index quad pattern
+#   r/s   = GL_ARRAY_BUFFER (34962) for the short data / for the float vertex data
+#   p     = round robin index over the buffer ring (p = (p+1) % r.length)
+#   h     = widget tree root, set by a(Widget) and read by b()
+#   i/t/u = shader program, the atlas texture, the SpriteBatch that feeds this renderer
+# Method names come from their bodies: a() reads t, b() reads h, a(Widget) writes h,
+# a(ActionListener,float,float,boolean) forwards to Widget.handleInput, a(int,int) rebuilds the
+# MVP matrix from the viewport size, c() draws the widget tree, d() flushes the pending batch,
+# e() disposes every GL object. a-g are package-private and are written directly by SpriteBatch,
+# which is why this batch must stay symbol-wide instead of a per-file edit.
+com.desertstormfront.ui.BatchRenderer	F	h	Lcom/desertstormfront/ui/Widget;	rootWidget
+com.desertstormfront.ui.BatchRenderer	F	i	Lcom/desertstormfront/ui/ShaderProgram;	shaderProgram
+com.desertstormfront.ui.BatchRenderer	F	j	I	attrPosition
+com.desertstormfront.ui.BatchRenderer	F	k	I	attrTexCoord
+com.desertstormfront.ui.BatchRenderer	F	l	I	attrColor
+com.desertstormfront.ui.BatchRenderer	F	m	I	uniformTexture
+com.desertstormfront.ui.BatchRenderer	F	n	I	uniformMvpMatrix
+com.desertstormfront.ui.BatchRenderer	F	o	I	uniformTexScale
+com.desertstormfront.ui.BatchRenderer	F	p	I	bufferIndex
+com.desertstormfront.ui.BatchRenderer	F	q	[Lcom/desertstormfront/ui/GlBuffer;	elementBuffers
+com.desertstormfront.ui.BatchRenderer	F	a	[S	shortData
+com.desertstormfront.ui.BatchRenderer	F	b	I	shortDataCount
+com.desertstormfront.ui.BatchRenderer	F	c	I	shortDataCapacity
+com.desertstormfront.ui.BatchRenderer	F	d	Z	useVbo
+com.desertstormfront.ui.BatchRenderer	F	e	[F	vertexData
+com.desertstormfront.ui.BatchRenderer	F	f	I	vertexDataCount
+com.desertstormfront.ui.BatchRenderer	F	g	I	vertexDataCapacity
+com.desertstormfront.ui.BatchRenderer	F	r	[Lcom/desertstormfront/ui/GlBuffer;	shortDataBuffers
+com.desertstormfront.ui.BatchRenderer	F	s	[Lcom/desertstormfront/ui/GlBuffer;	vertexDataBuffers
+com.desertstormfront.ui.BatchRenderer	F	t	Lcom/desertstormfront/ui/GlTexture;	texture
+com.desertstormfront.ui.BatchRenderer	F	u	Lcom/desertstormfront/ui/SpriteBatch;	spriteBatch
+com.desertstormfront.ui.BatchRenderer	M	a	()Lcom/desertstormfront/ui/GlTexture;	getTexture
+com.desertstormfront.ui.BatchRenderer	M	b	()Lcom/desertstormfront/ui/Widget;	getRootWidget
+com.desertstormfront.ui.BatchRenderer	M	a	(Lcom/desertstormfront/ui/Widget;)V	setRootWidget
+com.desertstormfront.ui.BatchRenderer	M	a	(Lcom/desertstormfront/ui/ActionListener;FFZ)Z	handleInput
+com.desertstormfront.ui.BatchRenderer	M	a	(II)V	setViewportSize
+com.desertstormfront.ui.BatchRenderer	M	c	()V	render
+com.desertstormfront.ui.BatchRenderer	M	d	()V	flush
+com.desertstormfront.ui.BatchRenderer	M	e	()V	dispose

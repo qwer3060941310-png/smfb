@@ -1,0 +1,51 @@
+# Field batch: ui.VectorTextRenderer (19) + the confident part of ui.hud.GuiAssets (9).
+#
+# Evidence (two independent sources per row):
+#  * VectorTextRenderer - the constructor lines 19-120 show exactly what each buffer is for:
+#    j/k come from ShaderProgram.a("a_position"/"a_color") (attribute handles) and l from
+#    ShaderProgram.b("u_mvpMatrix") (uniform handle); d is "Gdx.app.getType() is Desktop or
+#    WebGL", and it is what selects the float-vertex path (e/f/g/p are only allocated when it is
+#    true); a/b/c and o are the short staging array, its count, its capacity and the GlBuffers
+#    wrapping it; n is filled with an index table (34963 + glDrawElements) so it holds the index
+#    buffers; m is the round-robin index into those buffers; h is the static Character -> float[]
+#    stroke table the glyphs are drawn from; q/r/s are the cached colour (setColor stores the int
+#    in q and the two short halves written per vertex in r and s).
+#  * GuiAssets - the fonts keep the file they were loaded from (font_dokchampa_15, font_xirod_17,
+#    font_dungeon_34/25, font_dungeon_15_outline); b is the lazily built locale default font and a
+#    is the locale suffix it was built for; r is the 10-entry array indexed by faction id in
+#    getFlagRegion; E is the AudioClip played by playClickSound.
+#
+# Rows left BLANK on purpose (keep the trailing tab, they stay 5-column): the GuiAssets button
+# styles, check box styles and nine-patches are pure texture coordinates; their honest names come
+# from the call sites and need a separate pass.
+#
+# Descriptors come from javap: do not edit them, the renamer matches on them.
+# Columns: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> new
+com.desertstormfront.ui.VectorTextRenderer	F	h	Ljava/util/Map;	glyphStrokes
+com.desertstormfront.ui.VectorTextRenderer	F	i	Lcom/desertstormfront/ui/ShaderProgram;	shaderProgram
+com.desertstormfront.ui.VectorTextRenderer	F	j	I	positionAttrib
+com.desertstormfront.ui.VectorTextRenderer	F	k	I	colorAttrib
+com.desertstormfront.ui.VectorTextRenderer	F	l	I	mvpMatrixUniform
+com.desertstormfront.ui.VectorTextRenderer	F	m	I	currentBuffer
+com.desertstormfront.ui.VectorTextRenderer	F	n	[Lcom/desertstormfront/ui/GlBuffer;	indexBuffers
+com.desertstormfront.ui.VectorTextRenderer	F	a	[S	shortData
+com.desertstormfront.ui.VectorTextRenderer	F	b	I	shortCount
+com.desertstormfront.ui.VectorTextRenderer	F	c	I	shortCapacity
+com.desertstormfront.ui.VectorTextRenderer	F	o	[Lcom/desertstormfront/ui/GlBuffer;	shortBuffers
+com.desertstormfront.ui.VectorTextRenderer	F	d	Z	useFloatVertices
+com.desertstormfront.ui.VectorTextRenderer	F	e	[F	floatData
+com.desertstormfront.ui.VectorTextRenderer	F	f	I	floatCount
+com.desertstormfront.ui.VectorTextRenderer	F	g	I	floatCapacity
+com.desertstormfront.ui.VectorTextRenderer	F	p	[Lcom/desertstormfront/ui/GlBuffer;	floatBuffers
+com.desertstormfront.ui.VectorTextRenderer	F	q	I	currentColor
+com.desertstormfront.ui.VectorTextRenderer	F	r	S	packedColorA
+com.desertstormfront.ui.VectorTextRenderer	F	s	S	packedColorB
+com.desertstormfront.ui.hud.GuiAssets	F	a	Ljava/lang/String;	defaultFontLocale
+com.desertstormfront.ui.hud.GuiAssets	F	b	Lcom/desertstormfront/ui/BitmapFont;	defaultFont
+com.desertstormfront.ui.hud.GuiAssets	F	c	Lcom/desertstormfront/ui/BitmapFont;	fontDokchampa15
+com.desertstormfront.ui.hud.GuiAssets	F	d	Lcom/desertstormfront/ui/BitmapFont;	fontXirod17
+com.desertstormfront.ui.hud.GuiAssets	F	e	Lcom/desertstormfront/ui/BitmapFont;	fontDungeon34
+com.desertstormfront.ui.hud.GuiAssets	F	f	Lcom/desertstormfront/ui/BitmapFont;	fontDungeon25
+com.desertstormfront.ui.hud.GuiAssets	F	g	Lcom/desertstormfront/ui/BitmapFont;	fontDungeon15Outline
+com.desertstormfront.ui.hud.GuiAssets	F	r	[Lcom/desertstormfront/ui/TextureRegion;	flagRegions
+com.desertstormfront.ui.hud.GuiAssets	F	E	Lcom/desertstormfront/audio/AudioClip;	clickSound

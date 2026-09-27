@@ -1,0 +1,275 @@
+# ai batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# Scope: com.desertstormfront.ai (190 methods + 25 fields; 2 methods and the remaining state
+# fields are deliberately left unnamed, see the end of this header).
+#
+# Two parallel node hierarchies with an identical shape, so one naming scheme covers both:
+#   plan  (PlanNode):     b()=getName, a()=reset, c(ctx)=canRun, d(ctx)=run, b(ctx)=getActiveNode
+#   behavior (BehaviorNode): a()=reset, c(bb)=canRun, d(bb)=run, b(bb)=getActiveNode (no name)
+# Evidence: PlanNode/BehaviorNode declare exactly those five/four abstract members; the composites
+# implement c() as "has children" and getActiveNode() as "resolve to the child that would run"
+# (SelectorPlanNode/SequencePlanNode walk children, ActionPlanNode/ActionNode return themselves via
+# asAction(), DecoratorNode/ConditionNodeBase forward to their single child).
+#
+# CompositePlanNode/CompositeNode: a(PlanNode/BehaviorNode)=addChild, a()=reset, c()=canRun;
+#   fields a/b = children (pool/list) and activeIndex (the -1-initialised child cursor).
+# DecoratorNode/ConditionNodeBase: field a = child; the new abstract a(ctx)/a(bb) asks "is the
+#   condition satisfied" = isSatisfied, used by ConditionPlanNode (c()=canRun forwards to it) and
+#   GuardPlanNode (run() returns SUCCESS when the guard does not hold).
+# ConditionPlanNode/GuardPlanNode: c()=canRun, d()=run.
+# PlanContext: fields a/b/c = aiContext/commander/intent; a(Intent)=setIntent, a()=getAiContext,
+#   b()=getIntent, a(Unit,UnitType)/b(Unit,UnitType) forward UnitCommander canBuildUnit/buildUnit
+#   = canBuild/build.
+#
+# plan.nodes: every task node is (getName, reset, run) or (getName, isSatisfied) for the IsXxx
+#   conditions; the monitor family (MonitorPlanBase and its LoadPlan/UnloadPlan/MonitorEngagePlan/
+#   MonitorReachPlan/MoveRoguePlan/MoveToTargetPlan subclasses) splits run() - which prunes dead
+#   units and fails when a transport/capturer was lost - from the abstract e(ctx)=monitor() that
+#   the subclass implements.
+#   MoveToTargetPlan: a/b(AIContext, Vec2, x, y) spiral outward from (x,y) for the nearest tile the
+#   given domain can path to (Ground / Water) and return its tile index = findNearestGroundTile /
+#   findNearestWaterTile.
+#   UnitAssignPlanBase: the four protected a(...) helpers pick the nearest unassigned/immobile unit
+#   = findUnitForTypes / findUnitForType (2 overloads) / findUnitForDomain.
+#   AssignGuardPlan: a(AIContext) picks a random combat type = pickCombatUnitType; fields
+#   a/b/c = combatTypes (lazily filled), groupIndex, assignedCount.
+#   TargetSelector (a static helper, not a node): a(bb)=isFlyingUnit, b(bb)=selectTarget (chooses
+#   the best reachable target by damage/distance and issues the order; also drives the fighter
+#   patrol circle when nothing is in range).
+#
+# intent:
+#   InfluenceMap: a(w,h,cell)=create ; a() folds the raw values into the coarse cells (0.7 falloff
+#   for neighbours) = rebuild ; b()=getCellSize ; a(Vec2)/a(ff)/a(ii)=getInfluence on the folded
+#   grid ; a(iif)=setValue / b(ii)=getValue on the raw grid. Fields a..g = values/width/height/
+#   cellSize/cellValues/cellWidth/cellHeight.
+#   IntentList (extends ArrayList): a(Unit)=findIntent, b(Unit)=findGroup, a(IntentType)=takeWeakest
+#   (removes the lowest-total-health intent of that type), a(IntentType,ff)=countAt,
+#   a(IntentType,Unit)=countTargeting, b(IntentType)=count, a(Vec2)/a(ff)=hasTargetAt.
+#   IntentGroupList: a()=hasRequests, b()=hasUnits, a(UnitType)=hasUnitOfType (same name as the
+#   IntentGroup method it delegates to), c()=hasCapturingUnit, a(Unit)=findGroup.
+#   IntentEvaluator: fields a/b/c = context/phase/lastUpdateTime; a()=evaluate (time-budgeted
+#   influence-map refresh, one phase per call).
+#   IntentType: field i = name ; a()=getName.
+#   UnitRequest: fields a/b = unit/unitType ; a(Unit,UnitType)=of ; get/setUnit, get/setUnitType.
+#   UnitRequestList: a(UnitType)=hasRequestFor.
+#   AIContext: s() rebuilds and returns the cached visible-enemy list = collectVisibleEnemyUnits.
+#
+# Deliberately unnamed (no evidence in this tree, left obfuscated rather than guessed):
+#   AIContext.c()/a(int) and their field n (written 0 at create, no other reader); IntentGroup
+#   fields a/d/g; the IntentGroupMode and NodeStatus constants (2 and 4 values, their meaning needs
+#   the call sites that compare them); the per-node int/float state fields (timeouts, indices).
+com.desertstormfront.ai.behavior.ActionNode	M	c	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Z	canRun
+com.desertstormfront.ai.behavior.ActionNode	M	b	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Lcom/desertstormfront/ai/behavior/BehaviorNode;	getActiveNode
+com.desertstormfront.ai.behavior.BehaviorNode	M	a	()V	reset
+com.desertstormfront.ai.behavior.BehaviorNode	M	c	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Z	canRun
+com.desertstormfront.ai.behavior.BehaviorNode	M	d	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Lcom/desertstormfront/ai/behavior/NodeStatus;	run
+com.desertstormfront.ai.behavior.BehaviorNode	M	b	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Lcom/desertstormfront/ai/behavior/BehaviorNode;	getActiveNode
+com.desertstormfront.ai.behavior.CompositeNode	F	a	Lcom/desertstormfront/ai/behavior/BehaviorTreePool;	children
+com.desertstormfront.ai.behavior.CompositeNode	F	b	I	activeIndex
+com.desertstormfront.ai.behavior.CompositeNode	M	a	(Lcom/desertstormfront/ai/behavior/BehaviorNode;)V	addChild
+com.desertstormfront.ai.behavior.CompositeNode	M	c	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Z	canRun
+com.desertstormfront.ai.behavior.CompositeNode	M	a	()V	reset
+com.desertstormfront.ai.behavior.ConditionNode	M	c	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Z	canRun
+com.desertstormfront.ai.behavior.ConditionNode	M	d	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Lcom/desertstormfront/ai/behavior/NodeStatus;	run
+com.desertstormfront.ai.behavior.ConditionNodeBase	F	a	Lcom/desertstormfront/ai/behavior/BehaviorNode;	child
+com.desertstormfront.ai.behavior.ConditionNodeBase	M	a	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Z	isSatisfied
+com.desertstormfront.ai.behavior.ConditionNodeBase	M	a	()V	reset
+com.desertstormfront.ai.behavior.ConditionNodeBase	M	b	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Lcom/desertstormfront/ai/behavior/BehaviorNode;	getActiveNode
+com.desertstormfront.ai.behavior.SelectorNode	M	d	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Lcom/desertstormfront/ai/behavior/NodeStatus;	run
+com.desertstormfront.ai.behavior.SelectorNode	M	b	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Lcom/desertstormfront/ai/behavior/BehaviorNode;	getActiveNode
+com.desertstormfront.ai.behavior.SequenceNode	M	d	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Lcom/desertstormfront/ai/behavior/NodeStatus;	run
+com.desertstormfront.ai.behavior.SequenceNode	M	b	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Lcom/desertstormfront/ai/behavior/BehaviorNode;	getActiveNode
+com.desertstormfront.ai.behavior.nodes.AdvanceToTargetNode	M	a	()V	reset
+com.desertstormfront.ai.behavior.nodes.AdvanceToTargetNode	M	d	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Lcom/desertstormfront/ai/behavior/NodeStatus;	run
+com.desertstormfront.ai.behavior.nodes.AttackNearestNode	M	a	()V	reset
+com.desertstormfront.ai.behavior.nodes.AttackNearestNode	M	d	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Lcom/desertstormfront/ai/behavior/NodeStatus;	run
+com.desertstormfront.ai.behavior.nodes.AutoEngageNode	M	a	()V	reset
+com.desertstormfront.ai.behavior.nodes.AutoEngageNode	M	d	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Lcom/desertstormfront/ai/behavior/NodeStatus;	run
+com.desertstormfront.ai.behavior.nodes.DeployUnloadNode	M	a	()V	reset
+com.desertstormfront.ai.behavior.nodes.DeployUnloadNode	M	d	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Lcom/desertstormfront/ai/behavior/NodeStatus;	run
+com.desertstormfront.ai.behavior.nodes.EmbarkTransportNode	M	a	()V	reset
+com.desertstormfront.ai.behavior.nodes.EmbarkTransportNode	M	d	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Lcom/desertstormfront/ai/behavior/NodeStatus;	run
+com.desertstormfront.ai.behavior.nodes.EvadeThreatNode	M	a	()V	reset
+com.desertstormfront.ai.behavior.nodes.EvadeThreatNode	M	d	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Lcom/desertstormfront/ai/behavior/NodeStatus;	run
+com.desertstormfront.ai.behavior.nodes.HasIntentGroup	M	a	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Z	isSatisfied
+com.desertstormfront.ai.behavior.nodes.HasTargetInRange	M	a	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Z	isSatisfied
+com.desertstormfront.ai.behavior.nodes.IsAdvanceMode	M	a	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Z	isSatisfied
+com.desertstormfront.ai.behavior.nodes.IsDeployMode	M	a	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Z	isSatisfied
+com.desertstormfront.ai.behavior.nodes.IsEmbarkMode	M	a	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Z	isSatisfied
+com.desertstormfront.ai.behavior.nodes.IsThreatened	M	a	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Z	isSatisfied
+com.desertstormfront.ai.behavior.nodes.NeedsRepair	M	a	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Z	isSatisfied
+com.desertstormfront.ai.behavior.nodes.ReturnToBaseNode	M	a	()V	reset
+com.desertstormfront.ai.behavior.nodes.ReturnToBaseNode	M	d	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Lcom/desertstormfront/ai/behavior/NodeStatus;	run
+com.desertstormfront.ai.behavior.nodes.TargetSelector	M	a	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Z	isFlyingUnit
+com.desertstormfront.ai.behavior.nodes.TargetSelector	M	b	(Lcom/desertstormfront/ai/behavior/UnitBlackboard;)Lcom/desertstormfront/ai/behavior/NodeStatus;	selectTarget
+com.desertstormfront.ai.intent.AIContext	M	s	()Lcom/desertstormfront/game/model/UnitList;	collectVisibleEnemyUnits
+com.desertstormfront.ai.intent.InfluenceMap	F	a	[F	values
+com.desertstormfront.ai.intent.InfluenceMap	F	b	I	width
+com.desertstormfront.ai.intent.InfluenceMap	F	c	I	height
+com.desertstormfront.ai.intent.InfluenceMap	F	d	I	cellSize
+com.desertstormfront.ai.intent.InfluenceMap	F	e	[F	cellValues
+com.desertstormfront.ai.intent.InfluenceMap	F	f	I	cellWidth
+com.desertstormfront.ai.intent.InfluenceMap	F	g	I	cellHeight
+com.desertstormfront.ai.intent.InfluenceMap	M	a	(III)Lcom/desertstormfront/ai/intent/InfluenceMap;	create
+com.desertstormfront.ai.intent.InfluenceMap	M	a	()V	rebuild
+com.desertstormfront.ai.intent.InfluenceMap	M	b	()I	getCellSize
+com.desertstormfront.ai.intent.InfluenceMap	M	a	(Lcom/desertstormfront/world/Vec2;)F	getInfluence
+com.desertstormfront.ai.intent.InfluenceMap	M	a	(FF)F	getInfluence
+com.desertstormfront.ai.intent.InfluenceMap	M	a	(II)F	getInfluence
+com.desertstormfront.ai.intent.InfluenceMap	M	a	(IIF)V	setValue
+com.desertstormfront.ai.intent.InfluenceMap	M	b	(II)F	getValue
+com.desertstormfront.ai.intent.IntentEvaluator	F	a	Lcom/desertstormfront/ai/intent/AIContext;	context
+com.desertstormfront.ai.intent.IntentEvaluator	F	b	I	phase
+com.desertstormfront.ai.intent.IntentEvaluator	F	c	F	lastUpdateTime
+com.desertstormfront.ai.intent.IntentEvaluator	M	a	()Z	evaluate
+com.desertstormfront.ai.intent.IntentGroupList	M	a	()Z	hasRequests
+com.desertstormfront.ai.intent.IntentGroupList	M	b	()Z	hasUnits
+com.desertstormfront.ai.intent.IntentGroupList	M	a	(Lcom/desertstormfront/game/model/UnitType;)Z	hasUnitOfType
+com.desertstormfront.ai.intent.IntentGroupList	M	c	()Z	hasCapturingUnit
+com.desertstormfront.ai.intent.IntentGroupList	M	a	(Lcom/desertstormfront/game/model/Unit;)Lcom/desertstormfront/ai/intent/IntentGroup;	findGroup
+com.desertstormfront.ai.intent.IntentList	M	a	(Lcom/desertstormfront/game/model/Unit;)Lcom/desertstormfront/ai/intent/Intent;	findIntent
+com.desertstormfront.ai.intent.IntentList	M	b	(Lcom/desertstormfront/game/model/Unit;)Lcom/desertstormfront/ai/intent/IntentGroup;	findGroup
+com.desertstormfront.ai.intent.IntentList	M	a	(Lcom/desertstormfront/ai/intent/IntentType;)Lcom/desertstormfront/ai/intent/Intent;	takeWeakest
+com.desertstormfront.ai.intent.IntentList	M	a	(Lcom/desertstormfront/ai/intent/IntentType;FF)I	countAt
+com.desertstormfront.ai.intent.IntentList	M	a	(Lcom/desertstormfront/ai/intent/IntentType;Lcom/desertstormfront/game/model/Unit;)I	countTargeting
+com.desertstormfront.ai.intent.IntentList	M	b	(Lcom/desertstormfront/ai/intent/IntentType;)I	count
+com.desertstormfront.ai.intent.IntentList	M	a	(Lcom/desertstormfront/world/Vec2;)Z	hasTargetAt
+com.desertstormfront.ai.intent.IntentList	M	a	(FF)Z	hasTargetAt
+com.desertstormfront.ai.intent.IntentType	F	i	Ljava/lang/String;	name
+com.desertstormfront.ai.intent.IntentType	M	a	()Ljava/lang/String;	getName
+com.desertstormfront.ai.intent.UnitRequest	F	a	Lcom/desertstormfront/game/model/Unit;	unit
+com.desertstormfront.ai.intent.UnitRequest	F	b	Lcom/desertstormfront/game/model/UnitType;	unitType
+com.desertstormfront.ai.intent.UnitRequest	M	a	(Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/model/UnitType;)Lcom/desertstormfront/ai/intent/UnitRequest;	of
+com.desertstormfront.ai.intent.UnitRequest	M	a	()Lcom/desertstormfront/game/model/Unit;	getUnit
+com.desertstormfront.ai.intent.UnitRequest	M	a	(Lcom/desertstormfront/game/model/Unit;)V	setUnit
+com.desertstormfront.ai.intent.UnitRequest	M	b	()Lcom/desertstormfront/game/model/UnitType;	getUnitType
+com.desertstormfront.ai.intent.UnitRequest	M	a	(Lcom/desertstormfront/game/model/UnitType;)V	setUnitType
+com.desertstormfront.ai.intent.UnitRequestList	M	a	(Lcom/desertstormfront/game/model/UnitType;)Z	hasRequestFor
+com.desertstormfront.ai.plan.ActionPlanNode	M	c	(Lcom/desertstormfront/ai/plan/PlanContext;)Z	canRun
+com.desertstormfront.ai.plan.ActionPlanNode	M	a	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/ActionPlanNode;	asAction
+com.desertstormfront.ai.plan.ActionPlanNode	M	b	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanNode;	getActiveNode
+com.desertstormfront.ai.plan.CompositePlanNode	F	a	Lcom/desertstormfront/ai/plan/PlanNodeList;	children
+com.desertstormfront.ai.plan.CompositePlanNode	F	b	I	activeIndex
+com.desertstormfront.ai.plan.CompositePlanNode	M	a	(Lcom/desertstormfront/ai/plan/PlanNode;)V	addChild
+com.desertstormfront.ai.plan.CompositePlanNode	M	c	(Lcom/desertstormfront/ai/plan/PlanContext;)Z	canRun
+com.desertstormfront.ai.plan.CompositePlanNode	M	a	()V	reset
+com.desertstormfront.ai.plan.ConditionPlanNode	M	c	(Lcom/desertstormfront/ai/plan/PlanContext;)Z	canRun
+com.desertstormfront.ai.plan.ConditionPlanNode	M	d	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	run
+com.desertstormfront.ai.plan.DecoratorNode	F	a	Lcom/desertstormfront/ai/plan/PlanNode;	child
+com.desertstormfront.ai.plan.DecoratorNode	M	a	(Lcom/desertstormfront/ai/plan/PlanContext;)Z	isSatisfied
+com.desertstormfront.ai.plan.DecoratorNode	M	a	()V	reset
+com.desertstormfront.ai.plan.DecoratorNode	M	b	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanNode;	getActiveNode
+com.desertstormfront.ai.plan.GuardPlanNode	M	c	(Lcom/desertstormfront/ai/plan/PlanContext;)Z	canRun
+com.desertstormfront.ai.plan.GuardPlanNode	M	d	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	run
+com.desertstormfront.ai.plan.PlanContext	F	a	Lcom/desertstormfront/ai/intent/AIContext;	aiContext
+com.desertstormfront.ai.plan.PlanContext	F	b	Lcom/desertstormfront/command/UnitCommander;	commander
+com.desertstormfront.ai.plan.PlanContext	F	c	Lcom/desertstormfront/ai/intent/Intent;	intent
+com.desertstormfront.ai.plan.PlanContext	M	a	(Lcom/desertstormfront/ai/intent/Intent;)V	setIntent
+com.desertstormfront.ai.plan.PlanContext	M	a	()Lcom/desertstormfront/ai/intent/AIContext;	getAiContext
+com.desertstormfront.ai.plan.PlanContext	M	b	()Lcom/desertstormfront/ai/intent/Intent;	getIntent
+com.desertstormfront.ai.plan.PlanContext	M	a	(Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/model/UnitType;)Z	canBuild
+com.desertstormfront.ai.plan.PlanContext	M	b	(Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/model/UnitType;)Z	build
+com.desertstormfront.ai.plan.PlanNode	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.PlanNode	M	a	()V	reset
+com.desertstormfront.ai.plan.PlanNode	M	c	(Lcom/desertstormfront/ai/plan/PlanContext;)Z	canRun
+com.desertstormfront.ai.plan.PlanNode	M	d	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	run
+com.desertstormfront.ai.plan.PlanNode	M	b	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanNode;	getActiveNode
+com.desertstormfront.ai.plan.SelectorPlanNode	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.SelectorPlanNode	M	d	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	run
+com.desertstormfront.ai.plan.SelectorPlanNode	M	b	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanNode;	getActiveNode
+com.desertstormfront.ai.plan.SequencePlanNode	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.SequencePlanNode	M	d	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	run
+com.desertstormfront.ai.plan.SequencePlanNode	M	b	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanNode;	getActiveNode
+com.desertstormfront.ai.plan.nodes.AssignAirPlan	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.AssignAirPlan	M	a	()V	reset
+com.desertstormfront.ai.plan.nodes.AssignAirPlan	M	d	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	run
+com.desertstormfront.ai.plan.nodes.AssignCarrierPlan	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.AssignCarrierPlan	M	a	()V	reset
+com.desertstormfront.ai.plan.nodes.AssignCarrierPlan	M	d	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	run
+com.desertstormfront.ai.plan.nodes.AssignCruiserPlan	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.AssignCruiserPlan	M	a	()V	reset
+com.desertstormfront.ai.plan.nodes.AssignCruiserPlan	M	d	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	run
+com.desertstormfront.ai.plan.nodes.AssignDestroyerPlan	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.AssignDestroyerPlan	M	a	()V	reset
+com.desertstormfront.ai.plan.nodes.AssignDestroyerPlan	M	d	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	run
+com.desertstormfront.ai.plan.nodes.AssignGuardPlan	F	a	Lcom/desertstormfront/game/model/UnitTypeList;	combatTypes
+com.desertstormfront.ai.plan.nodes.AssignGuardPlan	F	b	I	groupIndex
+com.desertstormfront.ai.plan.nodes.AssignGuardPlan	F	c	I	assignedCount
+com.desertstormfront.ai.plan.nodes.AssignGuardPlan	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.AssignGuardPlan	M	a	()V	reset
+com.desertstormfront.ai.plan.nodes.AssignGuardPlan	M	d	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	run
+com.desertstormfront.ai.plan.nodes.AssignGuardPlan	M	a	(Lcom/desertstormfront/ai/intent/AIContext;)Lcom/desertstormfront/game/model/UnitType;	pickCombatUnitType
+com.desertstormfront.ai.plan.nodes.AssignTransportPlan	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.AssignTransportPlan	M	a	()V	reset
+com.desertstormfront.ai.plan.nodes.AssignTransportPlan	M	d	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	run
+com.desertstormfront.ai.plan.nodes.InitAttackPlan	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.InitAttackPlan	M	a	()V	reset
+com.desertstormfront.ai.plan.nodes.InitAttackPlan	M	d	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	run
+com.desertstormfront.ai.plan.nodes.InitCommandPlan	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.InitCommandPlan	M	a	()V	reset
+com.desertstormfront.ai.plan.nodes.InitCommandPlan	M	d	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	run
+com.desertstormfront.ai.plan.nodes.InitConquerPlan	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.InitConquerPlan	M	a	()V	reset
+com.desertstormfront.ai.plan.nodes.InitConquerPlan	M	d	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	run
+com.desertstormfront.ai.plan.nodes.InitExplorePlan	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.InitExplorePlan	M	a	()V	reset
+com.desertstormfront.ai.plan.nodes.InitExplorePlan	M	d	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	run
+com.desertstormfront.ai.plan.nodes.InitRoguePlan	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.InitRoguePlan	M	a	()V	reset
+com.desertstormfront.ai.plan.nodes.InitRoguePlan	M	d	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	run
+com.desertstormfront.ai.plan.nodes.InitTruckPlan	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.InitTruckPlan	M	a	()V	reset
+com.desertstormfront.ai.plan.nodes.InitTruckPlan	M	d	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	run
+com.desertstormfront.ai.plan.nodes.IsAttackCondition	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.IsAttackCondition	M	a	(Lcom/desertstormfront/ai/plan/PlanContext;)Z	isSatisfied
+com.desertstormfront.ai.plan.nodes.IsCommandCondition	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.IsCommandCondition	M	a	(Lcom/desertstormfront/ai/plan/PlanContext;)Z	isSatisfied
+com.desertstormfront.ai.plan.nodes.IsConquerCondition	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.IsConquerCondition	M	a	(Lcom/desertstormfront/ai/plan/PlanContext;)Z	isSatisfied
+com.desertstormfront.ai.plan.nodes.IsDefendCondition	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.IsDefendCondition	M	a	(Lcom/desertstormfront/ai/plan/PlanContext;)Z	isSatisfied
+com.desertstormfront.ai.plan.nodes.IsExploreCondition	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.IsExploreCondition	M	a	(Lcom/desertstormfront/ai/plan/PlanContext;)Z	isSatisfied
+com.desertstormfront.ai.plan.nodes.IsPatrolCondition	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.IsPatrolCondition	M	a	(Lcom/desertstormfront/ai/plan/PlanContext;)Z	isSatisfied
+com.desertstormfront.ai.plan.nodes.IsRogueCondition	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.IsRogueCondition	M	a	(Lcom/desertstormfront/ai/plan/PlanContext;)Z	isSatisfied
+com.desertstormfront.ai.plan.nodes.IsTruckCondition	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.IsTruckCondition	M	a	(Lcom/desertstormfront/ai/plan/PlanContext;)Z	isSatisfied
+com.desertstormfront.ai.plan.nodes.LoadPlan	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.LoadPlan	M	a	()V	reset
+com.desertstormfront.ai.plan.nodes.LoadPlan	M	e	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	monitor
+com.desertstormfront.ai.plan.nodes.MonitorEngagePlan	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.MonitorEngagePlan	M	a	()V	reset
+com.desertstormfront.ai.plan.nodes.MonitorEngagePlan	M	e	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	monitor
+com.desertstormfront.ai.plan.nodes.MonitorPlanBase	M	d	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	run
+com.desertstormfront.ai.plan.nodes.MonitorPlanBase	M	e	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	monitor
+com.desertstormfront.ai.plan.nodes.MonitorReachPlan	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.MonitorReachPlan	M	a	()V	reset
+com.desertstormfront.ai.plan.nodes.MonitorReachPlan	M	e	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	monitor
+com.desertstormfront.ai.plan.nodes.MoveRoguePlan	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.MoveRoguePlan	M	a	()V	reset
+com.desertstormfront.ai.plan.nodes.MoveRoguePlan	M	e	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	monitor
+com.desertstormfront.ai.plan.nodes.MoveToTargetPlan	M	a	()V	reset
+com.desertstormfront.ai.plan.nodes.MoveToTargetPlan	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.MoveToTargetPlan	M	e	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	monitor
+com.desertstormfront.ai.plan.nodes.MoveToTargetPlan	M	a	(Lcom/desertstormfront/ai/intent/AIContext;Lcom/desertstormfront/world/Vec2;II)I	findNearestGroundTile
+com.desertstormfront.ai.plan.nodes.MoveToTargetPlan	M	b	(Lcom/desertstormfront/ai/intent/AIContext;Lcom/desertstormfront/world/Vec2;II)I	findNearestWaterTile
+com.desertstormfront.ai.plan.nodes.RequireObjectiveNode	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.RequireObjectiveNode	M	a	(Lcom/desertstormfront/ai/plan/PlanContext;)Z	isSatisfied
+com.desertstormfront.ai.plan.nodes.ResetPlan	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.ResetPlan	M	a	()V	reset
+com.desertstormfront.ai.plan.nodes.ResetPlan	M	d	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	run
+com.desertstormfront.ai.plan.nodes.UnitAssignPlanBase	M	a	(Lcom/desertstormfront/ai/plan/PlanContext;Lcom/desertstormfront/game/model/UnitTypeList;Lcom/desertstormfront/world/Vec2;F)Lcom/desertstormfront/game/model/Unit;	findUnitForTypes
+com.desertstormfront.ai.plan.nodes.UnitAssignPlanBase	M	a	(Lcom/desertstormfront/ai/plan/PlanContext;Lcom/desertstormfront/game/model/UnitType;Lcom/desertstormfront/world/Vec2;)Lcom/desertstormfront/game/model/Unit;	findUnitForType
+com.desertstormfront.ai.plan.nodes.UnitAssignPlanBase	M	a	(Lcom/desertstormfront/ai/plan/PlanContext;Lcom/desertstormfront/game/model/UnitType;Lcom/desertstormfront/world/Vec2;F)Lcom/desertstormfront/game/model/Unit;	findUnitForType
+com.desertstormfront.ai.plan.nodes.UnitAssignPlanBase	M	a	(Lcom/desertstormfront/ai/plan/PlanContext;Lcom/desertstormfront/game/model/Domain;Lcom/desertstormfront/world/Vec2;Lcom/desertstormfront/game/model/UnitType;)Lcom/desertstormfront/game/model/Unit;	findUnitForDomain
+com.desertstormfront.ai.plan.nodes.UnloadPlan	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.UnloadPlan	M	a	()V	reset
+com.desertstormfront.ai.plan.nodes.UnloadPlan	M	e	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	monitor
+com.desertstormfront.ai.plan.nodes.VerifyConquerPlan	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.VerifyConquerPlan	M	a	()V	reset
+com.desertstormfront.ai.plan.nodes.VerifyConquerPlan	M	d	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	run
+com.desertstormfront.ai.plan.nodes.WaitBuildPlan	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.ai.plan.nodes.WaitBuildPlan	M	a	()V	reset
+com.desertstormfront.ai.plan.nodes.WaitBuildPlan	M	d	(Lcom/desertstormfront/ai/plan/PlanContext;)Lcom/desertstormfront/ai/plan/PlanResult;	run

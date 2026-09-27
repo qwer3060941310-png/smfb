@@ -1,0 +1,16 @@
+# Vec2 batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+# com.desertstormfront.world.Vec2 - 2D vector (x,y). Mirror of Vec3 naming.
+# a/b fields -> x/y ; a()/b() -> getX/getY ; a(float)/b(float) -> setX/setY (protected setters)
+# a(Vec2)/a(ff) -> distanceTo x2 ; b(Vec2)/b(ff) -> distanceSquaredTo x2 ; c(Vec2)/c(ff) -> equalsInt x2
+com.desertstormfront.world.Vec2	F	a	F	x
+com.desertstormfront.world.Vec2	F	b	F	y
+com.desertstormfront.world.Vec2	M	a	()F	getX
+com.desertstormfront.world.Vec2	M	a	(F)V	setX
+com.desertstormfront.world.Vec2	M	b	()F	getY
+com.desertstormfront.world.Vec2	M	b	(F)V	setY
+com.desertstormfront.world.Vec2	M	a	(Lcom/desertstormfront/world/Vec2;)F	distanceTo
+com.desertstormfront.world.Vec2	M	a	(FF)F	distanceTo
+com.desertstormfront.world.Vec2	M	b	(Lcom/desertstormfront/world/Vec2;)F	distanceSquaredTo
+com.desertstormfront.world.Vec2	M	b	(FF)F	distanceSquaredTo
+com.desertstormfront.world.Vec2	M	c	(Lcom/desertstormfront/world/Vec2;)Z	equalsInt
+com.desertstormfront.world.Vec2	M	c	(FF)Z	equalsInt

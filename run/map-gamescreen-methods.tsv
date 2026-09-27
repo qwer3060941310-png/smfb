@@ -1,0 +1,100 @@
+# GameScreen batch: 47 real methods + 39 javac-generated accessors + 4 enum switch maps.
+# Real methods named from a code-explorer evidence pass: lifecycle overrides driven by
+# GameApplication (update/show/createGlResources/layout/render/pause/dispose), command
+# listeners (commandStop/Repair/Patrol/Group/Ungroup), camera helpers, sprite and UV
+# batching, HUD hit-testing, AI debug drawing, and the fog/exploration geometry builders.
+# The static accessors are compiler bridges for the listener classes; each was named after
+# the field it exposes, and the audio ones were derived from their load sites in show()
+# (e.g. D returns W = audio_constructing.wav, s returns ap = audio_income.wav).
+# Nine rows stay blank on purpose: field ae (float) plus bK/bM/X (long), their setters, the
+# UnitList field v, and the j()/k() switch maps whose enum types were not read.
+com.desertstormfront.screen.GameScreen	M	a	()Lcom/desertstormfront/screen/BaseScreen;	update
+com.desertstormfront.screen.GameScreen	M	G	()Z	isSelectionCommandable
+com.desertstormfront.screen.GameScreen	M	a	(FF)Z	isPointOnHud
+com.desertstormfront.screen.GameScreen	M	a	(Lcom/desertstormfront/screen/GameScene;)V	setScene
+com.desertstormfront.screen.GameScreen	M	a	(I)V	selectUnitGroup
+com.desertstormfront.screen.GameScreen	M	H	()V	commandStop
+com.desertstormfront.screen.GameScreen	M	I	()V	commandRepair
+com.desertstormfront.screen.GameScreen	M	J	()V	commandPatrol
+com.desertstormfront.screen.GameScreen	M	b	(I)V	assignUnitsToGroup
+com.desertstormfront.screen.GameScreen	M	c	(I)V	addUnitsToGroup
+com.desertstormfront.screen.GameScreen	M	K	()V	commandGroup
+com.desertstormfront.screen.GameScreen	M	L	()V	commandUngroup
+com.desertstormfront.screen.GameScreen	M	M	()V	clearSelection
+com.desertstormfront.screen.GameScreen	M	a	(Lcom/desertstormfront/game/player/Player;)V	centerCameraOnPlayer
+com.desertstormfront.screen.GameScreen	M	a	(Lcom/desertstormfront/game/model/Unit;)V	centerCameraOnUnit
+com.desertstormfront.screen.GameScreen	M	b	(FF)V	centerCameraOnPosition
+com.desertstormfront.screen.GameScreen	M	c	(FF)V	setCameraPosition
+com.desertstormfront.screen.GameScreen	M	b	()V	show
+com.desertstormfront.screen.GameScreen	M	c	()V	createGlResources
+com.desertstormfront.screen.GameScreen	M	f	()V	layout
+com.desertstormfront.screen.GameScreen	M	N	()V	updateProjection
+com.desertstormfront.screen.GameScreen	M	g	()V	render
+com.desertstormfront.screen.GameScreen	M	a	(Lcom/desertstormfront/game/model/Unit;ZZZI)V	drawUnitSelectionAndOrders
+com.desertstormfront.screen.GameScreen	M	a	(Lcom/desertstormfront/game/model/Site;)V	drawSite
+com.desertstormfront.screen.GameScreen	M	a	(Lcom/desertstormfront/game/model/Unit;I)V	drawUnitSpriteUnder
+com.desertstormfront.screen.GameScreen	M	b	(Lcom/desertstormfront/game/model/Unit;I)V	drawUnitSpriteAndOverlays
+com.desertstormfront.screen.GameScreen	M	a	(Lcom/desertstormfront/game/model/PositionedSortable;I)V	drawUnitMoveTargetMarker
+com.desertstormfront.screen.GameScreen	M	b	(Lcom/desertstormfront/game/model/Unit;)V	drawVolley
+com.desertstormfront.screen.GameScreen	M	a	(Lcom/desertstormfront/game/model/Bird;)V	drawBird
+com.desertstormfront.screen.GameScreen	M	a	(Lcom/desertstormfront/world/Vec2;Ljava/lang/String;I)V	drawAiDebugLabel
+com.desertstormfront.screen.GameScreen	M	a	(Lcom/desertstormfront/world/Vec2;I)V	drawAiDebugBox
+com.desertstormfront.screen.GameScreen	M	b	(Lcom/desertstormfront/world/Vec2;I)V	drawAiDebugCross
+com.desertstormfront.screen.GameScreen	M	c	(Lcom/desertstormfront/world/Vec2;I)V	drawAiDebugTriangle
+com.desertstormfront.screen.GameScreen	M	a	(Lcom/desertstormfront/world/Vec2;Lcom/desertstormfront/world/Vec2;I)V	drawAiDebugLine
+com.desertstormfront.screen.GameScreen	M	a	(IIIII)V	drawAiDebugLinePixels
+com.desertstormfront.screen.GameScreen	M	a	(II)V	updateExplorationGeometry
+com.desertstormfront.screen.GameScreen	M	b	(II)V	updateFogOfWarGeometry
+com.desertstormfront.screen.GameScreen	M	a	(IIIIII)V	drawSprite
+com.desertstormfront.screen.GameScreen	M	a	(IIIIIIII)V	drawSpriteRegion
+com.desertstormfront.screen.GameScreen	M	a	(IIIIIIZZ)V	drawSpriteFlipped
+com.desertstormfront.screen.GameScreen	M	O	()V	flushSprites
+com.desertstormfront.screen.GameScreen	M	f	(II)S	packUv
+com.desertstormfront.screen.GameScreen	M	a	(Ljava/nio/Buffer;IIIIII)V	writeSpriteToBuffer
+com.desertstormfront.screen.GameScreen	M	g	(II)S	packUvScaled
+com.desertstormfront.screen.GameScreen	M	h	()V	pause
+com.desertstormfront.screen.GameScreen	M	P	()V	disposeAudioClips
+com.desertstormfront.screen.GameScreen	M	i	()V	dispose
+com.desertstormfront.screen.GameScreen	M	d	()[I	getGameSceneSwitchMap
+com.desertstormfront.screen.GameScreen	M	a	(Lcom/desertstormfront/screen/GameScreen;)F	getZoom
+com.desertstormfront.screen.GameScreen	M	a	(Lcom/desertstormfront/screen/GameScreen;F)V	setTargetZoom
+com.desertstormfront.screen.GameScreen	M	b	(Lcom/desertstormfront/screen/GameScreen;)Lcom/desertstormfront/ui/hud/MinimapPanel;	getMinimapPanel
+com.desertstormfront.screen.GameScreen	M	c	(Lcom/desertstormfront/screen/GameScreen;)Lcom/desertstormfront/game/model/UnitList;	getSelectedUnits
+com.desertstormfront.screen.GameScreen	M	d	(Lcom/desertstormfront/screen/GameScreen;)Lcom/desertstormfront/ui/hud/GroupBar;	getGroupBar
+com.desertstormfront.screen.GameScreen	M	a	(Lcom/desertstormfront/screen/GameScreen;Lcom/desertstormfront/screen/GameScene;)V	invokeSetScene
+com.desertstormfront.screen.GameScreen	M	e	(Lcom/desertstormfront/screen/GameScreen;)Lcom/desertstormfront/command/UnitCommander;	getUnitCommander
+com.desertstormfront.screen.GameScreen	M	f	(Lcom/desertstormfront/screen/GameScreen;)Lcom/desertstormfront/audio/AudioClip;	getPlayerEliminatedSound
+com.desertstormfront.screen.GameScreen	M	g	(Lcom/desertstormfront/screen/GameScreen;)Lcom/desertstormfront/audio/AudioClip;	getUnitConstructedSound
+com.desertstormfront.screen.GameScreen	M	h	(Lcom/desertstormfront/screen/GameScreen;)Lcom/desertstormfront/audio/AudioClip;	getStructureCapturedSound
+com.desertstormfront.screen.GameScreen	M	i	(Lcom/desertstormfront/screen/GameScreen;)Lcom/desertstormfront/audio/AudioClip;	getStructureLostSound
+com.desertstormfront.screen.GameScreen	M	j	(Lcom/desertstormfront/screen/GameScreen;)Lcom/desertstormfront/audio/AudioClip;	getExplosionSound
+com.desertstormfront.screen.GameScreen	M	k	(Lcom/desertstormfront/screen/GameScreen;)Lcom/desertstormfront/audio/AudioClip;	getUnitLostSound
+com.desertstormfront.screen.GameScreen	M	l	(Lcom/desertstormfront/screen/GameScreen;)F	
+com.desertstormfront.screen.GameScreen	M	m	(Lcom/desertstormfront/screen/GameScreen;)Lcom/desertstormfront/audio/AudioClip;	getUnderAttackSound
+com.desertstormfront.screen.GameScreen	M	b	(Lcom/desertstormfront/screen/GameScreen;F)V	
+com.desertstormfront.screen.GameScreen	M	n	(Lcom/desertstormfront/screen/GameScreen;)Lcom/desertstormfront/audio/AudioClip;	getImpactSound
+com.desertstormfront.screen.GameScreen	M	o	(Lcom/desertstormfront/screen/GameScreen;)[Lcom/desertstormfront/audio/AudioClip;	getProjectileSounds
+com.desertstormfront.screen.GameScreen	M	p	(Lcom/desertstormfront/screen/GameScreen;)Lcom/desertstormfront/audio/AudioClip;	getFlagTakenSound
+com.desertstormfront.screen.GameScreen	M	q	(Lcom/desertstormfront/screen/GameScreen;)Lcom/desertstormfront/audio/AudioClip;	getFlagLostSound
+com.desertstormfront.screen.GameScreen	M	r	(Lcom/desertstormfront/screen/GameScreen;)J	
+com.desertstormfront.screen.GameScreen	M	a	(Lcom/desertstormfront/screen/GameScreen;J)V	
+com.desertstormfront.screen.GameScreen	M	s	(Lcom/desertstormfront/screen/GameScreen;)Lcom/desertstormfront/audio/AudioClip;	getIncomeSound
+com.desertstormfront.screen.GameScreen	M	t	(Lcom/desertstormfront/screen/GameScreen;)Lcom/desertstormfront/ui/hud/MinimapRenderer;	getMinimapRenderer
+com.desertstormfront.screen.GameScreen	M	u	(Lcom/desertstormfront/screen/GameScreen;)F	getTargetZoom
+com.desertstormfront.screen.GameScreen	M	v	(Lcom/desertstormfront/screen/GameScreen;)Lcom/desertstormfront/ui/hud/TutorialHintBox;	getTutorialHintBox
+com.desertstormfront.screen.GameScreen	M	w	(Lcom/desertstormfront/screen/GameScreen;)V	invokeCommandUngroup
+com.desertstormfront.screen.GameScreen	M	x	(Lcom/desertstormfront/screen/GameScreen;)V	invokeCommandPatrol
+com.desertstormfront.screen.GameScreen	M	y	(Lcom/desertstormfront/screen/GameScreen;)V	invokeCommandRepair
+com.desertstormfront.screen.GameScreen	M	z	(Lcom/desertstormfront/screen/GameScreen;)[Lcom/desertstormfront/audio/AudioClip;	getOkSounds
+com.desertstormfront.screen.GameScreen	M	A	(Lcom/desertstormfront/screen/GameScreen;)Lcom/noblemaster/lib/util/FastRandom;	getRandom
+com.desertstormfront.screen.GameScreen	M	B	(Lcom/desertstormfront/screen/GameScreen;)V	invokeCommandStop
+com.desertstormfront.screen.GameScreen	M	C	(Lcom/desertstormfront/screen/GameScreen;)J	
+com.desertstormfront.screen.GameScreen	M	D	(Lcom/desertstormfront/screen/GameScreen;)Lcom/desertstormfront/audio/AudioClip;	getConstructingSound
+com.desertstormfront.screen.GameScreen	M	b	(Lcom/desertstormfront/screen/GameScreen;J)V	
+com.desertstormfront.screen.GameScreen	M	E	(Lcom/desertstormfront/screen/GameScreen;)Lcom/desertstormfront/game/model/UnitList;	
+com.desertstormfront.screen.GameScreen	M	F	(Lcom/desertstormfront/screen/GameScreen;)V	invokeCommandGroup
+com.desertstormfront.screen.GameScreen	M	a	(Lcom/desertstormfront/screen/GameScreen;I)V	invokeSelectUnitGroup
+com.desertstormfront.screen.GameScreen	M	G	(Lcom/desertstormfront/screen/GameScreen;)Lcom/desertstormfront/session/SessionMode;	getSessionMode
+com.desertstormfront.screen.GameScreen	M	e	()[I	getLayerSwitchMap
+com.desertstormfront.screen.GameScreen	M	j	()[I	
+com.desertstormfront.screen.GameScreen	M	k	()[I	

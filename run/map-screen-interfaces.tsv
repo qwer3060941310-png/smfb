@@ -1,0 +1,30 @@
+# Interface-level batch for the screen tail: owner is the INTERFACE, so the override family
+# renames every implementor, inside and outside the package.
+#
+# ui.ActionListener has exactly one method, a(Widget). All 18 screen/*Listener classes plus the
+# ui widgets (Button, Container, ScrollPane, ListBoxListener, NextClickListener) implement it.
+#
+# game.GameEventListener is a 9-method event API. The names come from GameEventSoundListener,
+# whose bodies name each event by the sound they play:
+#   a(Player)             player eliminated sound          -> onPlayerEliminated
+#   a(Unit)               unit constructed sound           -> onUnitConstructed
+#   b(Unit)               structure captured sound         -> onStructureCaptured
+#   a(Unit,Player,Player) structure lost / explosion       -> onUnitDestroyed (unit, owner, killer)
+#   a(Unit,Player)        under attack (throttled) + impact -> onUnitHit (unit, attacker)
+#   c(Unit)               projectile sound per ammo type   -> onVolleyFired
+#   b(Player)             flag taken sound                 -> onFlagTaken
+#   c(Player)             flag lost sound                  -> onFlagLost
+#   a()                   income / tick update             -> onGameTick
+#
+# The implementor rows in map-screen-remain.tsv stay blank on purpose: this family covers them
+# and also reaches NullGameEventListener, which lives outside screen/.
+com.desertstormfront.ui.ActionListener	M	a	(Lcom/desertstormfront/ui/Widget;)V	onAction
+com.desertstormfront.game.GameEventListener	M	a	(Lcom/desertstormfront/game/player/Player;)V	onPlayerEliminated
+com.desertstormfront.game.GameEventListener	M	a	(Lcom/desertstormfront/game/model/Unit;)V	onUnitConstructed
+com.desertstormfront.game.GameEventListener	M	b	(Lcom/desertstormfront/game/model/Unit;)V	onStructureCaptured
+com.desertstormfront.game.GameEventListener	M	a	(Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/player/Player;)V	onUnitDestroyed
+com.desertstormfront.game.GameEventListener	M	a	(Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/player/Player;)V	onUnitHit
+com.desertstormfront.game.GameEventListener	M	c	(Lcom/desertstormfront/game/model/Unit;)V	onVolleyFired
+com.desertstormfront.game.GameEventListener	M	b	(Lcom/desertstormfront/game/player/Player;)V	onFlagTaken
+com.desertstormfront.game.GameEventListener	M	c	(Lcom/desertstormfront/game/player/Player;)V	onFlagLost
+com.desertstormfront.game.GameEventListener	M	a	()V	onGameTick

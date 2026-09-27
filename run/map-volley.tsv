@@ -1,0 +1,30 @@
+# Volley batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+# com.desertstormfront.game.model.Volley - an artillery/munition volley: ammo type, target unit,
+# origin position, firing direction, projectile list, and an intensity/visibility factor.
+# Semantics confirmed from Unit.fireAt, WorldSerializer (de)serialization, and GameScreen rendering.
+#   a/AmmoType -> ammoType ; b()->getAmmoType ; a(AmmoType)->setAmmoType
+#   b/Unit     -> targetUnit ; c()->getTargetUnit ; a(Unit)->setTargetUnit
+#   c/Vec3     -> origin (launch/reference point) ; d()->getOrigin ; a(Vec3)->setOrigin
+#   d/Vec3     -> direction (unit vector) ; e()->getDirection ; b(Vec3)->setDirection
+#   e/float    -> intensity (render threshold) ; g()->getIntensity ; a(float)->setIntensity
+#   f/ProjectileList -> projectiles ; f()->getProjectiles ; a(ProjectileList)->setProjectiles
+#   static a() -> create (empty/default volley)
+com.desertstormfront.game.model.Volley	F	a	Lcom/desertstormfront/game/model/AmmoType;	ammoType
+com.desertstormfront.game.model.Volley	F	b	Lcom/desertstormfront/game/model/Unit;	targetUnit
+com.desertstormfront.game.model.Volley	F	c	Lcom/desertstormfront/world/Vec3;	origin
+com.desertstormfront.game.model.Volley	F	d	Lcom/desertstormfront/world/Vec3;	direction
+com.desertstormfront.game.model.Volley	F	e	F	intensity
+com.desertstormfront.game.model.Volley	F	f	Lcom/desertstormfront/game/model/ProjectileList;	projectiles
+com.desertstormfront.game.model.Volley	M	a	()Lcom/desertstormfront/game/model/Volley;	create
+com.desertstormfront.game.model.Volley	M	b	()Lcom/desertstormfront/game/model/AmmoType;	getAmmoType
+com.desertstormfront.game.model.Volley	M	a	(Lcom/desertstormfront/game/model/AmmoType;)V	setAmmoType
+com.desertstormfront.game.model.Volley	M	c	()Lcom/desertstormfront/game/model/Unit;	getTargetUnit
+com.desertstormfront.game.model.Volley	M	a	(Lcom/desertstormfront/game/model/Unit;)V	setTargetUnit
+com.desertstormfront.game.model.Volley	M	d	()Lcom/desertstormfront/world/Vec3;	getOrigin
+com.desertstormfront.game.model.Volley	M	a	(Lcom/desertstormfront/world/Vec3;)V	setOrigin
+com.desertstormfront.game.model.Volley	M	e	()Lcom/desertstormfront/world/Vec3;	getDirection
+com.desertstormfront.game.model.Volley	M	b	(Lcom/desertstormfront/world/Vec3;)V	setDirection
+com.desertstormfront.game.model.Volley	M	f	()Lcom/desertstormfront/game/model/ProjectileList;	getProjectiles
+com.desertstormfront.game.model.Volley	M	a	(Lcom/desertstormfront/game/model/ProjectileList;)V	setProjectiles
+com.desertstormfront.game.model.Volley	M	g	()F	getIntensity
+com.desertstormfront.game.model.Volley	M	a	(F)V	setIntensity

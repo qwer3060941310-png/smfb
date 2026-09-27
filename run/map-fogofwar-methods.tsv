@@ -1,0 +1,27 @@
+# FogOfWar batch: owner <TAB> M <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# Two corner boolean grids over (width+1)*(height+1): field a is EXPLORATION (has the tile
+# ever been seen) and field b is FOG (is it visible right now). The a(x,y)/b(x,y) tile queries
+# OR the four surrounding corners, the c/d pairs address one corner, and a(boolean)/b(boolean)
+# fill the whole grid. Evidence: Player.isExplorationEnabled feeds fogOfWar.a(...) and
+# isFogEnabled feeds fogOfWar.b(...) in World.setupPlayers; AIContext uses a(Unit) to keep
+# only seen enemies; a(Unit) itself is c(unit) && (immobile || d(unit)), i.e. an explored
+# building stays visible while a mobile unit must be in range.
+com.desertstormfront.game.player.FogOfWar	M	a	(Lcom/desertstormfront/game/model/Unit;)Z	isUnitVisible
+com.desertstormfront.game.player.FogOfWar	M	b	(Lcom/desertstormfront/game/model/Unit;)Z	isUnitCurrentlyVisible
+com.desertstormfront.game.player.FogOfWar	M	c	(Lcom/desertstormfront/game/model/Unit;)Z	isUnitPositionExplored
+com.desertstormfront.game.player.FogOfWar	M	a	(Lcom/desertstormfront/world/UnitPosition;)Z	isPositionExplored
+com.desertstormfront.game.player.FogOfWar	M	a	(II)Z	isExplored
+com.desertstormfront.game.player.FogOfWar	M	a	(IIZ)V	setExplored
+com.desertstormfront.game.player.FogOfWar	M	d	(Lcom/desertstormfront/game/model/Unit;)Z	isUnitPositionVisible
+com.desertstormfront.game.player.FogOfWar	M	b	(Lcom/desertstormfront/world/UnitPosition;)Z	isPositionVisible
+com.desertstormfront.game.player.FogOfWar	M	b	(II)Z	isVisible
+com.desertstormfront.game.player.FogOfWar	M	b	(IIZ)V	setVisible
+com.desertstormfront.game.player.FogOfWar	M	a	(Z)V	setAllExplored
+com.desertstormfront.game.player.FogOfWar	M	b	(Z)V	setAllVisible
+com.desertstormfront.game.player.FogOfWar	M	c	(II)Z	isCornerExplored
+com.desertstormfront.game.player.FogOfWar	M	c	(IIZ)V	setCornerExplored
+com.desertstormfront.game.player.FogOfWar	M	d	(II)Z	isCornerVisible
+com.desertstormfront.game.player.FogOfWar	M	d	(IIZ)V	setCornerVisible
+com.desertstormfront.game.player.FogOfWar	M	a	()I	getWidth
+com.desertstormfront.game.player.FogOfWar	M	b	()I	getHeight

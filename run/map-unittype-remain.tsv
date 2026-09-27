@@ -1,0 +1,49 @@
+# UnitType remaining batch: owner <TAB> M <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# Matrix orientation was pinned by four independent call sites. a(UnitType) is used to ATTACK
+# (AttackNearestNode, HasTargetInRange) and b(UnitType) to EVADE (EvadeThreatNode, IsThreatened),
+# so a() means the receiver wins the matchup. Bodies: a(o)=b[o][t]-b[t][o]>=200, b(o)=b[t][o]-b[o][t]>=200,
+# c(o)=b[o][t]. All three agree on field b[X][Y] = damage dealt BY Y TO X, which makes
+# a(o)=my damage to o minus its damage to me (strong against), b(o) its converse (weak against)
+# and c(o)=my damage to o. InitAttackPlan uses c() against a >=50 threshold, consistent with
+# hundreds-scale matrix values.
+# The two (Domain,Layer) rows average the same matrix over that domain/layer: a() averages
+# b[other][this] (damage I deal out) and b() averages b[this][other] (damage I take in).
+#
+# Behavioural rows, all evidence from WorldSimulator:
+#   s()  at line 705: when true the shooter rotates its hull toward the target and may only
+#        fire within 45 degrees - tracked vehicles (BattleTank/Artillery/MissileTank).
+#   y()  at line 725: unit.d(now + unitType.y()) sets the next-shot timer (Artillery 2.6 > Tank 1.2).
+#   z()  static 1000: unit.c(...? 0 : z()) initialises a unit, getHealth() < z() flags a damaged
+#        one and GameScreen draws getHealth()*9/z() segments - a health scale.
+#   K()  = getCapacity() > 0, guarded everywhere as K() && subUnits < getCapacity() (can carry).
+#   N()  true only for Carrier and Airfield in BOTH rulesets - the aircraft platforms.
+#   C()  true for every building incl. OilField; WorldSimulator:504 tests C() && B() && owner ==
+#        null, i.e. a capturable structure and a capturing unit.
+#   D()  true only for Dsf Mechanic; WorldSimulator:1056 looks up a same-domain unit of that type.
+#   G()  at line 333 bounds a distance to the guard position; values are tile counts (Artillery 4).
+#
+# Left blank on purpose: g() (static 24, only use is /5 in WorldSimulator:772), n() (a render
+# dimension factor, not the movement factor doc 17 guessed), r() (FighterPlane-only guard
+# exemption), A()/E() (never true in either ruleset) and F() (no call site found).
+com.desertstormfront.game.model.UnitType	M	a	(Lcom/desertstormfront/game/model/UnitTypeList;[[I)V	initialize
+com.desertstormfront.game.model.UnitType	M	g	()I	
+com.desertstormfront.game.model.UnitType	M	n	()F	
+com.desertstormfront.game.model.UnitType	M	r	()Z	
+com.desertstormfront.game.model.UnitType	M	s	()Z	requiresFacingTarget
+com.desertstormfront.game.model.UnitType	M	y	()F	getReloadTime
+com.desertstormfront.game.model.UnitType	M	z	()I	getHealthScale
+com.desertstormfront.game.model.UnitType	M	A	()Z	
+com.desertstormfront.game.model.UnitType	M	B	()Z	canCapture
+com.desertstormfront.game.model.UnitType	M	C	()Z	isCapturable
+com.desertstormfront.game.model.UnitType	M	D	()Z	canRepair
+com.desertstormfront.game.model.UnitType	M	E	()Z	
+com.desertstormfront.game.model.UnitType	M	F	()I	
+com.desertstormfront.game.model.UnitType	M	G	()I	getRangeInTiles
+com.desertstormfront.game.model.UnitType	M	a	(Lcom/desertstormfront/game/model/Domain;Lcom/desertstormfront/game/model/Layer;)I	getDamageAgainst
+com.desertstormfront.game.model.UnitType	M	b	(Lcom/desertstormfront/game/model/Domain;Lcom/desertstormfront/game/model/Layer;)I	getDamageFrom
+com.desertstormfront.game.model.UnitType	M	a	(Lcom/desertstormfront/game/model/UnitType;)Z	isStrongAgainst
+com.desertstormfront.game.model.UnitType	M	b	(Lcom/desertstormfront/game/model/UnitType;)Z	isWeakAgainst
+com.desertstormfront.game.model.UnitType	M	c	(Lcom/desertstormfront/game/model/UnitType;)I	getDamageAgainst
+com.desertstormfront.game.model.UnitType	M	K	()Z	canCarry
+com.desertstormfront.game.model.UnitType	M	N	()Z	canCarryAircraft

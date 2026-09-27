@@ -1,0 +1,50 @@
+# ui widget batch (Button / ScrollPane / ListBox / Glyph / Container / Image)
+#
+# Button: fields are (ButtonState, ButtonStyle, label Widget); the style accessor pair -> getStyle/
+#   setStyle, the child widget -> setLabel, b() tests "state != DISABLED" -> isEnabled and its
+#   setter switches between NORMAL and DISABLED -> setEnabled.
+#
+# ScrollPane: a()/a(Widget) are the scrolled content -> getContent/setContent ; b() returns the
+#   style's scrollbar width -> getScrollBarWidth ; d() computes the scrollbar length from the
+#   content height ratio -> getScrollBarHeight ; the private a(float) clamps and applies the
+#   content offset -> setContentY.
+#
+# ListBox: a = selected index (validated against the item array) -> getSelectedIndex/setSelectedIndex ;
+#   b(int) forwards to the label's max width -> setLabelMaxWidth ; d(int) forwards to the label's
+#   align -> setLabelAlign ; b() is the combined width of the two arrow buttons -> getArrowWidth ;
+#   d() is the item array -> getItems ; a(String[]) installs it and selects the first entry ->
+#   setItems. The two static synthetic accessors exist for ListBoxListener: read the selection ->
+#   getSelectedIndex(ListBox), set the "selection changed" flag -> setChanged(ListBox,boolean).
+#
+# Glyph: per-codepoint glyph storage (k = byte[128][] paged by codePoint >>> 9, one page of 512
+#   bytes each); a(char) reads one byte -> getData and a(int,int) writes it -> setData.
+#
+# Container: a child list; a(Widget)/b(Widget)/e() -> addChild/removeChild/clearChildren.
+#
+# Image: the single TextureRegion accessor pair -> getRegion/setRegion.
+com.desertstormfront.ui.Button	M	a	()Lcom/desertstormfront/ui/ButtonStyle;	getStyle
+com.desertstormfront.ui.Button	M	a	(Lcom/desertstormfront/ui/ButtonStyle;)V	setStyle
+com.desertstormfront.ui.Button	M	a	(Lcom/desertstormfront/ui/Widget;)V	setLabel
+com.desertstormfront.ui.Button	M	b	()Z	isEnabled
+com.desertstormfront.ui.Button	M	b	(Z)V	setEnabled
+com.desertstormfront.ui.Container	M	a	(Lcom/desertstormfront/ui/Widget;)V	addChild
+com.desertstormfront.ui.Container	M	b	(Lcom/desertstormfront/ui/Widget;)V	removeChild
+com.desertstormfront.ui.Container	M	e	()V	clearChildren
+com.desertstormfront.ui.Glyph	M	a	(C)I	getData
+com.desertstormfront.ui.Glyph	M	a	(II)V	setData
+com.desertstormfront.ui.Image	M	a	()Lcom/desertstormfront/ui/TextureRegion;	getRegion
+com.desertstormfront.ui.Image	M	a	(Lcom/desertstormfront/ui/TextureRegion;)V	setRegion
+com.desertstormfront.ui.ListBox	M	a	()I	getSelectedIndex
+com.desertstormfront.ui.ListBox	M	a	(I)V	setSelectedIndex
+com.desertstormfront.ui.ListBox	M	b	(I)V	setLabelMaxWidth
+com.desertstormfront.ui.ListBox	M	d	(I)V	setLabelAlign
+com.desertstormfront.ui.ListBox	M	b	()I	getArrowWidth
+com.desertstormfront.ui.ListBox	M	d	()[Ljava/lang/String;	getItems
+com.desertstormfront.ui.ListBox	M	a	([Ljava/lang/String;)V	setItems
+com.desertstormfront.ui.ListBox	M	a	(Lcom/desertstormfront/ui/ListBox;)I	getSelectedIndex
+com.desertstormfront.ui.ListBox	M	a	(Lcom/desertstormfront/ui/ListBox;Z)V	setChanged
+com.desertstormfront.ui.ScrollPane	M	a	()Lcom/desertstormfront/ui/Widget;	getContent
+com.desertstormfront.ui.ScrollPane	M	a	(Lcom/desertstormfront/ui/Widget;)V	setContent
+com.desertstormfront.ui.ScrollPane	M	b	()I	getScrollBarWidth
+com.desertstormfront.ui.ScrollPane	M	d	()I	getScrollBarHeight
+com.desertstormfront.ui.ScrollPane	M	a	(F)V	setContentY

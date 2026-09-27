@@ -1,0 +1,77 @@
+# Field batch: com.desertstormfront.command (59 fields, was 100% obfuscated).
+#
+# Evidence for every row (two independent sources each, per 26 SOP):
+#   1. the assignment in create(...)  -> what is stored
+#   2. the use in execute(...)        -> what the value means at run time
+#
+# Shared pattern for all GameCommand subclasses:
+#   a = player id   <- create() stores player.getId(); execute() resolves it back with
+#                      world.getPlayers().a(this.a) before doing anything
+#   b = the command's own unit id (or an id array of units, or a group id - see below)
+#
+# Coordinate fields (float pairs) are X first, Y second. Proven twice:
+#   - UnitCommander.canSetRallyPoint calls terrainGrid.canDomainEnter(domain, (int)f3, (int)f4)
+#   - TerrainGrid indexes tiles as n * this.width + i4 with the SECOND argument as the row
+#     (lines 90/106/147), so the first argument is the column X, the second the row Y.
+#
+# Descriptors come from javap: do not edit them, the renamer matches on them.
+# Columns: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> new
+com.desertstormfront.command.AssignSquadCommand	F	a	I	playerId
+com.desertstormfront.command.AssignSquadCommand	F	b	I	groupId
+com.desertstormfront.command.AssignSquadCommand	F	c	[I	unitIds
+com.desertstormfront.command.AttackGroundCommand	F	a	I	playerId
+com.desertstormfront.command.AttackGroundCommand	F	b	I	unitId
+com.desertstormfront.command.AttackGroundCommand	F	c	F	targetX
+com.desertstormfront.command.AttackGroundCommand	F	d	F	targetY
+com.desertstormfront.command.AttackUnitCommand	F	a	I	playerId
+com.desertstormfront.command.AttackUnitCommand	F	b	I	unitId
+com.desertstormfront.command.AttackUnitCommand	F	c	I	targetUnitId
+com.desertstormfront.command.BuildUnitCommand	F	a	I	playerId
+com.desertstormfront.command.BuildUnitCommand	F	b	I	unitId
+com.desertstormfront.command.BuildUnitCommand	F	c	I	unitTypeId
+com.desertstormfront.command.CancelBuildCommand	F	a	I	playerId
+com.desertstormfront.command.CancelBuildCommand	F	b	I	unitId
+com.desertstormfront.command.ClearRallyPointCommand	F	a	I	playerId
+com.desertstormfront.command.ClearRallyPointCommand	F	b	I	unitId
+com.desertstormfront.command.DirectUnitCommander	F	a	Lcom/desertstormfront/game/World;	world
+com.desertstormfront.command.DirectUnitCommander	F	b	Lcom/desertstormfront/game/player/Player;	player
+com.desertstormfront.command.FormSquadCommand	F	a	I	playerId
+com.desertstormfront.command.FormSquadCommand	F	b	[I	unitIds
+com.desertstormfront.command.GameCommand	F	a	Ljava/util/List;	commandClasses
+com.desertstormfront.command.LeaveSquadCommand	F	a	I	playerId
+com.desertstormfront.command.LeaveSquadCommand	F	b	I	unitId
+com.desertstormfront.command.LeaveSquadUnitsCommand	F	a	I	playerId
+com.desertstormfront.command.LeaveSquadUnitsCommand	F	b	[I	unitIds
+com.desertstormfront.command.MoveFormationCommand	F	a	I	playerId
+com.desertstormfront.command.MoveFormationCommand	F	b	[I	unitIds
+com.desertstormfront.command.MoveFormationCommand	F	c	F	targetX
+com.desertstormfront.command.MoveFormationCommand	F	d	F	targetY
+com.desertstormfront.command.MoveToCommand	F	a	I	playerId
+com.desertstormfront.command.MoveToCommand	F	b	I	unitId
+com.desertstormfront.command.MoveToCommand	F	c	F	targetX
+com.desertstormfront.command.MoveToCommand	F	d	F	targetY
+com.desertstormfront.command.NetworkedUnitCommander	F	a	Lcom/desertstormfront/session/impl/GameClient;	gameClient
+com.desertstormfront.command.RepairCommand	F	a	I	playerId
+com.desertstormfront.command.RepairCommand	F	b	I	unitId
+com.desertstormfront.command.RepairUnitsCommand	F	a	I	playerId
+com.desertstormfront.command.RepairUnitsCommand	F	b	[I	unitIds
+com.desertstormfront.command.SetAutoCommand	F	a	I	playerId
+com.desertstormfront.command.SetAutoCommand	F	b	I	unitId
+com.desertstormfront.command.SetRallyPointCommand	F	a	I	playerId
+com.desertstormfront.command.SetRallyPointCommand	F	b	I	unitId
+com.desertstormfront.command.SetRallyPointCommand	F	c	F	rallyX
+com.desertstormfront.command.SetRallyPointCommand	F	d	F	rallyY
+com.desertstormfront.command.StopCommand	F	a	I	playerId
+com.desertstormfront.command.StopCommand	F	b	I	unitId
+com.desertstormfront.command.StopUnitsCommand	F	a	I	playerId
+com.desertstormfront.command.StopUnitsCommand	F	b	[I	unitIds
+com.desertstormfront.command.TargetUnitCommand	F	a	I	playerId
+com.desertstormfront.command.TargetUnitCommand	F	b	I	unitId
+com.desertstormfront.command.TargetUnitCommand	F	c	I	targetUnitId
+com.desertstormfront.command.TargetUnitUnitsCommand	F	a	I	playerId
+com.desertstormfront.command.TargetUnitUnitsCommand	F	b	[I	unitIds
+com.desertstormfront.command.TargetUnitUnitsCommand	F	c	I	targetUnitId
+com.desertstormfront.command.ToggleHostedAutoCommand	F	a	I	playerId
+com.desertstormfront.command.ToggleHostedAutoCommand	F	b	I	unitId
+com.desertstormfront.command.ToggleHostedAutoGroupCommand	F	a	I	playerId
+com.desertstormfront.command.ToggleHostedAutoGroupCommand	F	b	[I	unitIds

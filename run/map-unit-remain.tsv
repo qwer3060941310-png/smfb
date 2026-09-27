@@ -1,0 +1,114 @@
+# Unit remaining batch: owner <TAB> M <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# Setters pair with the already-renamed getters through the field they assign, so those names are
+# mechanical (a(int)->this.a getId -> setId, b(int)->this.m getCount -> setCount, and so on).
+# The behavioural ones are backed by their bodies:
+#   h(Unit) canCaptureUnit  = other owner differs && b.canCapture() && other.isCapturable()
+#     This is the strongest kind of evidence: it independently confirms the UnitType batch names
+#     canCapture (field x) and isCapturable (field y), themselves derived from the matrix and the
+#     isDestroyed() body (!b.C()).
+#   i(Unit) canAttackUnit   = enemy team, alive, visible via player.getFogOfWar().isUnitVisible,
+#     not garrisoned and b.getDamageAgainst(other.getUnitType()) > 0 - confirms that getDamageAgainst
+#     returns OUTGOING damage, exactly as the UnitType batch concluded from the AttackNearestNode /
+#     EvadeThreatNode usage pair.
+#   g(Unit) canGuard   = same owner, same domain, neither flying, target mobile.
+#   f(Unit) canProduceOrCarry = carries it already, or same owner and b.getCanProduce() has its type.
+#   e(Unit) canEmbark  = f(unit) && subUnits.size() < b.getCapacity()  (so f() is the precondition).
+#   d(Unit) canInteractWith = other.canEmbark(this) || canGuard || canCaptureUnit || canAttackUnit.
+#   r()/s()/t() ask the same three questions about the CURRENT guard target (this.f): friendly,
+#     attackable, capturable. WorldSimulator:334 uses s() and t() exactly that way.
+#   f() isHighValue = b.A() (the General-only UnitType flag) or any carried unit is high value;
+#     InitAttackPlan:56 gives such units a target-priority bonus.
+#   j(Unit) fireAt = builds the AmmoType/target/trajectory in the Volley (this.A) and sets B = true.
+#   T()/d(float) are field C: WorldSimulator:703 compares T() against the sim clock and line 725
+#     stores now + reload there, so it is the time the unit may act again.
+#   D()/d(int) are field p: decremented per salvo (WorldSimulator:727) and tested as <= 0 when
+#     hasSalvo() is set, so it is the remaining salvo count.
+#
+# 27 rows stay blank. They fall into three groups, none of which can be named from evidence:
+#   (1) trivial @Override stubs returning false (a(), b()) and methods whose field has no
+#       established meaning anywhere yet (v()/b(float) field l, E/e(int) field q, F/f(int) field r,
+#       H/a(boolean) field t, L/g(int) field w, B(), k(Unit));
+#   (2) methods with NO evidence at all: several are private and were never read.
+#   (3) NINE 2-letter accessors (Y, Z, aa, ad, ae, af, ag, ai, ak) whose bodies are IDENTICAL to
+#       already-renamed methods (getPosition, isGuarding, getSubUnits, hasMoveTarget,
+#       getMoveTargetPosition, getGuardFollowers, isVolleyActive, isEffectActive). They are almost
+#       certainly implementations of OTHER interfaces methods, so renaming them to the same names
+#       would both collide and mislabel them - the correct name must come from the interface side.
+#       The tool would drop them on collision anyway.
+# Also deliberately blank: the private duplicate setters c(UnitList) and d(UnitList), which assign
+# the same fields as a(UnitList)/b(UnitList); naming both pairs identically would collide.
+com.desertstormfront.game.model.Unit	M	a	(ILcom/desertstormfront/game/model/UnitType;Lcom/desertstormfront/game/player/Player;)Lcom/desertstormfront/game/model/Unit;	create
+com.desertstormfront.game.model.Unit	M	a	(I)V	setId
+com.desertstormfront.game.model.Unit	M	a	(Lcom/desertstormfront/game/model/UnitType;)V	setUnitType
+com.desertstormfront.game.model.Unit	M	f	()Z	isHighValue
+com.desertstormfront.game.model.Unit	M	a	()Z	
+com.desertstormfront.game.model.Unit	M	b	()Z	
+com.desertstormfront.game.model.Unit	M	a	(Lcom/desertstormfront/game/player/Player;)V	setOwner
+com.desertstormfront.game.model.Unit	M	a	(F)V	setAngle
+com.desertstormfront.game.model.Unit	M	a	(Lcom/desertstormfront/game/model/Unit;)V	dockInto
+com.desertstormfront.game.model.Unit	M	a	(FF)V	setPosition
+com.desertstormfront.game.model.Unit	M	b	(Lcom/desertstormfront/game/model/Unit;)V	guardUnit
+com.desertstormfront.game.model.Unit	M	b	(FF)V	guardPosition
+com.desertstormfront.game.model.Unit	M	c	(Lcom/desertstormfront/game/model/Unit;)V	setRallyToUnit
+com.desertstormfront.game.model.Unit	M	c	(FF)V	setRallyToPosition
+com.desertstormfront.game.model.Unit	M	r	()Z	hasFriendlyGuardTarget
+com.desertstormfront.game.model.Unit	M	s	()Z	hasAttackableGuardTarget
+com.desertstormfront.game.model.Unit	M	t	()Z	hasCapturableGuardTarget
+com.desertstormfront.game.model.Unit	M	a	(Lcom/desertstormfront/game/model/UnitOrderMode;)V	setOrderMode
+com.desertstormfront.game.model.Unit	M	v	()F	
+com.desertstormfront.game.model.Unit	M	b	(F)V	
+com.desertstormfront.game.model.Unit	M	b	(I)V	setCount
+com.desertstormfront.game.model.Unit	M	c	(F)V	setProgress
+com.desertstormfront.game.model.Unit	M	c	(I)V	setHealth
+com.desertstormfront.game.model.Unit	M	B	()Z	
+com.desertstormfront.game.model.Unit	M	D	()I	getSalvoCount
+com.desertstormfront.game.model.Unit	M	d	(I)V	setSalvoCount
+com.desertstormfront.game.model.Unit	M	E	()I	
+com.desertstormfront.game.model.Unit	M	e	(I)V	
+com.desertstormfront.game.model.Unit	M	F	()I	
+com.desertstormfront.game.model.Unit	M	f	(I)V	
+com.desertstormfront.game.model.Unit	M	d	(Lcom/desertstormfront/game/model/Unit;)Z	canInteractWith
+com.desertstormfront.game.model.Unit	M	e	(Lcom/desertstormfront/game/model/Unit;)Z	canEmbark
+com.desertstormfront.game.model.Unit	M	f	(Lcom/desertstormfront/game/model/Unit;)Z	canProduceOrCarry
+com.desertstormfront.game.model.Unit	M	g	(Lcom/desertstormfront/game/model/Unit;)Z	canGuard
+com.desertstormfront.game.model.Unit	M	h	(Lcom/desertstormfront/game/model/Unit;)Z	canCaptureUnit
+com.desertstormfront.game.model.Unit	M	i	(Lcom/desertstormfront/game/model/Unit;)Z	canAttackUnit
+com.desertstormfront.game.model.Unit	M	c	(Lcom/desertstormfront/game/model/UnitList;)V	
+com.desertstormfront.game.model.Unit	M	H	()Z	
+com.desertstormfront.game.model.Unit	M	a	(Z)V	
+com.desertstormfront.game.model.Unit	M	d	(FF)V	setMoveTargetPosition
+com.desertstormfront.game.model.Unit	M	L	()I	
+com.desertstormfront.game.model.Unit	M	g	(I)V	
+com.desertstormfront.game.model.Unit	M	d	(Lcom/desertstormfront/game/model/UnitList;)V	
+com.desertstormfront.game.model.Unit	M	a	(Lcom/desertstormfront/game/player/UnitGroup;)V	setUnitGroup
+com.desertstormfront.game.model.Unit	M	b	(Lcom/desertstormfront/game/model/Volley;)V	
+com.desertstormfront.game.model.Unit	M	j	(Lcom/desertstormfront/game/model/Unit;)V	fireAt
+com.desertstormfront.game.model.Unit	M	T	()F	getReadyTime
+com.desertstormfront.game.model.Unit	M	d	(F)V	setReadyTime
+com.desertstormfront.game.model.Unit	M	b	(Lcom/desertstormfront/game/model/EffectTimer;)V	resetEffectTimer
+com.desertstormfront.game.model.Unit	M	Y	()Lcom/desertstormfront/world/UnitPosition;	
+com.desertstormfront.game.model.Unit	M	a	(Lcom/desertstormfront/world/UnitPosition;)V	setPosition
+com.desertstormfront.game.model.Unit	M	Z	()Z	
+com.desertstormfront.game.model.Unit	M	b	(Z)V	setGuarding
+com.desertstormfront.game.model.Unit	M	aa	()Lcom/desertstormfront/world/UnitPosition;	
+com.desertstormfront.game.model.Unit	M	b	(Lcom/desertstormfront/world/UnitPosition;)V	
+com.desertstormfront.game.model.Unit	M	c	(Z)V	setRally
+com.desertstormfront.game.model.Unit	M	c	(Lcom/desertstormfront/world/UnitPosition;)V	setRallyPosition
+com.desertstormfront.game.model.Unit	M	ad	()Lcom/desertstormfront/game/model/UnitList;	
+com.desertstormfront.game.model.Unit	M	a	(Lcom/desertstormfront/game/model/UnitList;)V	setSubUnits
+com.desertstormfront.game.model.Unit	M	ae	()Z	
+com.desertstormfront.game.model.Unit	M	d	(Z)V	setMoveTargetActive
+com.desertstormfront.game.model.Unit	M	af	()Lcom/desertstormfront/world/UnitPosition;	
+com.desertstormfront.game.model.Unit	M	d	(Lcom/desertstormfront/world/UnitPosition;)V	setMoveTargetPosition
+com.desertstormfront.game.model.Unit	M	ag	()Lcom/desertstormfront/game/model/UnitList;	
+com.desertstormfront.game.model.Unit	M	b	(Lcom/desertstormfront/game/model/UnitList;)V	setGuardFollowers
+com.desertstormfront.game.model.Unit	M	ah	()Lcom/desertstormfront/game/model/Volley;	getVolley
+com.desertstormfront.game.model.Unit	M	a	(Lcom/desertstormfront/game/model/Volley;)V	setVolley
+com.desertstormfront.game.model.Unit	M	ai	()Z	
+com.desertstormfront.game.model.Unit	M	e	(Z)V	setVolleyActive
+com.desertstormfront.game.model.Unit	M	aj	()Lcom/desertstormfront/game/model/EffectTimer;	getEffectTimer
+com.desertstormfront.game.model.Unit	M	a	(Lcom/desertstormfront/game/model/EffectTimer;)V	setEffectTimer
+com.desertstormfront.game.model.Unit	M	ak	()Z	
+com.desertstormfront.game.model.Unit	M	f	(Z)V	setEffectActive
+com.desertstormfront.game.model.Unit	M	k	(Lcom/desertstormfront/game/model/Unit;)Lcom/desertstormfront/world/UnitPosition;	

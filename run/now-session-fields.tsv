@@ -1,0 +1,63 @@
+# Skeleton for com.desertstormfront.session (package-wide) - fill in the LAST column (semantic name), then:
+#   powershell -File run\deobf-rename.ps1 -Map run\now-session-fields.tsv            # dry-run (also validates the map)
+#   powershell -File run\deobf-rename.ps1 -Map run\now-session-fields.tsv -Apply    # write
+# Descriptors come from javap: do not edit them, the renamer matches on them.
+# A row with a BLANK last column must keep its trailing tab, or it loses a column and is
+# misparsed as a different layout (see 26, pitfall 10).
+# 28 already-semantic method(s) omitted; use -All to include them.
+# Columns: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> new
+com.desertstormfront.session.impl.ClientWriterThread	F	a	Lcom/desertstormfront/session/impl/ServerClientSession;	
+com.desertstormfront.session.impl.FileSaveStore	F	a	Lcom/noblemaster/lib/io/GameFile;	
+com.desertstormfront.session.impl.GameClient	F	a	Lcom/noblemaster/lib/net/match/AddressProvider;	
+com.desertstormfront.session.impl.GameClient	F	b	Lcom/noblemaster/lib/net/match/MatchRecord;	
+com.desertstormfront.session.impl.GameClient	F	c	Lcom/badlogic/gdx/net/Socket;	
+com.desertstormfront.session.impl.GameClient	F	d	Lcom/noblemaster/lib/io/stream/DataReader;	
+com.desertstormfront.session.impl.GameClient	F	e	Lcom/noblemaster/lib/io/stream/DataWriter;	
+com.desertstormfront.session.impl.GameClient	F	f	I	
+com.desertstormfront.session.impl.GameClient	F	g	Lcom/desertstormfront/session/impl/ServerState;	
+com.desertstormfront.session.impl.GameClient	F	h	Ljava/util/List;	
+com.desertstormfront.session.impl.GameClient	F	i	Ljava/util/List;	
+com.desertstormfront.session.impl.GameClient	F	j	I	
+com.desertstormfront.session.impl.GameClient	F	k	Ljava/util/List;	
+com.desertstormfront.session.impl.GameClient	F	l	Ljava/util/List;	
+com.desertstormfront.session.impl.GameClient	F	m	Ljava/lang/String;	
+com.desertstormfront.session.impl.GameClient	F	n	I	
+com.desertstormfront.session.impl.GameClient	F	o	[Ljava/lang/String;	
+com.desertstormfront.session.impl.GameClient	F	p	Ljava/lang/Object;	
+com.desertstormfront.session.impl.GameClient	F	q	J	
+com.desertstormfront.session.impl.GameClient	F	r	Ljava/lang/Thread;	
+com.desertstormfront.session.impl.GameClient	F	s	Lcom/desertstormfront/game/World;	
+com.desertstormfront.session.impl.GameClient	F	t	I	
+com.desertstormfront.session.impl.GameServer	F	a	Lcom/desertstormfront/game/World;	
+com.desertstormfront.session.impl.GameServer	F	b	[Lcom/desertstormfront/session/impl/ServerClientSession;	
+com.desertstormfront.session.impl.GameServer	F	c	Ljava/util/List;	
+com.desertstormfront.session.impl.GameServer	F	d	Ljava/util/List;	
+com.desertstormfront.session.impl.GameServer	F	e	Lcom/noblemaster/lib/net/match/MatchRecord;	
+com.desertstormfront.session.impl.GameServer	F	f	Lcom/badlogic/gdx/net/ServerSocket;	
+com.desertstormfront.session.impl.GameServer	F	g	Ljava/util/List;	
+com.desertstormfront.session.impl.GameServer	F	h	Lcom/desertstormfront/session/impl/ServerState;	
+com.desertstormfront.session.impl.GameServer	F	i	Ljava/lang/Object;	
+com.desertstormfront.session.impl.GameServer	F	j	J	
+com.desertstormfront.session.impl.GameServer	F	k	Ljava/lang/Thread;	
+com.desertstormfront.session.impl.GameServer	F	l	Ljava/lang/Thread;	
+com.desertstormfront.session.impl.MemorySaveStore	F	a	Lcom/desertstormfront/game/World;	
+com.desertstormfront.session.impl.ServerClientSession	F	b	Lcom/badlogic/gdx/net/Socket;	
+com.desertstormfront.session.impl.ServerClientSession	F	c	Lcom/noblemaster/lib/io/stream/DataReader;	
+com.desertstormfront.session.impl.ServerClientSession	F	d	Lcom/noblemaster/lib/io/stream/DataWriter;	
+com.desertstormfront.session.impl.ServerClientSession	F	e	Ljava/lang/String;	
+com.desertstormfront.session.impl.ServerClientSession	F	f	Z	
+com.desertstormfront.session.impl.ServerClientSession	F	g	Z	
+com.desertstormfront.session.impl.ServerClientSession	F	h	Ljava/util/List;	
+com.desertstormfront.session.impl.ServerClientSession	F	i	Ljava/util/List;	
+com.desertstormfront.session.impl.ServerClientSession	F	j	Ljava/lang/Thread;	
+com.desertstormfront.session.impl.ServerClientSession	F	k	Ljava/lang/Thread;	
+com.desertstormfront.session.impl.ServerClientSession	F	a	Lcom/desertstormfront/session/impl/GameServer;	
+com.desertstormfront.session.impl.ServerTickThread	F	a	Lcom/desertstormfront/session/impl/GameServer;	
+com.desertstormfront.session.impl.SkirmishGameMode	F	a	Lcom/noblemaster/lib/io/GameFile;	
+com.desertstormfront.session.impl.SkirmishGameMode	F	b	Lcom/desertstormfront/session/SaveGameStore;	
+com.desertstormfront.session.impl.SkirmishGameMode	F	c	Lcom/desertstormfront/session/SaveGameStore;	
+com.desertstormfront.session.impl.SkirmishGameMode	F	d	I	
+com.desertstormfront.session.impl.SkirmishGameMode	F	e	I	
+com.desertstormfront.session.impl.TestScenarioMode	F	a	Lcom/desertstormfront/session/SaveGameStore;	
+com.desertstormfront.session.impl.TutorialGameMode	F	a	Lcom/desertstormfront/session/SaveGameStore;	
+com.desertstormfront.session.impl.TutorialGameMode	F	b	Z	

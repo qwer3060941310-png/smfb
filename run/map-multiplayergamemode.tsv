@@ -1,0 +1,22 @@
+# MultiplayerGameMode batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+# com.desertstormfront.session.impl.MultiplayerGameMode - implements StartableSessionMode.
+#   fields: a=GameFile->gameFile ; b=SaveGameStore->saveStore ; c=MatchRecord->matchRecord
+#           d=GameClient->client ; e=GameServer->server
+#   e()->getClient ; f()->getServer ; g()->getMatchRecord ; j()->loadMatchRecord (MatchCodec read)
+#   k()->saveMatchRecord (MatchCodec write) ; h()->startFromSave (startSession(loadWorld))
+#   a(AddressProvider,MatchRecord)->joinGame ; a(AddressProvider,PortMappingCallback)->hostGame
+#   i()->disconnect (close client+server)
+com.desertstormfront.session.impl.MultiplayerGameMode	F	a	Lcom/noblemaster/lib/io/GameFile;	gameFile
+com.desertstormfront.session.impl.MultiplayerGameMode	F	b	Lcom/desertstormfront/session/SaveGameStore;	saveStore
+com.desertstormfront.session.impl.MultiplayerGameMode	F	c	Lcom/noblemaster/lib/net/match/MatchRecord;	matchRecord
+com.desertstormfront.session.impl.MultiplayerGameMode	F	d	Lcom/desertstormfront/session/impl/GameClient;	client
+com.desertstormfront.session.impl.MultiplayerGameMode	F	e	Lcom/desertstormfront/session/impl/GameServer;	server
+com.desertstormfront.session.impl.MultiplayerGameMode	M	e	()Lcom/desertstormfront/session/impl/GameClient;	getClient
+com.desertstormfront.session.impl.MultiplayerGameMode	M	f	()Lcom/desertstormfront/session/impl/GameServer;	getServer
+com.desertstormfront.session.impl.MultiplayerGameMode	M	g	()Lcom/noblemaster/lib/net/match/MatchRecord;	getMatchRecord
+com.desertstormfront.session.impl.MultiplayerGameMode	M	j	()V	loadMatchRecord
+com.desertstormfront.session.impl.MultiplayerGameMode	M	k	()V	saveMatchRecord
+com.desertstormfront.session.impl.MultiplayerGameMode	M	h	()V	startFromSave
+com.desertstormfront.session.impl.MultiplayerGameMode	M	a	(Lcom/noblemaster/lib/net/match/AddressProvider;Lcom/noblemaster/lib/net/match/MatchRecord;)V	joinGame
+com.desertstormfront.session.impl.MultiplayerGameMode	M	a	(Lcom/noblemaster/lib/net/match/AddressProvider;Lcom/noblemaster/lib/net/match/PortMappingCallback;)V	hostGame
+com.desertstormfront.session.impl.MultiplayerGameMode	M	i	()V	disconnect

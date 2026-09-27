@@ -1,0 +1,42 @@
+# Skeleton for com.desertstormfront.config.SubConfigDSF - fill in the LAST column (semantic name), then:
+#   powershell -File run\deobf-rename.ps1 -Map run\map-subconfigdsf-fields.tsv            # dry-run (also validates the map)
+#   powershell -File run\deobf-rename.ps1 -Map run\map-subconfigdsf-fields.tsv -Apply    # write
+# Descriptors come from javap: do not edit them, the renamer matches on them.
+# A row with a BLANK last column must keep its trailing tab, or it loses a column and is
+# misparsed as a different layout (see 26, pitfall 10).
+# 0 already-semantic method(s) omitted; use -All to include them.
+# Columns: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> new
+com.desertstormfront.config.SubConfigDSF	F	a	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	b	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	c	Lcom/desertstormfront/map/MapDefinition;	
+com.desertstormfront.config.SubConfigDSF	F	d	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	e	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	f	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	g	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	h	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	i	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	j	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	k	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	l	[Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	m	[Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	n	[I	
+com.desertstormfront.config.SubConfigDSF	F	o	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	p	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	q	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	r	[[Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	s	[[Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	t	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	u	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	v	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	w	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	x	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	y	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	z	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	A	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	B	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	C	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	D	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	E	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	F	[Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	G	Ljava/lang/String;	
+com.desertstormfront.config.SubConfigDSF	F	H	Ljava/lang/String;	

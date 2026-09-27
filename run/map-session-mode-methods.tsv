@@ -1,0 +1,41 @@
+# Method batch: the session contracts (SessionMode, StartableSessionMode, SaveGameStore) plus the
+# skirmish counters.
+#
+# Mapping the INTERFACES renames the whole override family, so one row here clarifies every
+# session implementation (Campaign/Skirmish/Multiplayer/Tutorial/TestScenario) at once.
+#
+# Evidence (two independent sources per row):
+#  * SessionMode.a()   -> SkirmishGameMode returns store.b(); SaveGameStore.b() is the "exists"
+#    query, and SkirmishGameMode.a(World) uses it as the guard before saving.
+#    SessionMode.b()   -> store.a(), which is the World-returning method of SaveGameStore = load.
+#    SessionMode.a(World) -> guarded store.a(world) = save (returns boolean on the store).
+#    SessionMode.c()   -> store.a(otherStore.a()): saves what the START store loads, i.e. it puts
+#    the starting world back into the current slot.
+#    SessionMode.a/b(PlayerStatistics) -> SkirmishGameMode returns the localised
+#    "SkirmishSuccessETC" / "SkirmishFailureETC" strings, and only the success one increments the
+#    win counter, so they are the victory and defeat messages.
+#  * StartableSessionMode.b(World) -> SkirmishGameMode increments the games counter, persists it
+#    and writes the world into BOTH the current and the start slot: that is the start of a session.
+#    StartableSessionMode.d()      -> calls c() (delete) on both stores.
+#  * SkirmishGameMode e()/f() -> the two counters read from/written to skirmish.data:
+#    d is incremented in b(World) (every start) and e only in the victory path.
+#    g()/h() are the private load/save of those counters (g() reads them, h() writes them).
+#
+# Descriptors come from javap: do not edit them, the renamer matches on them.
+# Columns: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> new
+com.desertstormfront.session.SaveGameStore	M	a	()Lcom/desertstormfront/game/World;	loadWorld
+com.desertstormfront.session.SaveGameStore	M	a	(Lcom/desertstormfront/game/World;)Z	saveWorld
+com.desertstormfront.session.SaveGameStore	M	b	()Z	hasSavedWorld
+com.desertstormfront.session.SaveGameStore	M	c	()Z	deleteSavedWorld
+com.desertstormfront.session.SessionMode	M	a	()Z	hasSavedGame
+com.desertstormfront.session.SessionMode	M	b	()Lcom/desertstormfront/game/World;	loadWorld
+com.desertstormfront.session.SessionMode	M	a	(Lcom/desertstormfront/game/World;)V	saveWorld
+com.desertstormfront.session.SessionMode	M	c	()V	restoreStartWorld
+com.desertstormfront.session.SessionMode	M	a	(Lcom/desertstormfront/game/player/PlayerStatistics;)Ljava/lang/String;	getVictoryMessage
+com.desertstormfront.session.SessionMode	M	b	(Lcom/desertstormfront/game/player/PlayerStatistics;)Ljava/lang/String;	getDefeatMessage
+com.desertstormfront.session.StartableSessionMode	M	b	(Lcom/desertstormfront/game/World;)V	startSession
+com.desertstormfront.session.StartableSessionMode	M	d	()V	clearSaves
+com.desertstormfront.session.impl.SkirmishGameMode	M	e	()I	getGamesPlayed
+com.desertstormfront.session.impl.SkirmishGameMode	M	f	()I	getWins
+com.desertstormfront.session.impl.SkirmishGameMode	M	g	()V	loadCounters
+com.desertstormfront.session.impl.SkirmishGameMode	M	h	()V	saveCounters

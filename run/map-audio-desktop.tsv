@@ -1,0 +1,28 @@
+# audio + BuildInfo batch
+#
+# AudioClip: a Sound/Music pair with one shared volume. The static a is the master volume set by
+#   AudioClip.setMasterVolume(float) -> masterVolume ; a() plays at that volume -> play ;
+#   b(float) is the volume-taking play (sound.play(v) / music.setVolume+play) -> play ;
+#   b() stops and disposes whichever player exists -> dispose.
+#
+# MusicPlaylist: static a = master volume -> masterVolume ; a() shuffles the file list three passes
+#   -> shuffle ; b() clears the paused flag and plays -> resume ; c() sets it and pauses -> pause ;
+#   d() is the per-frame driver that loads the next track, advances past finished/failed files and
+#   applies volume changes -> update ; e() pauses then stops and disposes -> dispose.
+#
+# BuildInfo: the three static strings are the version ("1.0.544"), the build timestamp
+#   ("20161123.1659", parsed as {yyyy}{MM}{dd}.{hh}{mm} UTC) and the product code ("dsf"), so
+#   a()/b()/c() -> getVersion / getBuildDate / getProductCode.
+com.desertstormfront.audio.AudioClip	M	a	(F)V	setMasterVolume
+com.desertstormfront.audio.AudioClip	M	a	()V	play
+com.desertstormfront.audio.AudioClip	M	b	(F)V	play
+com.desertstormfront.audio.AudioClip	M	b	()V	dispose
+com.desertstormfront.audio.MusicPlaylist	M	a	(F)V	setMasterVolume
+com.desertstormfront.audio.MusicPlaylist	M	a	()V	shuffle
+com.desertstormfront.audio.MusicPlaylist	M	b	()V	resume
+com.desertstormfront.audio.MusicPlaylist	M	c	()V	pause
+com.desertstormfront.audio.MusicPlaylist	M	d	()V	update
+com.desertstormfront.audio.MusicPlaylist	M	e	()V	dispose
+com.desertstormfront.desktop.BuildInfo	M	a	()Lcom/noblemaster/lib/data/Version;	getVersion
+com.desertstormfront.desktop.BuildInfo	M	b	()Lcom/noblemaster/lib/data/DateTime;	getBuildDate
+com.desertstormfront.desktop.BuildInfo	M	c	()Ljava/lang/String;	getProductCode

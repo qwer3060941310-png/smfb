@@ -1,0 +1,34 @@
+# Skeleton for com.noblemaster.lib.data (package-wide) - fill in the LAST column (semantic name), then:
+#   powershell -File run\deobf-rename.ps1 -Map run\map-data-remain.tsv            # dry-run (also validates the map)
+#   powershell -File run\deobf-rename.ps1 -Map run\map-data-remain.tsv -Apply    # write
+# Descriptors come from javap: do not edit them, the renamer matches on them.
+# A row with a BLANK last column must keep its trailing tab, or it loses a column and is
+# misparsed as a different layout (see 26, pitfall 10).
+# 60 already-semantic method(s) omitted; use -All to include them.
+# Columns: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> new
+com.noblemaster.lib.data.CustomCharset	M	a	([B)Ljava/lang/String;	
+com.noblemaster.lib.data.CustomCharset	M	a	()I	
+com.noblemaster.lib.data.CustomCharset	M	b	()I	
+com.noblemaster.lib.data.CustomCharset	M	c	()I	
+com.noblemaster.lib.data.CustomCharset	M	a	(II[B)I	
+com.noblemaster.lib.data.CustomCharset	M	a	(III[B)C	
+com.noblemaster.lib.data.Iso88591Charset	M	a	()I	
+com.noblemaster.lib.data.Iso88591Charset	M	b	()I	
+com.noblemaster.lib.data.Iso88591Charset	M	c	()I	
+com.noblemaster.lib.data.Iso88591Charset	M	a	(II[B)I	
+com.noblemaster.lib.data.Iso88591Charset	M	a	(III[B)C	
+com.noblemaster.lib.data.OrderedProperties	M	a	(I)Ljava/lang/String;	
+com.noblemaster.lib.data.OrderedProperties	M	a	()I	
+com.noblemaster.lib.data.OrderedProperties	M	a	(Ljava/lang/String;)Ljava/lang/String;	
+com.noblemaster.lib.data.OrderedProperties	M	a	(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;	
+com.noblemaster.lib.data.OrderedProperties	M	b	(Ljava/lang/String;Ljava/lang/String;)V	
+com.noblemaster.lib.data.OrderedProperties	M	a	(Lcom/noblemaster/lib/data/OrderedProperties;)V	
+com.noblemaster.lib.data.OrderedProperties	M	b	(Lcom/noblemaster/lib/data/OrderedProperties;)Ljava/lang/String;	
+com.noblemaster.lib.data.OrderedProperties	M	a	(Ljava/lang/StringBuilder;Ljava/lang/String;)V	
+com.noblemaster.lib.data.OrderedProperties	M	b	(Ljava/lang/String;)Lcom/noblemaster/lib/data/OrderedProperties;	
+com.noblemaster.lib.data.OrderedProperties	M	a	(C)I	
+com.noblemaster.lib.data.OrderedProperties	M	a	(Lcom/noblemaster/lib/i18n/LineReader;Ljava/lang/StringBuilder;)Ljava/lang/String;	
+com.noblemaster.lib.data.Version	M	a	()Lcom/noblemaster/lib/data/Version;	
+com.noblemaster.lib.data.Version	M	a	(Ljava/lang/String;)V	
+com.noblemaster.lib.data.Version	M	b	()Ljava/lang/String;	
+com.noblemaster.lib.data.Version	M	a	(Lcom/noblemaster/lib/data/Version;)Z	

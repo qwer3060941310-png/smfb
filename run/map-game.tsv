@@ -1,0 +1,89 @@
+# game batch (evidence-backed subset): owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# Scope: com.desertstormfront.game methods whose meaning is pinned by an existing reader or by
+# already-semantic neighbours. Evidence per symbol:
+#
+# Direction: the private fields (i, j, k, l) are filled from the constructor tuple
+#   (index, dx, dy, angle) - East(1,1,0,0), North(0,1,pi/2) ... - and e() returns
+#   values()[(ordinal + size/2) % size] -> getIndex/getDx/getDy/getAngle/getOpposite.
+#
+# TerrainType: the two rulesets construct it as (id, "Name[i18n]: Name", "KEY", 'code', spriteCount)
+#   and ModRuleset reads exactly the json keys id/name/key/code/count, which fixes a=id, b=name,
+#   c=key, d=code, e=spriteCount. TerrainTypeList then matches d() against a char and c() against a
+#   string -> getByCode / getByKey.
+#
+# UnitTypeList: a(Domain) compares getDomain() -> hasDomain ; a() returns true when any type
+#   canCapture() -> hasCapturingUnit (same name as the IntentGroup method it mirrors) ;
+#   a(char)/a(String) match getCode()/getKey() -> getByCode/getByKey.
+#
+# Projectile: GameScreen only renders it when d() holds, reads e() as the Vec3 position and computes
+#   (gameTime - c()) / ammoType.getFlightTime() -> c is the launch time ; b() re-zeroes everything
+#   -> clear ; the private static a() is the factory -> create ; the setters follow the fields.
+#
+# DrawQueue/DrawQueueNode: an insertion-sorted singly linked list keyed on getSortValue(); the
+#   node's four static synthetic accessors mirror DijkstraNode -> getNext/setNext/getValue/setValue ;
+#   the queue's a() unlinks the head and recycles the node -> poll, a(Sortable) inserts in order
+#   -> add.
+#
+# EffectTimer: a() is the factory -> create, b() reads the remaining time -> getTime,
+#   a(float) sets it -> setTime.
+#
+# Site: the private constructor takes (terrainType, index, Vec2) and the static factory forwards to
+#   it -> of ; the accessors were already pinned by BuildingSpriteTable (d/e are the terrain type and
+#   the variant index) and by UnitPosition handling (f is the position) -> getTerrainType /
+#   getVariantIndex / getPosition.
+#
+# PositionedSortable / UnitSortProxy: d() returns the UnitPosition both classes exist to expose
+#   -> getPosition.
+#
+# Unit: v() feeds UnitSpriteAnimation.getProgressRegion(isGuarding, v()) but must NOT be called
+#   getProgress - Unit already has one for the production progress field, and the renamer's
+#   collision check rejected exactly that name. The frames it selects are the movement/progress
+#   variants, so the meaning overlaps "progress" without being the same value; it is left unnamed
+#   until the caller's two progress concepts are told apart.
+#
+# Deliberately unnamed in this batch (no reader in the tree, or a meaning that needs a call-site
+# study before it may be written down): Sortable.a()/b() (constant true/false per implementation),
+# Unit's remaining single/double-letter accessors, UnitType.r()/E()/F(), AmmoType/BirdType members,
+# the map-mode and player state accessors (mode.*, player.*, PlayerStatistics), MapTemplatePainter,
+# UnitList.a(int), ProjectileList.a(). These stay obfuscated rather than guessed (see 25 s3).
+com.desertstormfront.game.model.Direction	M	a	()I	getIndex
+com.desertstormfront.game.model.Direction	M	b	()I	getDx
+com.desertstormfront.game.model.Direction	M	c	()I	getDy
+com.desertstormfront.game.model.Direction	M	d	()F	getAngle
+com.desertstormfront.game.model.Direction	M	e	()Lcom/desertstormfront/game/model/Direction;	getOpposite
+com.desertstormfront.game.model.DrawQueue	M	a	()Lcom/desertstormfront/game/model/Sortable;	poll
+com.desertstormfront.game.model.DrawQueue	M	a	(Lcom/desertstormfront/game/model/Sortable;)V	add
+com.desertstormfront.game.model.DrawQueueNode	M	a	(Lcom/desertstormfront/game/model/DrawQueueNode;)Lcom/desertstormfront/game/model/DrawQueueNode;	getNext
+com.desertstormfront.game.model.DrawQueueNode	M	a	(Lcom/desertstormfront/game/model/DrawQueueNode;Lcom/desertstormfront/game/model/DrawQueueNode;)V	setNext
+com.desertstormfront.game.model.DrawQueueNode	M	b	(Lcom/desertstormfront/game/model/DrawQueueNode;)Lcom/desertstormfront/game/model/Sortable;	getValue
+com.desertstormfront.game.model.DrawQueueNode	M	a	(Lcom/desertstormfront/game/model/DrawQueueNode;Lcom/desertstormfront/game/model/Sortable;)V	setValue
+com.desertstormfront.game.model.EffectTimer	M	a	()Lcom/desertstormfront/game/model/EffectTimer;	create
+com.desertstormfront.game.model.EffectTimer	M	b	()F	getTime
+com.desertstormfront.game.model.EffectTimer	M	a	(F)V	setTime
+com.desertstormfront.game.model.PositionedSortable	M	d	()Lcom/desertstormfront/world/UnitPosition;	getPosition
+com.desertstormfront.game.model.Projectile	M	a	()Lcom/desertstormfront/game/model/Projectile;	create
+com.desertstormfront.game.model.Projectile	M	b	()V	clear
+com.desertstormfront.game.model.Projectile	M	c	()F	getLaunchTime
+com.desertstormfront.game.model.Projectile	M	a	(F)V	setLaunchTime
+com.desertstormfront.game.model.Projectile	M	d	()Z	isActive
+com.desertstormfront.game.model.Projectile	M	a	(Z)V	setActive
+com.desertstormfront.game.model.Projectile	M	e	()Lcom/desertstormfront/world/Vec3;	getPosition
+com.desertstormfront.game.model.Projectile	M	a	(Lcom/desertstormfront/world/Vec3;)V	setPosition
+com.desertstormfront.game.model.Site	M	a	(Lcom/desertstormfront/game/model/TerrainType;ILcom/desertstormfront/world/Vec2;)Lcom/desertstormfront/game/model/Site;	of
+com.desertstormfront.game.model.Site	M	d	()Lcom/desertstormfront/game/model/TerrainType;	getTerrainType
+com.desertstormfront.game.model.Site	M	e	()I	getVariantIndex
+com.desertstormfront.game.model.Site	M	f	()Lcom/desertstormfront/world/Vec2;	getPosition
+com.desertstormfront.game.model.TerrainType	M	a	()I	getId
+com.desertstormfront.game.model.TerrainType	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.game.model.TerrainType	M	c	()Ljava/lang/String;	getKey
+com.desertstormfront.game.model.TerrainType	M	d	()C	getCode
+com.desertstormfront.game.model.TerrainType	M	e	()I	getSpriteCount
+com.desertstormfront.game.model.TerrainTypeList	M	a	(C)Lcom/desertstormfront/game/model/TerrainType;	getByCode
+com.desertstormfront.game.model.TerrainTypeList	M	a	(Ljava/lang/String;)Lcom/desertstormfront/game/model/TerrainType;	getByKey
+com.desertstormfront.game.model.Unit	M	v	()F	
+com.desertstormfront.game.model.UnitSortProxy	M	d	()Lcom/desertstormfront/world/UnitPosition;	getPosition
+com.desertstormfront.game.model.UnitTypeList	M	a	(Lcom/desertstormfront/game/model/Domain;)Z	hasDomain
+com.desertstormfront.game.model.UnitTypeList	M	a	()Z	hasCapturingUnit
+com.desertstormfront.game.model.UnitTypeList	M	a	(C)Lcom/desertstormfront/game/model/UnitType;	getByCode
+com.desertstormfront.game.model.UnitTypeList	M	a	(Ljava/lang/String;)Lcom/desertstormfront/game/model/UnitType;	getByKey

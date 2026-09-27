@@ -1,0 +1,35 @@
+# screen field batch 12: GameScreen, slice 4 - the world/scene references, the two clocks and the
+# multi-pointer state.
+#
+# world (h) is the World the session mode created; buildingSpriteTable/unitSpriteTable (n/o) are the
+# two SpriteSheetLoader tables built from the map definition; aiPlanners (q) is the per-computer
+# AIPlanner array (one per non-human player, driven by aiElapsedTime/aiUpdateCount); scene (t) is the
+# current GameScene, assigned in createGlResources from the game mode (GameScene.a when hosting a
+# non-port-open match, b for the lobby, d for the briefing) and in setScene().
+# The clocks: gameTimeNanos (bK) accumulates the raw frame delta (bK += getRawDeltaTime() * 1e9) and
+# gameTimeMillis (bL) is bK / 1e6, the value handed to getTimedRegion and divided by 100 for the
+# sprite frame index.
+# The multi-pointer block is one 16-slot ring: pointerDownTimes (bP, long[16] of press stamps),
+# pointerX/pointerY (bQ/bR, the per-slot coordinates the drag delta is computed from) and
+# pointerIndex (bO, advanced modulo the ring length each frame). pressX/pressY (bS/bT) remember the
+# initial press of the current gesture, boxSelectStartX/boxSelectStartY (bV/bW) the corner a
+# drag-selection started from.
+#
+# Left unnamed: the unused constants w (1000000000L), L/M/N (0.5f/0.5f/1.0f) - nothing reads them -
+# plus bU, bX, cd/ce/cf, cm/cn/co and the synthetic switch maps cp..cs, which stay for the next pass
+# (their reads live in the input-state and player-loop code that has not been walked yet).
+com.desertstormfront.screen.GameScreen	F	h	Lcom/desertstormfront/game/World;	world
+com.desertstormfront.screen.GameScreen	F	n	Lcom/desertstormfront/graphics/table/BuildingSpriteTable;	buildingSpriteTable
+com.desertstormfront.screen.GameScreen	F	o	Lcom/desertstormfront/graphics/table/UnitSpriteTable;	unitSpriteTable
+com.desertstormfront.screen.GameScreen	F	q	[Lcom/desertstormfront/ai/AIPlanner;	aiPlanners
+com.desertstormfront.screen.GameScreen	F	t	Lcom/desertstormfront/screen/GameScene;	scene
+com.desertstormfront.screen.GameScreen	F	bK	J	gameTimeNanos
+com.desertstormfront.screen.GameScreen	F	bL	J	gameTimeMillis
+com.desertstormfront.screen.GameScreen	F	bO	I	pointerIndex
+com.desertstormfront.screen.GameScreen	F	bP	[J	pointerDownTimes
+com.desertstormfront.screen.GameScreen	F	bQ	[I	pointerX
+com.desertstormfront.screen.GameScreen	F	bR	[I	pointerY
+com.desertstormfront.screen.GameScreen	F	bS	I	pressX
+com.desertstormfront.screen.GameScreen	F	bT	I	pressY
+com.desertstormfront.screen.GameScreen	F	bV	I	boxSelectStartX
+com.desertstormfront.screen.GameScreen	F	bW	I	boxSelectStartY

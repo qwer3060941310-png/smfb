@@ -1,0 +1,18 @@
+# TerrainGrid fields (kind F). width/height come from getWidth/getHeight. cells and pathFinder
+# are named from their declared type: [GridCell is the cell grid the accessors index into, and
+# PathFinder is the single path finder the grid owns.
+#
+# The rest are internal caches (boolean array, bare ints, Vec2 arrays) with no accessor and no
+# confirmed role, so they stay obfuscated.
+com.desertstormfront.world.TerrainGrid	F	a	I	width
+com.desertstormfront.world.TerrainGrid	F	b	I	height
+com.desertstormfront.world.TerrainGrid	F	c	[Z	
+com.desertstormfront.world.TerrainGrid	F	d	I	
+com.desertstormfront.world.TerrainGrid	F	e	I	
+com.desertstormfront.world.TerrainGrid	F	f	[Lcom/desertstormfront/world/GridCell;	cells
+com.desertstormfront.world.TerrainGrid	F	g	[Lcom/desertstormfront/world/Vec2;	
+com.desertstormfront.world.TerrainGrid	F	h	Lcom/desertstormfront/world/PathFinder;	pathFinder
+com.desertstormfront.world.TerrainGrid	F	i	[Lcom/desertstormfront/world/Vec2;	
+com.desertstormfront.world.TerrainGrid	F	j	[Lcom/desertstormfront/world/Vec2;	
+com.desertstormfront.world.TerrainGrid	F	k	[[Lcom/desertstormfront/world/Vec2;	
+com.desertstormfront.world.TerrainGrid	F	l	[I	

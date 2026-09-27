@@ -1,0 +1,27 @@
+# MapDefinition batch: owner <TAB> M <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# Template arrays are named from their call sites in World.create(): i/j are the CaptureTheFlag
+# and Survival start layouts, h assigns every painted unit to the player, k only re-owns the
+# producer, and l/m are the rare (random(28|12|5)==0) and common decorative props.
+# a(World,IIZZCC*) are the map-char painters (terrain char -> Site, unit char -> spawned Unit).
+# g() stays blank on purpose: the subclasses only return an array length and nothing in the
+# tree calls it, so its meaning cannot be established.
+com.desertstormfront.map.MapDefinition	M	a	(Ljava/lang/String;)Lcom/desertstormfront/map/MapDefinition;	getRuleset
+com.desertstormfront.map.MapDefinition	M	a	(Lcom/desertstormfront/map/MapDefinition;)V	register
+com.desertstormfront.map.MapDefinition	M	n	()V	initUnitTypes
+com.desertstormfront.map.MapDefinition	M	a	()Ljava/lang/String;	getId
+com.desertstormfront.map.MapDefinition	M	b	()Lcom/desertstormfront/game/player/FactionList;	getFactions
+com.desertstormfront.map.MapDefinition	M	c	()Lcom/desertstormfront/game/model/TerrainTypeList;	getTerrainTypes
+com.desertstormfront.map.MapDefinition	M	d	()Lcom/desertstormfront/game/model/UnitTypeList;	getUnitTypes
+com.desertstormfront.map.MapDefinition	M	e	()Lcom/desertstormfront/game/model/UnitTypeSlots;	getUnitTypeSlots
+com.desertstormfront.map.MapDefinition	M	f	()[[I	getCostMatrix
+com.desertstormfront.map.MapDefinition	M	a	(I)Lcom/desertstormfront/game/model/UnitTypeList;	getCargoUnits
+com.desertstormfront.map.MapDefinition	M	g	()I	
+com.desertstormfront.map.MapDefinition	M	h	()[[Ljava/lang/String;	getPlayerStartTemplates
+com.desertstormfront.map.MapDefinition	M	i	()[[Ljava/lang/String;	getCaptureTheFlagTemplates
+com.desertstormfront.map.MapDefinition	M	j	()[[Ljava/lang/String;	getSurvivalTemplates
+com.desertstormfront.map.MapDefinition	M	k	()[[Ljava/lang/String;	getPlayerBaseTemplates
+com.desertstormfront.map.MapDefinition	M	l	()[[Ljava/lang/String;	getRarePropTemplates
+com.desertstormfront.map.MapDefinition	M	m	()[[Ljava/lang/String;	getCommonPropTemplates
+com.desertstormfront.map.MapDefinition	M	a	(Lcom/desertstormfront/game/World;IIZZCC)V	paintSite
+com.desertstormfront.map.MapDefinition	M	a	(Lcom/desertstormfront/game/World;IIZZCCC)Lcom/desertstormfront/game/model/Unit;	paintUnit

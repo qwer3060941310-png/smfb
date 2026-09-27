@@ -1,0 +1,19 @@
+# GameMode batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+# com.desertstormfront.game.mode.GameMode - abstract game mode base class.
+# a/b fields -> world/timeLimit ; semantics from bodies + Messages time-limit text.
+# a(World)->setWorld ; h()->getTimeLimit ; c(float)->setTimeLimit ; i()->hasTimeLimit ;
+# j()->isGameOver (time-up OR <=1 player OR objective met) ; c()->isObjectiveComplete (abstract) ;
+# d()->getPlayers (abstract) ; e()->getName (toString uses it) ;
+# a(Player)->getObjectiveText (abstract, per-player) ; b(Player)->getObjective (adds time-limit note)
+com.desertstormfront.game.mode.GameMode	F	a	Lcom/desertstormfront/game/World;	world
+com.desertstormfront.game.mode.GameMode	F	b	F	timeLimit
+com.desertstormfront.game.mode.GameMode	M	a	(Lcom/desertstormfront/game/World;)V	setWorld
+com.desertstormfront.game.mode.GameMode	M	h	()F	getTimeLimit
+com.desertstormfront.game.mode.GameMode	M	c	(F)V	setTimeLimit
+com.desertstormfront.game.mode.GameMode	M	i	()Z	hasTimeLimit
+com.desertstormfront.game.mode.GameMode	M	j	()Z	isGameOver
+com.desertstormfront.game.mode.GameMode	M	c	()Z	isObjectiveComplete
+com.desertstormfront.game.mode.GameMode	M	d	()Lcom/desertstormfront/game/player/PlayerList;	getPlayers
+com.desertstormfront.game.mode.GameMode	M	e	()Ljava/lang/String;	getName
+com.desertstormfront.game.mode.GameMode	M	a	(Lcom/desertstormfront/game/player/Player;)Ljava/lang/String;	getObjectiveText
+com.desertstormfront.game.mode.GameMode	M	b	(Lcom/desertstormfront/game/player/Player;)Ljava/lang/String;	getObjective

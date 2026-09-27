@@ -1,0 +1,110 @@
+# world batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# Scope: the remaining obfuscated members of com.desertstormfront.world after the TerrainGrid,
+# Vec2 and Vec3 batches. Evidence per symbol:
+#
+# DijkstraNode (package-private Dijkstra heap node; fields a=x, b=y, c=next, d=cost read directly):
+#   the six /* synthetic */ static accessors are the only way SortedNodeQueue and
+#   DirectionFieldPathFinder touch it, so they inherit the field semantics:
+#   a(DijkstraNode) -> c -> getNext ; b(DijkstraNode) -> d -> getCost ;
+#   a(x,y) -> setNext ; a(int) -> setCost ; c -> b -> getY ; d -> a -> getX.
+#   Constructors are <init> and are not listed.
+#
+# SortedNodeQueue (linked-list priority queue; a=head sentinel, b=count):
+#   a() pops the head via DijkstraNode.getNext -> poll ; b() zeroes the count -> clear ;
+#   a(node) walks by cost and links -> insert ; b(node) unlinks by identity -> remove ;
+#   c() returns the count -> size.
+#
+# DirectionFieldPathFinder / PathFinder (flow-field builder; TerrainGrid calls it in
+#   buildTerrainWithPathFinder and findNeighbor):
+#   a(TerrainGridAccessor, ProgressCallback) is the PathFinder build hook -> build ;
+#   a(Domain, x1,y1,x2,y2) returns the Neighbor stepping from one tile to the other -> findDirection ;
+#   private a(int domainSlot, x,y, fromX,fromY) extracts the 4-bit direction -> readField ;
+#   private a(int, x,y, fromX,fromY, direction) packs it back -> writeField.
+#   static a() is the javac switch-map accessor (synthetic, no source-level meaning): left unnamed.
+#
+# GridCell (package-private cell of TerrainGrid; fields a=RoadTile, b=Site, c=Unit, d=UnitList):
+#   getters/setters named after the fields; b(Unit)/c(Unit) are add/remove on the UnitList
+#   (used by TerrainGrid.addUnitToTile / removeUnitFromTile) ; e() is site!=null||unit!=null and is
+#   returned by TerrainGrid.isCellBlocked -> isBlocked.
+#
+# Neighbor (8-way tile step). The sign convention is fixed by game.model.Direction, which is already
+#   semantic: (dx,dy) = (1,0) East, (1,1) NorthEast, (0,1) North, (-1,1) NorthWest, (-1,0) West,
+#   (-1,-1) SouthWest, (0,-1) South, (1,-1) SouthEast - i.e. +x is East and +y is North.
+#   Constant a is the (MAX_VALUE, MAX_VALUE) sentinel returned for "unreachable"
+#   (TerrainGrid.findNeighbor, DirectionFieldPathFinder) -> None ; f=(0,0) is compared against to
+#   mean "already there" -> Center ; the other eight map one-to-one onto the Direction names.
+#   Methods: a()/b() return dx/dy -> getDx/getDy ; e() is the sentinel test -> isValid ;
+#   f() returns the table index p -> getIndex ; static b(dx,dy) computes that index -> toIndex ;
+#   static a(index) / a(dx,dy) are the two lookups -> fromIndex / of.
+#   c()/d() return the in-tile boundary fractions (dx=-1 -> 0.1, 0 -> 0.5, +1 -> 0.9) that
+#   WorldSimulator adds to a tile centre when stepping to the edge -> getEdgeOffsetX/Y.
+#
+# NeighborTable: private static Neighbor[16] plus its synthetic accessor -> getTable.
+#
+# RoadTile: static a(RoadMask, boolean) is the factory used by both WorldSerializer and the editor
+#   -> create ; a()/a(RoadMask) -> getRoadMask/setRoadMask.
+#   b() and a(boolean) are deliberately left unnamed: the flag is set for '#' but not for '+' in
+#   the map format (WorldSerializer) and only selects a different sprite row in GameScreen; there is
+#   no evidence yet whether it means paved/primary/dirty, so it stays obfuscated (see 25 s3).
+#
+# RoadMask: the 16 constants are bit combinations of the road connection mask (values()[ordinal|1]
+#   in WorldSerializer); their individual meaning needs a tile-graphics mapping, left unnamed.
+#
+# No member here is referenced by name (no reflection, no named persistence: RoadMask/ordinal and
+#   the Neighbor index are stored, not names), so renaming cannot change save data.
+com.desertstormfront.world.DijkstraNode	M	a	(Lcom/desertstormfront/world/DijkstraNode;)Lcom/desertstormfront/world/DijkstraNode;	getNext
+com.desertstormfront.world.DijkstraNode	M	b	(Lcom/desertstormfront/world/DijkstraNode;)I	getCost
+com.desertstormfront.world.DijkstraNode	M	a	(Lcom/desertstormfront/world/DijkstraNode;Lcom/desertstormfront/world/DijkstraNode;)V	setNext
+com.desertstormfront.world.DijkstraNode	M	a	(Lcom/desertstormfront/world/DijkstraNode;I)V	setCost
+com.desertstormfront.world.DijkstraNode	M	c	(Lcom/desertstormfront/world/DijkstraNode;)I	getY
+com.desertstormfront.world.DijkstraNode	M	d	(Lcom/desertstormfront/world/DijkstraNode;)I	getX
+com.desertstormfront.world.DirectionFieldPathFinder	M	a	(Lcom/desertstormfront/world/TerrainGridAccessor;Lcom/desertstormfront/app/support/ProgressCallback;)V	build
+com.desertstormfront.world.DirectionFieldPathFinder	M	a	(Lcom/desertstormfront/game/model/Domain;IIII)Lcom/desertstormfront/world/Neighbor;	findDirection
+com.desertstormfront.world.DirectionFieldPathFinder	M	a	(IIIII)I	readField
+com.desertstormfront.world.DirectionFieldPathFinder	M	a	(IIIIII)V	writeField
+com.desertstormfront.world.DirectionFieldPathFinder	M	a	()[I	
+com.desertstormfront.world.GridCell	M	a	()Lcom/desertstormfront/world/RoadTile;	getRoadTile
+com.desertstormfront.world.GridCell	M	a	(Lcom/desertstormfront/world/RoadTile;)V	setRoadTile
+com.desertstormfront.world.GridCell	M	b	()Lcom/desertstormfront/game/model/Site;	getSite
+com.desertstormfront.world.GridCell	M	a	(Lcom/desertstormfront/game/model/Site;)V	setSite
+com.desertstormfront.world.GridCell	M	c	()Lcom/desertstormfront/game/model/Unit;	getUnit
+com.desertstormfront.world.GridCell	M	a	(Lcom/desertstormfront/game/model/Unit;)V	setUnit
+com.desertstormfront.world.GridCell	M	d	()Lcom/desertstormfront/game/model/UnitList;	getUnits
+com.desertstormfront.world.GridCell	M	b	(Lcom/desertstormfront/game/model/Unit;)V	addUnit
+com.desertstormfront.world.GridCell	M	c	(Lcom/desertstormfront/game/model/Unit;)V	removeUnit
+com.desertstormfront.world.GridCell	M	e	()Z	isBlocked
+com.desertstormfront.world.Neighbor	F	a	Lcom/desertstormfront/world/Neighbor;	None
+com.desertstormfront.world.Neighbor	F	b	Lcom/desertstormfront/world/Neighbor;	SouthWest
+com.desertstormfront.world.Neighbor	F	c	Lcom/desertstormfront/world/Neighbor;	West
+com.desertstormfront.world.Neighbor	F	d	Lcom/desertstormfront/world/Neighbor;	NorthWest
+com.desertstormfront.world.Neighbor	F	e	Lcom/desertstormfront/world/Neighbor;	South
+com.desertstormfront.world.Neighbor	F	f	Lcom/desertstormfront/world/Neighbor;	Center
+com.desertstormfront.world.Neighbor	F	g	Lcom/desertstormfront/world/Neighbor;	North
+com.desertstormfront.world.Neighbor	F	h	Lcom/desertstormfront/world/Neighbor;	SouthEast
+com.desertstormfront.world.Neighbor	F	i	Lcom/desertstormfront/world/Neighbor;	East
+com.desertstormfront.world.Neighbor	F	j	Lcom/desertstormfront/world/Neighbor;	NorthEast
+com.desertstormfront.world.Neighbor	M	a	()I	getDx
+com.desertstormfront.world.Neighbor	M	b	()I	getDy
+com.desertstormfront.world.Neighbor	M	c	()F	getEdgeOffsetX
+com.desertstormfront.world.Neighbor	M	d	()F	getEdgeOffsetY
+com.desertstormfront.world.Neighbor	M	e	()Z	isValid
+com.desertstormfront.world.Neighbor	M	f	()I	getIndex
+com.desertstormfront.world.Neighbor	M	b	(II)I	toIndex
+com.desertstormfront.world.Neighbor	M	a	(I)Lcom/desertstormfront/world/Neighbor;	fromIndex
+com.desertstormfront.world.Neighbor	M	a	(II)Lcom/desertstormfront/world/Neighbor;	of
+com.desertstormfront.world.NeighborTable	M	a	()[Lcom/desertstormfront/world/Neighbor;	getTable
+com.desertstormfront.world.PathFinder	M	a	(Lcom/desertstormfront/world/TerrainGridAccessor;Lcom/desertstormfront/app/support/ProgressCallback;)V	build
+com.desertstormfront.world.PathFinder	M	a	(Lcom/desertstormfront/game/model/Domain;IIII)Lcom/desertstormfront/world/Neighbor;	findDirection
+com.desertstormfront.world.RoadTile	M	a	(Lcom/desertstormfront/world/RoadMask;Z)Lcom/desertstormfront/world/RoadTile;	create
+com.desertstormfront.world.RoadTile	M	a	()Lcom/desertstormfront/world/RoadMask;	getRoadMask
+com.desertstormfront.world.RoadTile	M	a	(Lcom/desertstormfront/world/RoadMask;)V	setRoadMask
+com.desertstormfront.world.RoadTile	M	b	()Z	
+com.desertstormfront.world.RoadTile	M	a	(Z)V	
+com.desertstormfront.world.SortedNodeQueue	M	a	()Lcom/desertstormfront/world/DijkstraNode;	poll
+com.desertstormfront.world.SortedNodeQueue	M	b	()V	clear
+com.desertstormfront.world.SortedNodeQueue	M	a	(Lcom/desertstormfront/world/DijkstraNode;)V	insert
+com.desertstormfront.world.SortedNodeQueue	M	b	(Lcom/desertstormfront/world/DijkstraNode;)V	remove
+com.desertstormfront.world.SortedNodeQueue	M	c	()I	size
+com.desertstormfront.world.UnitPosition	M	a	(Lcom/desertstormfront/game/model/Unit;)V	bindTo
+com.desertstormfront.world.UnitPosition	M	c	()Lcom/desertstormfront/game/model/Unit;	getUnit

@@ -1,0 +1,43 @@
+# Skeleton for com.noblemaster.lib.market (package-wide) - fill in the LAST column (semantic name), then:
+#   powershell -File run\deobf-rename.ps1 -Map run\map-market-methods.tsv            # dry-run (also validates the map)
+#   powershell -File run\deobf-rename.ps1 -Map run\map-market-methods.tsv -Apply    # write
+# Descriptors come from javap: do not edit them, the renamer matches on them.
+# A row with a BLANK last column must keep its trailing tab, or it loses a column and is
+# misparsed as a different layout (see 26, pitfall 10).
+# 17 already-semantic method(s) omitted; use -All to include them.
+# Columns: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> new
+com.noblemaster.lib.market.AmazonMarket	M	a	()Ljava/lang/String;	
+com.noblemaster.lib.market.AmazonMarket	M	b	()Ljava/lang/String;	
+com.noblemaster.lib.market.ChinaMobileMarket	M	a	()Ljava/lang/String;	
+com.noblemaster.lib.market.ChinaMobileMarket	M	b	()Ljava/lang/String;	
+com.noblemaster.lib.market.DarkGameMarket	M	a	()Ljava/lang/String;	
+com.noblemaster.lib.market.DarkGameMarket	M	b	()Ljava/lang/String;	
+com.noblemaster.lib.market.DesuraMarket	M	a	()Ljava/lang/String;	
+com.noblemaster.lib.market.DesuraMarket	M	b	()Ljava/lang/String;	
+com.noblemaster.lib.market.FireFlowerMarket	M	a	()Ljava/lang/String;	
+com.noblemaster.lib.market.FireFlowerMarket	M	b	()Ljava/lang/String;	
+com.noblemaster.lib.market.GamersGateMarket	M	a	()Ljava/lang/String;	
+com.noblemaster.lib.market.GamersGateMarket	M	b	()Ljava/lang/String;	
+com.noblemaster.lib.market.ImmanitasMarket	M	a	()Ljava/lang/String;	
+com.noblemaster.lib.market.ImmanitasMarket	M	b	()Ljava/lang/String;	
+com.noblemaster.lib.market.IntelMarket	M	a	()Ljava/lang/String;	
+com.noblemaster.lib.market.IntelMarket	M	b	()Ljava/lang/String;	
+com.noblemaster.lib.market.ITunesMarket	M	a	()Ljava/lang/String;	
+com.noblemaster.lib.market.ITunesMarket	M	b	()Ljava/lang/String;	
+com.noblemaster.lib.market.IWinMarket	M	a	()Ljava/lang/String;	
+com.noblemaster.lib.market.IWinMarket	M	b	()Ljava/lang/String;	
+com.noblemaster.lib.market.JoyMoaMarket	M	a	()Ljava/lang/String;	
+com.noblemaster.lib.market.JoyMoaMarket	M	b	()Ljava/lang/String;	
+com.noblemaster.lib.market.MacGameStoreMarket	M	a	()Ljava/lang/String;	
+com.noblemaster.lib.market.MacGameStoreMarket	M	b	()Ljava/lang/String;	
+com.noblemaster.lib.market.Market	M	a	()Ljava/lang/String;	
+com.noblemaster.lib.market.Market	M	b	()Ljava/lang/String;	
+com.noblemaster.lib.market.Market	M	c	()Z	
+com.noblemaster.lib.market.NobleMasterMarket	M	a	()Ljava/lang/String;	
+com.noblemaster.lib.market.NobleMasterMarket	M	b	()Ljava/lang/String;	
+com.noblemaster.lib.market.PlayismMarket	M	a	()Ljava/lang/String;	
+com.noblemaster.lib.market.PlayismMarket	M	b	()Ljava/lang/String;	
+com.noblemaster.lib.market.ReviewMarket	M	a	()Ljava/lang/String;	
+com.noblemaster.lib.market.ReviewMarket	M	b	()Ljava/lang/String;	
+com.noblemaster.lib.market.UbuntuMarket	M	a	()Ljava/lang/String;	
+com.noblemaster.lib.market.UbuntuMarket	M	b	()Ljava/lang/String;	

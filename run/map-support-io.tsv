@@ -1,0 +1,45 @@
+# app.support + io batch
+#
+# IsoMathHelper: the four static transforms are the isometric projection and its inverse:
+#   a(x,y,scale) = (x - y) * scale/2 -> toScreenX ; b(x,y,scale) = (x + y) * scale/2 -> toScreenY ;
+#   a(sx,sy,w,h) = sx/w + sy/h -> toTileX ; b(sx,sy,w,h) = sy/h - sx/w -> toTileY.
+#   (GameScreen calls them as a(x,y,128)/b(x,y,64) for screen pixels and with the tile size for
+#   the reverse direction.)
+#
+# TextFormatter: a(long) is a plain decimal string (resource totals) -> formatAmount ;
+#   a(float) formats minutes:seconds with two-digit seconds -> formatTime ;
+#   a(int) formats seconds.tenths from a value in thousandths -> formatTenths.
+#
+# BackgroundTask: c = progress, b = worker thread; a() reads it under the world lock -> getProgress ;
+#   b() is true once run() has cleared the thread -> isDone ; a(float) is the ProgressCallback
+#   implementation storing the value -> onProgress (same name as the interface method).
+#   ProgressCallback.a(float) -> onProgress.
+#
+# WorldSerializer: a(String) lists *.world files whose name starts with the prefix and reads their
+#   "name =" / "info =" header lines -> listSaves ; b(String) parses one .world file into a World
+#   -> load ; the stream quartet mirrors MatchCodec: read/write carry the nullable flag and
+#   readBody/writeBody are the raw payload. a(String, String[]) has no reader yet and stays unnamed.
+#
+# SpriteSheetLoader: a(MapDefinition) parses the site sprite config into a BuildingSpriteTable
+#   -> loadBuildingSpriteTable ; b(MapDefinition) parses the unit sprite config into a
+#   UnitSpriteTable -> loadUnitSpriteTable (the "OSF Unit V" header and graphic_*.cfg names are in
+#   the bodies).
+com.desertstormfront.app.support.BackgroundTask	M	a	()F	getProgress
+com.desertstormfront.app.support.BackgroundTask	M	b	()Z	isDone
+com.desertstormfront.app.support.BackgroundTask	M	a	(F)Z	onProgress
+com.desertstormfront.app.support.IsoMathHelper	M	a	(FFI)F	toScreenX
+com.desertstormfront.app.support.IsoMathHelper	M	b	(FFI)F	toScreenY
+com.desertstormfront.app.support.IsoMathHelper	M	a	(FFII)F	toTileX
+com.desertstormfront.app.support.IsoMathHelper	M	b	(FFII)F	toTileY
+com.desertstormfront.app.support.ProgressCallback	M	a	(F)Z	onProgress
+com.desertstormfront.app.support.TextFormatter	M	a	(J)Ljava/lang/String;	formatAmount
+com.desertstormfront.app.support.TextFormatter	M	a	(F)Ljava/lang/String;	formatTime
+com.desertstormfront.app.support.TextFormatter	M	a	(I)Ljava/lang/String;	formatTenths
+com.desertstormfront.io.SpriteSheetLoader	M	a	(Lcom/desertstormfront/map/MapDefinition;)Lcom/desertstormfront/graphics/table/BuildingSpriteTable;	loadBuildingSpriteTable
+com.desertstormfront.io.SpriteSheetLoader	M	b	(Lcom/desertstormfront/map/MapDefinition;)Lcom/desertstormfront/graphics/table/UnitSpriteTable;	loadUnitSpriteTable
+com.desertstormfront.io.WorldSerializer	M	a	(Ljava/lang/String;)[Lcom/desertstormfront/io/WorldSaveInfo;	listSaves
+com.desertstormfront.io.WorldSerializer	M	b	(Ljava/lang/String;)Lcom/desertstormfront/game/World;	load
+com.desertstormfront.io.WorldSerializer	M	a	(Lcom/noblemaster/lib/io/stream/DataReader;)Lcom/desertstormfront/game/World;	read
+com.desertstormfront.io.WorldSerializer	M	a	(Lcom/noblemaster/lib/io/stream/DataWriter;Lcom/desertstormfront/game/World;)V	write
+com.desertstormfront.io.WorldSerializer	M	a	(Lcom/noblemaster/lib/io/stream/DataReader;Lcom/desertstormfront/game/World;)V	readBody
+com.desertstormfront.io.WorldSerializer	M	b	(Lcom/noblemaster/lib/io/stream/DataWriter;Lcom/desertstormfront/game/World;)V	writeBody

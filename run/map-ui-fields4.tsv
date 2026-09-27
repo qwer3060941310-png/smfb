@@ -1,0 +1,41 @@
+# ui field batch 4: SelectionPanelBase and ResultBanner (15 fields).
+#
+# SelectionPanelBase. The constructor builds three mutually exclusive sub-panels and the shared
+# a(String, Zx6) configuration method dispatches between them, so their roles follow from the
+# arguments UnitPanelBase passes in (text, unitType.canCarryAircraft(), unit.H() = isHostedAuto,
+# unit.isImmobile(), unit.hasMoveTarget(), i3, unit.getUnitGroup() != null):
+#   bl (canCarryAircraft)  -> carrierPanel (k) with carrierHighlight (l) shown per isHostedAuto;
+#   bl3 (isImmobile)       -> buildingPanel (m) with buildingHighlight (n) shown per hasMoveTarget;
+#   otherwise              -> mobilePanel (o), whose actionButton (p, data 10000) is enabled per the
+#                             squad flag.
+# j is the "this instance has the extra panels" flag: set true for every subclass except
+# SingleUnitPanel, and it is exactly what gates the three-way dispatch above.
+# The shared members: domains (a) and layers (b) are the Domain/Layer arrays the strength bars are
+# built for, unitCommander (e) is the command interface the panels call, titleLabel (h) is what the
+# configuration method writes the unit name into, and infoContainer (i) holds the per-unit rows.
+# Left unnamed: c/d (per-unit-type TextureRegions at atlas rows 1101/1150 - written in the
+# constructor but never read) and f/g (the two Image arrays sized by the domain count, whose
+# attack/defense split no call site distinguishes).
+#
+# ResultBanner: victory (a) is what setVictory/isVictory toggle and what picks the WON or LOST
+# region of bannerImage (c, the 287x68 / 275x68 atlas region); separatorImage (b) is the 1x68 strip
+# that resize() stretches to the screen width.
+com.desertstormfront.ui.hud.ResultBanner	F	a	Z	victory
+com.desertstormfront.ui.hud.ResultBanner	F	b	Lcom/desertstormfront/ui/Image;	separatorImage
+com.desertstormfront.ui.hud.ResultBanner	F	c	Lcom/desertstormfront/ui/Image;	bannerImage
+com.desertstormfront.ui.hud.SelectionPanelBase	F	a	[Lcom/desertstormfront/game/model/Domain;	domains
+com.desertstormfront.ui.hud.SelectionPanelBase	F	b	[Lcom/desertstormfront/game/model/Layer;	layers
+com.desertstormfront.ui.hud.SelectionPanelBase	F	c	[Lcom/desertstormfront/ui/TextureRegion;	
+com.desertstormfront.ui.hud.SelectionPanelBase	F	d	[Lcom/desertstormfront/ui/TextureRegion;	
+com.desertstormfront.ui.hud.SelectionPanelBase	F	e	Lcom/desertstormfront/command/UnitCommander;	unitCommander
+com.desertstormfront.ui.hud.SelectionPanelBase	F	f	[Lcom/desertstormfront/ui/Image;	
+com.desertstormfront.ui.hud.SelectionPanelBase	F	g	[Lcom/desertstormfront/ui/Image;	
+com.desertstormfront.ui.hud.SelectionPanelBase	F	h	Lcom/desertstormfront/ui/Label;	titleLabel
+com.desertstormfront.ui.hud.SelectionPanelBase	F	i	Lcom/desertstormfront/ui/Container;	infoContainer
+com.desertstormfront.ui.hud.SelectionPanelBase	F	j	Z	showExtraPanels
+com.desertstormfront.ui.hud.SelectionPanelBase	F	k	Lcom/desertstormfront/ui/Container;	carrierPanel
+com.desertstormfront.ui.hud.SelectionPanelBase	F	l	Lcom/desertstormfront/ui/Image;	carrierHighlight
+com.desertstormfront.ui.hud.SelectionPanelBase	F	m	Lcom/desertstormfront/ui/Container;	buildingPanel
+com.desertstormfront.ui.hud.SelectionPanelBase	F	n	Lcom/desertstormfront/ui/Image;	buildingHighlight
+com.desertstormfront.ui.hud.SelectionPanelBase	F	o	Lcom/desertstormfront/ui/Container;	mobilePanel
+com.desertstormfront.ui.hud.SelectionPanelBase	F	p	Lcom/desertstormfront/ui/Button;	actionButton

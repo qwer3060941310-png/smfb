@@ -1,0 +1,3 @@
+# v6 plugins: one ModEventListener class name per line ('#' starts a comment).
+# Each class must implement com.desertstormfront.mod.ModEventListener and be on the classpath.
+com.desertstormfront.mod.SampleModPlugin

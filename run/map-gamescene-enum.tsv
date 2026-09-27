@@ -1,0 +1,42 @@
+# GameScene batch: all 17 constants, each pinned by the input handler that owns that scene.
+#
+# GameScreen's input dispatch (the t == GameScene.x chain) names them one by one:
+#   a -> lanNoticeDialog.handleInput(lanNoticeListener) ...      LanNotice
+#   b -> nationSelectDialog.setPlayers(...)                      NationSelect
+#   c -> "Waiting for Players (n/m)" + timeStatusBar input       WaitingForPlayers
+#   d -> missionBriefingDialog.handleInput(briefingAccept...)     MissionBriefing
+#   e -> BackgroundTask progress dialog, switches to f when done  Loading
+#   f -> the map scene every panel returns to                     Default
+#   g -> set by BuildPanelListener/ProductionPanelListener        Build
+#   h -> set when a weapon slot is picked, target selection        Attack
+#   i -> the "attack without confirming" variant                  ForceAttack
+#   j -> set when a move/rally target is picked                   Move
+#   k -> InGameMenuButtonListener / PauseMenuListener cancels      PauseMenu
+#   l -> playMissionTerminated + resultBanner.setVictory           MissionTerminated
+#   m -> scoreDialog.handleInput(gameOverDismissListener)          ScoreDialog
+#   n -> restartDialog.handleInput(restartConfirmListener)         RestartConfirm
+#   o -> quitDialog.handleInput(quitConfirmListener)               QuitConfirm
+#   p -> "return new LoadGameScreen(mode, true)" / lobby           RestartGame
+#   q -> "return new <menu screen for the mode>"                   ExitToMenu
+# The two constructor flags line up with this too: l (MissionTerminated) is the only scene with
+# neither isMapScene nor isPanelOpen - it just shows the result banner - and f..j are exactly the
+# five isMapScene ones (Default/Build/Attack/ForceAttack/Move).
+# No reference is name-based: every call site is a field read or a switch map built from ordinal(),
+# so renaming cannot change saved data.
+com.desertstormfront.screen.GameScene	F	a	Lcom/desertstormfront/screen/GameScene;	LanNotice
+com.desertstormfront.screen.GameScene	F	b	Lcom/desertstormfront/screen/GameScene;	NationSelect
+com.desertstormfront.screen.GameScene	F	c	Lcom/desertstormfront/screen/GameScene;	WaitingForPlayers
+com.desertstormfront.screen.GameScene	F	d	Lcom/desertstormfront/screen/GameScene;	MissionBriefing
+com.desertstormfront.screen.GameScene	F	e	Lcom/desertstormfront/screen/GameScene;	Loading
+com.desertstormfront.screen.GameScene	F	f	Lcom/desertstormfront/screen/GameScene;	Default
+com.desertstormfront.screen.GameScene	F	g	Lcom/desertstormfront/screen/GameScene;	Build
+com.desertstormfront.screen.GameScene	F	h	Lcom/desertstormfront/screen/GameScene;	Attack
+com.desertstormfront.screen.GameScene	F	i	Lcom/desertstormfront/screen/GameScene;	ForceAttack
+com.desertstormfront.screen.GameScene	F	j	Lcom/desertstormfront/screen/GameScene;	Move
+com.desertstormfront.screen.GameScene	F	k	Lcom/desertstormfront/screen/GameScene;	PauseMenu
+com.desertstormfront.screen.GameScene	F	l	Lcom/desertstormfront/screen/GameScene;	MissionTerminated
+com.desertstormfront.screen.GameScene	F	m	Lcom/desertstormfront/screen/GameScene;	ScoreDialog
+com.desertstormfront.screen.GameScene	F	n	Lcom/desertstormfront/screen/GameScene;	RestartConfirm
+com.desertstormfront.screen.GameScene	F	o	Lcom/desertstormfront/screen/GameScene;	QuitConfirm
+com.desertstormfront.screen.GameScene	F	p	Lcom/desertstormfront/screen/GameScene;	RestartGame
+com.desertstormfront.screen.GameScene	F	q	Lcom/desertstormfront/screen/GameScene;	ExitToMenu

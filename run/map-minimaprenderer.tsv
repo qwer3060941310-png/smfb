@@ -1,0 +1,42 @@
+# MinimapRenderer batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+# com.desertstormfront.ui.hud.MinimapRenderer - minimap widget drawn to a framebuffer.
+#   fields: a/b=mapX/mapY (minimap origin) ; c/d=cameraX/cameraY ; e/f=viewportWidth/viewportHeight
+#           g/h=worldWidth/worldHeight (pixel extent) ; i=commander ; j=frame counter ; k=visible ; l=zoom
+#           m=fogInitialized ; n=frameBuffer ; o/p=terrainRenderer/overlayRenderer ; q=shader
+#           r/s=positionAttr/texCoordAttr ; t/u=textureUniform/mvpUniform
+#           x=minimapTexture ; y/z=vertexBuffer/indexBuffer   (v,w=128 left as-is, unused)
+#   a(boolean)->setVisible ; a(float)->setZoom ; a(int)->setCameraX ; b(int)->setCameraY
+#   a(int,int,int,int)->setViewport ; a()->render ; c()->rebuildFogTexture ; a(int,int)->updateFogRegion ; b()->dispose
+com.desertstormfront.ui.hud.MinimapRenderer	F	a	I	mapX
+com.desertstormfront.ui.hud.MinimapRenderer	F	b	I	mapY
+com.desertstormfront.ui.hud.MinimapRenderer	F	c	I	cameraX
+com.desertstormfront.ui.hud.MinimapRenderer	F	d	I	cameraY
+com.desertstormfront.ui.hud.MinimapRenderer	F	e	I	viewportWidth
+com.desertstormfront.ui.hud.MinimapRenderer	F	f	I	viewportHeight
+com.desertstormfront.ui.hud.MinimapRenderer	F	g	I	worldWidth
+com.desertstormfront.ui.hud.MinimapRenderer	F	h	I	worldHeight
+com.desertstormfront.ui.hud.MinimapRenderer	F	i	Lcom/desertstormfront/command/UnitCommander;	commander
+com.desertstormfront.ui.hud.MinimapRenderer	F	j	I	frame
+com.desertstormfront.ui.hud.MinimapRenderer	F	k	Z	visible
+com.desertstormfront.ui.hud.MinimapRenderer	F	l	F	zoom
+com.desertstormfront.ui.hud.MinimapRenderer	F	m	Z	fogInitialized
+com.desertstormfront.ui.hud.MinimapRenderer	F	n	Lcom/desertstormfront/ui/FrameBuffer;	frameBuffer
+com.desertstormfront.ui.hud.MinimapRenderer	F	o	Lcom/desertstormfront/ui/VectorTextRenderer;	terrainRenderer
+com.desertstormfront.ui.hud.MinimapRenderer	F	p	Lcom/desertstormfront/ui/VectorTextRenderer;	overlayRenderer
+com.desertstormfront.ui.hud.MinimapRenderer	F	q	Lcom/desertstormfront/ui/ShaderProgram;	shader
+com.desertstormfront.ui.hud.MinimapRenderer	F	r	I	positionAttr
+com.desertstormfront.ui.hud.MinimapRenderer	F	s	I	texCoordAttr
+com.desertstormfront.ui.hud.MinimapRenderer	F	t	I	textureUniform
+com.desertstormfront.ui.hud.MinimapRenderer	F	u	I	mvpUniform
+com.desertstormfront.ui.hud.MinimapRenderer	F	x	Lcom/desertstormfront/ui/GlTexture;	minimapTexture
+com.desertstormfront.ui.hud.MinimapRenderer	F	y	Lcom/desertstormfront/ui/GlBuffer;	vertexBuffer
+com.desertstormfront.ui.hud.MinimapRenderer	F	z	Lcom/desertstormfront/ui/GlBuffer;	indexBuffer
+com.desertstormfront.ui.hud.MinimapRenderer	M	a	(Z)V	setVisible
+com.desertstormfront.ui.hud.MinimapRenderer	M	a	(F)V	setZoom
+com.desertstormfront.ui.hud.MinimapRenderer	M	a	(I)V	setCameraX
+com.desertstormfront.ui.hud.MinimapRenderer	M	b	(I)V	setCameraY
+com.desertstormfront.ui.hud.MinimapRenderer	M	a	(IIII)V	setViewport
+com.desertstormfront.ui.hud.MinimapRenderer	M	a	()V	render
+com.desertstormfront.ui.hud.MinimapRenderer	M	c	()V	rebuildFogTexture
+com.desertstormfront.ui.hud.MinimapRenderer	M	a	(II)V	updateFogRegion
+com.desertstormfront.ui.hud.MinimapRenderer	M	b	()V	dispose

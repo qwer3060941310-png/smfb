@@ -1,0 +1,62 @@
+# game.mode + AmmoType batch
+#
+# game.mode: each subclass of GameMode stores the parameters of its win condition, and every one of
+# them is pinned by the class's own objective text and by isObjectiveComplete():
+#   EscortMode: b()/a(PlayerList) = the escorting side (compared with contains(player) in
+#     getObjectiveText) -> getEscortPlayers/setEscortPlayers ; a(int) is the truck count printed as
+#     "Escort {0} trucks" -> getTruckCount/setTruckCount ; a(Vec2) is the destination the trucks are
+#     distance-checked against ("reach the target area (blue)") -> getTargetArea/setTargetArea ;
+#     the static a() factory -> create.
+#   SurvivalMode: the same three shapes for "safeguard at least {0} base stations" and the surviving
+#     side -> getSurvivors/setSurvivors + getBaseStationCount/setBaseStationCount + create.
+#   CaptureTheFlagMode: a(Unit) is the flag unit -> getFlag/setFlag ; a(float) is the hold time
+#     printed in "Hold the flag for {0} seconds" -> getHoldSeconds/setHoldSeconds ; b(float) is the
+#     timestamp the hold started at (isObjectiveComplete: gameTime - start >= seconds)
+#     -> getHoldStartTime/setHoldStartTime ; create.
+#   AnnihilationMode: a(long) is the total-health threshold a player must still field
+#     -> getHealthThreshold/setHealthThreshold ; create.
+#   SupremacyMode: a(float) is the fraction of the map's structures needed (rounded in the private
+#     f()) -> getStructureRatio/setStructureRatio ; f() -> getRequiredStructures ; create.
+#
+# AmmoType: the enum constants carry ("Bullets[i18n]: Bullets", "BULLETS", speed, turnRate, burst,
+#   burstAnimationDuration) and each accessor maps onto one of those columns:
+#   a() returns the uppercase key (same role as UnitType.getKey) -> getKey ;
+#   b() is the projectile speed in tiles/s (Bullets 5.0 .. Torpedo 0.4) -> getSpeed ;
+#   c() is the turn rate in rad/s (Bullets 2000*pi = effectively instant, Missile pi = slow homing)
+#     -> getTurnRate ;
+#   d()/e() are the burst pair (Missile 10, others 0) -> hasSubProjectiles / getSubProjectileCount ;
+#   f() is the burst animation duration in seconds (non-zero only for the missile; GameScreen
+#     divides the elapsed time by it to pick the animation frame) -> getAnimationDuration.
+#   The static field f is the maximum of e() over all constants; it belongs to the field batch.
+com.desertstormfront.game.mode.AnnihilationMode	M	a	()Lcom/desertstormfront/game/mode/AnnihilationMode;	create
+com.desertstormfront.game.mode.AnnihilationMode	M	b	()J	getHealthThreshold
+com.desertstormfront.game.mode.AnnihilationMode	M	a	(J)V	setHealthThreshold
+com.desertstormfront.game.mode.CaptureTheFlagMode	M	a	()Lcom/desertstormfront/game/mode/CaptureTheFlagMode;	create
+com.desertstormfront.game.mode.CaptureTheFlagMode	M	b	()Lcom/desertstormfront/game/model/Unit;	getFlag
+com.desertstormfront.game.mode.CaptureTheFlagMode	M	a	(Lcom/desertstormfront/game/model/Unit;)V	setFlag
+com.desertstormfront.game.mode.CaptureTheFlagMode	M	f	()F	getHoldSeconds
+com.desertstormfront.game.mode.CaptureTheFlagMode	M	a	(F)V	setHoldSeconds
+com.desertstormfront.game.mode.CaptureTheFlagMode	M	g	()F	getHoldStartTime
+com.desertstormfront.game.mode.CaptureTheFlagMode	M	b	(F)V	setHoldStartTime
+com.desertstormfront.game.mode.EscortMode	M	a	()Lcom/desertstormfront/game/mode/EscortMode;	create
+com.desertstormfront.game.mode.EscortMode	M	b	()Lcom/desertstormfront/game/player/PlayerList;	getEscortPlayers
+com.desertstormfront.game.mode.EscortMode	M	a	(Lcom/desertstormfront/game/player/PlayerList;)V	setEscortPlayers
+com.desertstormfront.game.mode.EscortMode	M	f	()I	getTruckCount
+com.desertstormfront.game.mode.EscortMode	M	a	(I)V	setTruckCount
+com.desertstormfront.game.mode.EscortMode	M	g	()Lcom/desertstormfront/world/Vec2;	getTargetArea
+com.desertstormfront.game.mode.EscortMode	M	a	(Lcom/desertstormfront/world/Vec2;)V	setTargetArea
+com.desertstormfront.game.mode.SupremacyMode	M	a	()Lcom/desertstormfront/game/mode/SupremacyMode;	create
+com.desertstormfront.game.mode.SupremacyMode	M	b	()F	getStructureRatio
+com.desertstormfront.game.mode.SupremacyMode	M	a	(F)V	setStructureRatio
+com.desertstormfront.game.mode.SupremacyMode	M	f	()I	getRequiredStructures
+com.desertstormfront.game.mode.SurvivalMode	M	a	()Lcom/desertstormfront/game/mode/SurvivalMode;	create
+com.desertstormfront.game.mode.SurvivalMode	M	b	()Lcom/desertstormfront/game/player/PlayerList;	getSurvivors
+com.desertstormfront.game.mode.SurvivalMode	M	a	(Lcom/desertstormfront/game/player/PlayerList;)V	setSurvivors
+com.desertstormfront.game.mode.SurvivalMode	M	f	()I	getBaseStationCount
+com.desertstormfront.game.mode.SurvivalMode	M	a	(I)V	setBaseStationCount
+com.desertstormfront.game.model.AmmoType	M	a	()Ljava/lang/String;	getKey
+com.desertstormfront.game.model.AmmoType	M	b	()F	getSpeed
+com.desertstormfront.game.model.AmmoType	M	c	()F	getTurnRate
+com.desertstormfront.game.model.AmmoType	M	d	()Z	hasSubProjectiles
+com.desertstormfront.game.model.AmmoType	M	e	()I	getSubProjectileCount
+com.desertstormfront.game.model.AmmoType	M	f	()F	getAnimationDuration

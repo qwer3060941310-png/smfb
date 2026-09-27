@@ -1,0 +1,20 @@
+# WorldSimulator batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+# com.desertstormfront.game.WorldSimulator - fixed-step world simulation (orders -> outcomes).
+#   fields: a=GameEventListener->NULL_LISTENER ; b=int[][] 8 neighbor offsets->NEIGHBOR_OFFSETS
+#           c=float[][] guard follower formation->GUARD_FOLLOWER_SPREADS ; d=float[][] rally formation->RALLY_SPREADS
+#   a(World,int)/a(World,GameEventListener,int)/a(World,GameEventListener,float)->tick (overloads)
+#   a(Unit)->destroyUnit ; a(World,UnitPosition)->spawnBirds ; a(UnitList,TerrainGrid,int,int)->collectNearbyUnits
+#   a(World,Unit)->findEmbarkTarget ; b(World,Unit)->findAttackTarget ; c(World,Unit)->findRepairUnit
+com.desertstormfront.game.WorldSimulator	F	a	Lcom/desertstormfront/game/GameEventListener;	NULL_LISTENER
+com.desertstormfront.game.WorldSimulator	F	b	[[I	NEIGHBOR_OFFSETS
+com.desertstormfront.game.WorldSimulator	F	c	[[F	GUARD_FOLLOWER_SPREADS
+com.desertstormfront.game.WorldSimulator	F	d	[[F	RALLY_SPREADS
+com.desertstormfront.game.WorldSimulator	M	a	(Lcom/desertstormfront/game/World;I)V	tick
+com.desertstormfront.game.WorldSimulator	M	a	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/GameEventListener;I)V	tick
+com.desertstormfront.game.WorldSimulator	M	a	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/GameEventListener;F)V	tick
+com.desertstormfront.game.WorldSimulator	M	a	(Lcom/desertstormfront/game/model/Unit;)V	destroyUnit
+com.desertstormfront.game.WorldSimulator	M	a	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/world/UnitPosition;)V	spawnBirds
+com.desertstormfront.game.WorldSimulator	M	a	(Lcom/desertstormfront/game/model/UnitList;Lcom/desertstormfront/world/TerrainGrid;II)Lcom/desertstormfront/game/model/UnitList;	collectNearbyUnits
+com.desertstormfront.game.WorldSimulator	M	a	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/model/Unit;)Lcom/desertstormfront/game/model/Unit;	findEmbarkTarget
+com.desertstormfront.game.WorldSimulator	M	b	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/model/Unit;)Lcom/desertstormfront/game/model/Unit;	findAttackTarget
+com.desertstormfront.game.WorldSimulator	M	c	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/model/Unit;)Lcom/desertstormfront/game/model/Unit;	findRepairUnit

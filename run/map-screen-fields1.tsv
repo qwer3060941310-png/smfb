@@ -1,0 +1,31 @@
+# screen field batch 1: the one-field listener classes and the GameScene flags.
+#
+# Every listener below takes its owner in the constructor and then calls through it
+# (this.a.getAudio(), this.a.getUnitCommander(), GameScreen.invokeSetScene(this.a, ...)), so the
+# single field is the screen it listens for: `screen` (GameScreen), `menuScreen` (BaseMenuScreen),
+# `screen` for ScreenInputProcessor's BaseScreen. These are private and only used inside their own
+# class, so the rename cannot leak.
+#
+# GameScene.r/s are the two constructor flags: r is returned by a() (true exactly for the five map
+# scenes) and s by b() (true for every panel/dialog scene, which is what GameScreen's input code
+# checks as "a panel owns the input") -> isMapScene / isPanelOpen. The enum constants themselves are
+# named in the next batch, once each scene's role has been read out of its listener.
+com.desertstormfront.screen.BriefingAcceptListener	F	a	Lcom/desertstormfront/screen/GameScreen;	screen
+com.desertstormfront.screen.BuildPanelListener	F	a	Lcom/desertstormfront/screen/GameScreen;	screen
+com.desertstormfront.screen.GameEventSoundListener	F	a	Lcom/desertstormfront/screen/GameScreen;	screen
+com.desertstormfront.screen.GameInputProcessor	F	a	Lcom/desertstormfront/screen/GameScreen;	screen
+com.desertstormfront.screen.GameOverDismissListener	F	a	Lcom/desertstormfront/screen/GameScreen;	screen
+com.desertstormfront.screen.InGameMenuButtonListener	F	a	Lcom/desertstormfront/screen/GameScreen;	screen
+com.desertstormfront.screen.LanNoticeListener	F	a	Lcom/desertstormfront/screen/GameScreen;	screen
+com.desertstormfront.screen.MenuActionListener	F	a	Lcom/desertstormfront/screen/BaseMenuScreen;	menuScreen
+com.desertstormfront.screen.MenuDialogListener	F	a	Lcom/desertstormfront/screen/BaseMenuScreen;	menuScreen
+com.desertstormfront.screen.MultiSelectPanelListener	F	a	Lcom/desertstormfront/screen/GameScreen;	screen
+com.desertstormfront.screen.PauseMenuListener	F	a	Lcom/desertstormfront/screen/GameScreen;	screen
+com.desertstormfront.screen.PlayerSlotListener	F	a	Lcom/desertstormfront/screen/GameScreen;	screen
+com.desertstormfront.screen.ProductionPanelListener	F	a	Lcom/desertstormfront/screen/GameScreen;	screen
+com.desertstormfront.screen.PurchaseCallback	F	a	Lcom/desertstormfront/screen/BaseMenuScreen;	menuScreen
+com.desertstormfront.screen.QuitConfirmListener	F	a	Lcom/desertstormfront/screen/GameScreen;	screen
+com.desertstormfront.screen.RestartConfirmListener	F	a	Lcom/desertstormfront/screen/GameScreen;	screen
+com.desertstormfront.screen.ScreenInputProcessor	F	a	Lcom/desertstormfront/screen/BaseScreen;	screen
+com.desertstormfront.screen.GameScene	F	r	Z	isMapScene
+com.desertstormfront.screen.GameScene	F	s	Z	isPanelOpen

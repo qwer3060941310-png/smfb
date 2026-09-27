@@ -1,0 +1,47 @@
+{
+  "_comment": "Custom ruleset (v4). Anything not declared here falls back to the built-in 'tsf' ruleset (factions, terrains, slots, text tables). Units are fully custom; ids are assigned by declaration order. UPPER-CASE unit fields need a trailing underscore (A_ B_ C_ D_ H_ I_).",
+  "name": "mod",
+  "factions": [
+    { "id": 0, "name": "Red[i18n]: Red", "key": "RED" },
+    { "id": 1, "name": "Blue[i18n]: Blue", "key": "BLUE" }
+  ],
+  "terrains": [
+    { "id": 0, "name": "Sand[i18n]: Sand", "key": "SAND", "code": "X", "count": 16 },
+    { "id": 1, "name": "Rock[i18n]: Rock", "key": "ROCK", "code": "M", "count": 3 }
+  ],
+  "units": [
+    {
+      "d": "Grunt[i18n]: Grunt", "e": "GRUNT", "f": "G", "g": 80,
+      "h": false, "i": "Base", "j": "Ground",
+      "k": 0.20, "l": 0.17, "m": 0.20, "n": 0.0,
+      "o": false, "p": false, "r": "Bullets",
+      "s": 0.20, "t": 0.25, "u": 0, "v": 1.0,
+      "w": false, "x": false, "y": false, "z": false,
+      "A_": false, "B_": 1, "C_": 2, "D_": 4.0, "H_": 0, "I_": false
+    },
+    {
+      "d": "RocketTank[i18n]: Rocket Tank", "e": "ROCKET_TANK", "f": "R", "g": 160,
+      "h": false, "i": "Base", "j": "Ground",
+      "k": 0.32, "l": 0.17, "m": 0.22, "n": 0.0,
+      "o": false, "p": true, "r": "Missile",
+      "s": 0.30, "t": 0.55, "u": 0, "v": 1.8,
+      "w": false, "x": false, "y": false, "z": false,
+      "A_": false, "B_": 2, "C_": 3, "D_": 9.0, "H_": 0, "I_": false
+    },
+    {
+      "d": "Outpost[i18n]: Outpost", "e": "OUTPOST", "f": "O", "g": 1200,
+      "h": true, "i": "Base", "j": "Ground",
+      "k": 0.50, "l": 0.17, "m": 0.0, "n": 0.0,
+      "o": false, "p": false, "r": null,
+      "s": 0.0, "t": 0.0, "u": 0, "v": 0.0,
+      "w": false, "x": false, "y": false, "z": false,
+      "A_": false, "B_": 2, "C_": 0, "D_": 0.0, "H_": 8, "I_": false
+    }
+  ],
+  "slots": ["GRUNT", "ROCKET_TANK", "OUTPOST"],
+  "costs": [
+    [0, 60, 0],
+    [60, 0, 0],
+    [0, 0, 0]
+  ]
+}

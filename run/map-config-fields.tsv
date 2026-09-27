@@ -1,0 +1,143 @@
+# Field batch: com.desertstormfront.config (115 fields: GameConfig 18, SubConfigDSF 34,
+# SubConfigTSF 34, TouchDeviceFlags 1, UserConfig 28).
+#
+# Evidence per group:
+#  * UserConfig      - every field is written from, and stored back to, a named key of user.config
+#                      (loadFromProperties / saveToProperties) AND is exposed by a getter renamed
+#                      in the earlier UserConfig batch: property key + getter name = two sources.
+#  * GameConfig      - every field is assigned in configure(...) and exposed by a semantic getter
+#                      (getVersion/getBuildDate/isLiteMode/getScreenWidth/...).
+#                      a/b/c are public statics without a getter:
+#                        a = selects the "Clean" content variants (every branch it guards returns a
+#                            ...CleanETC i18n string, e.g. SubConfigDSF.getMissionDescriptions ->
+#                            this.m whose entries all carry "V01CleanETC"); set for the curated
+#                            markets iTunes/Intel/Playism/ChinaMobile in DesktopLauncher.
+#                        b = selects the per-game hidden data directory (".tropical_stormfront_")
+#                            instead of ".config/<gameId>/". MEDIUM confidence: path style only.
+#                        c = the Market, assigned from the market object in GameApplication.
+#  * SubConfigDSF/TSF - the fields are constants; the overriding getters return the SAME literal
+#                      inline (the obfuscator/decompiler duplicated them), so each field is matched
+#                      to the getter whose return value is byte-identical to its initialiser.
+#                      Fields consumed directly: c (getDefaultMap), l/m (getMissionDescriptions),
+#                      n (getCampaignMissionIndices), r (getCredits), s (getTechInfo),
+#                      F (getMusicFiles). Pairs l/m, o/p, u/v, w/x, y/z are the plain and the
+#                      "Clean" variant of the same text (see GameConfig.a above).
+#                      f ("Real-Time Strategy") has no consuming getter - named from its content.
+#
+# Descriptors come from javap: do not edit them, the renamer matches on them.
+# Columns: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> new
+com.desertstormfront.config.GameConfig	F	a	Z	cleanContent
+com.desertstormfront.config.GameConfig	F	b	Z	legacyDataDir
+com.desertstormfront.config.GameConfig	F	c	Lcom/noblemaster/lib/market/Market;	market
+com.desertstormfront.config.GameConfig	F	d	Lcom/noblemaster/lib/io/DataFileResolver;	dataFileResolver
+com.desertstormfront.config.GameConfig	F	e	Lcom/desertstormfront/config/AbstractGameInfo;	gameInfo
+com.desertstormfront.config.GameConfig	F	f	Lcom/noblemaster/lib/data/Version;	version
+com.desertstormfront.config.GameConfig	F	g	Lcom/noblemaster/lib/data/DateTime;	buildDate
+com.desertstormfront.config.GameConfig	F	h	Z	debugEnabled
+com.desertstormfront.config.GameConfig	F	i	Z	liteMode
+com.desertstormfront.config.GameConfig	F	j	I	screenWidth
+com.desertstormfront.config.GameConfig	F	k	I	screenHeight
+com.desertstormfront.config.GameConfig	F	l	Lcom/desertstormfront/session/impl/TutorialGameMode;	tutorialGameMode
+com.desertstormfront.config.GameConfig	F	m	Lcom/desertstormfront/session/impl/TestScenarioMode;	testScenarioGameMode
+com.desertstormfront.config.GameConfig	F	n	Lcom/desertstormfront/session/impl/CampaignGameMode;	campaignGameMode
+com.desertstormfront.config.GameConfig	F	o	Lcom/desertstormfront/session/impl/SkirmishGameMode;	skirmishGameMode
+com.desertstormfront.config.GameConfig	F	p	Lcom/desertstormfront/session/impl/MultiplayerGameMode;	multiplayerGameMode
+com.desertstormfront.config.GameConfig	F	q	Lcom/noblemaster/lib/net/match/MatchMakingClient;	matchMakingClient
+com.desertstormfront.config.GameConfig	F	r	Z	macBuild
+com.desertstormfront.config.SubConfigDSF	F	a	Ljava/lang/String;	gameId
+com.desertstormfront.config.SubConfigDSF	F	b	Ljava/lang/String;	gameIdLite
+com.desertstormfront.config.SubConfigDSF	F	c	Lcom/desertstormfront/map/MapDefinition;	defaultMap
+com.desertstormfront.config.SubConfigDSF	F	d	Ljava/lang/String;	title
+com.desertstormfront.config.SubConfigDSF	F	e	Ljava/lang/String;	titleLite
+com.desertstormfront.config.SubConfigDSF	F	f	Ljava/lang/String;	genre
+com.desertstormfront.config.SubConfigDSF	F	g	Ljava/lang/String;	keywords
+com.desertstormfront.config.SubConfigDSF	F	h	Ljava/lang/String;	websiteUrl
+com.desertstormfront.config.SubConfigDSF	F	i	Ljava/lang/String;	forumUrl
+com.desertstormfront.config.SubConfigDSF	F	j	Ljava/lang/String;	copyright
+com.desertstormfront.config.SubConfigDSF	F	k	Ljava/lang/String;	companyUrl
+com.desertstormfront.config.SubConfigDSF	F	l	[Ljava/lang/String;	missionDescriptions
+com.desertstormfront.config.SubConfigDSF	F	m	[Ljava/lang/String;	missionDescriptionsClean
+com.desertstormfront.config.SubConfigDSF	F	n	[I	campaignMissionIndices
+com.desertstormfront.config.SubConfigDSF	F	o	Ljava/lang/String;	campaignStory
+com.desertstormfront.config.SubConfigDSF	F	p	Ljava/lang/String;	campaignStoryClean
+com.desertstormfront.config.SubConfigDSF	F	q	Ljava/lang/String;	campaignCompleteMessage
+com.desertstormfront.config.SubConfigDSF	F	r	[[Ljava/lang/String;	credits
+com.desertstormfront.config.SubConfigDSF	F	s	[[Ljava/lang/String;	techInfo
+com.desertstormfront.config.SubConfigDSF	F	t	Ljava/lang/String;	licenses
+com.desertstormfront.config.SubConfigDSF	F	u	Ljava/lang/String;	appOverview
+com.desertstormfront.config.SubConfigDSF	F	v	Ljava/lang/String;	appOverviewClean
+com.desertstormfront.config.SubConfigDSF	F	w	Ljava/lang/String;	appDescription
+com.desertstormfront.config.SubConfigDSF	F	x	Ljava/lang/String;	appDescriptionClean
+com.desertstormfront.config.SubConfigDSF	F	y	Ljava/lang/String;	miscFeatures
+com.desertstormfront.config.SubConfigDSF	F	z	Ljava/lang/String;	miscFeaturesClean
+com.desertstormfront.config.SubConfigDSF	F	A	Ljava/lang/String;	miscNotes
+com.desertstormfront.config.SubConfigDSF	F	B	Ljava/lang/String;	miscPromo
+com.desertstormfront.config.SubConfigDSF	F	C	Ljava/lang/String;	informationUnits
+com.desertstormfront.config.SubConfigDSF	F	D	Ljava/lang/String;	informationStructures
+com.desertstormfront.config.SubConfigDSF	F	E	Ljava/lang/String;	informationMoveables
+com.desertstormfront.config.SubConfigDSF	F	F	[Ljava/lang/String;	musicFiles
+com.desertstormfront.config.SubConfigDSF	F	G	Ljava/lang/String;	buyFullVersionText
+com.desertstormfront.config.SubConfigDSF	F	H	Ljava/lang/String;	buyFullVersionDetails
+com.desertstormfront.config.SubConfigTSF	F	a	Ljava/lang/String;	gameId
+com.desertstormfront.config.SubConfigTSF	F	b	Ljava/lang/String;	gameIdLite
+com.desertstormfront.config.SubConfigTSF	F	c	Lcom/desertstormfront/map/MapDefinition;	defaultMap
+com.desertstormfront.config.SubConfigTSF	F	d	Ljava/lang/String;	title
+com.desertstormfront.config.SubConfigTSF	F	e	Ljava/lang/String;	titleLite
+com.desertstormfront.config.SubConfigTSF	F	f	Ljava/lang/String;	genre
+com.desertstormfront.config.SubConfigTSF	F	g	Ljava/lang/String;	keywords
+com.desertstormfront.config.SubConfigTSF	F	h	Ljava/lang/String;	websiteUrl
+com.desertstormfront.config.SubConfigTSF	F	i	Ljava/lang/String;	forumUrl
+com.desertstormfront.config.SubConfigTSF	F	j	Ljava/lang/String;	copyright
+com.desertstormfront.config.SubConfigTSF	F	k	Ljava/lang/String;	companyUrl
+com.desertstormfront.config.SubConfigTSF	F	l	[Ljava/lang/String;	missionDescriptions
+com.desertstormfront.config.SubConfigTSF	F	m	[Ljava/lang/String;	missionDescriptionsClean
+com.desertstormfront.config.SubConfigTSF	F	n	[I	campaignMissionIndices
+com.desertstormfront.config.SubConfigTSF	F	o	Ljava/lang/String;	campaignStory
+com.desertstormfront.config.SubConfigTSF	F	p	Ljava/lang/String;	campaignStoryClean
+com.desertstormfront.config.SubConfigTSF	F	q	Ljava/lang/String;	campaignCompleteMessage
+com.desertstormfront.config.SubConfigTSF	F	r	[[Ljava/lang/String;	credits
+com.desertstormfront.config.SubConfigTSF	F	s	[[Ljava/lang/String;	techInfo
+com.desertstormfront.config.SubConfigTSF	F	t	Ljava/lang/String;	licenses
+com.desertstormfront.config.SubConfigTSF	F	u	Ljava/lang/String;	appOverview
+com.desertstormfront.config.SubConfigTSF	F	v	Ljava/lang/String;	appOverviewClean
+com.desertstormfront.config.SubConfigTSF	F	w	Ljava/lang/String;	appDescription
+com.desertstormfront.config.SubConfigTSF	F	x	Ljava/lang/String;	appDescriptionClean
+com.desertstormfront.config.SubConfigTSF	F	y	Ljava/lang/String;	miscFeatures
+com.desertstormfront.config.SubConfigTSF	F	z	Ljava/lang/String;	miscFeaturesClean
+com.desertstormfront.config.SubConfigTSF	F	A	Ljava/lang/String;	miscNotes
+com.desertstormfront.config.SubConfigTSF	F	B	Ljava/lang/String;	miscPromo
+com.desertstormfront.config.SubConfigTSF	F	C	Ljava/lang/String;	informationUnits
+com.desertstormfront.config.SubConfigTSF	F	D	Ljava/lang/String;	informationStructures
+com.desertstormfront.config.SubConfigTSF	F	E	Ljava/lang/String;	informationMoveables
+com.desertstormfront.config.SubConfigTSF	F	F	[Ljava/lang/String;	musicFiles
+com.desertstormfront.config.SubConfigTSF	F	G	Ljava/lang/String;	buyFullVersionText
+com.desertstormfront.config.SubConfigTSF	F	H	Ljava/lang/String;	buyFullVersionDetails
+com.desertstormfront.config.TouchDeviceFlags	F	a	Z	touchDevice
+com.desertstormfront.config.UserConfig	F	a	Lcom/noblemaster/lib/io/GameFile;	userConfigFile
+com.desertstormfront.config.UserConfig	F	b	[Ljava/lang/String;	squadSelectKeyNames
+com.desertstormfront.config.UserConfig	F	c	Lcom/noblemaster/lib/data/Language;	language
+com.desertstormfront.config.UserConfig	F	d	Z	fullScreen
+com.desertstormfront.config.UserConfig	F	e	F	audioVolume
+com.desertstormfront.config.UserConfig	F	f	F	musicVolume
+com.desertstormfront.config.UserConfig	F	g	F	worldSpeedFactor
+com.desertstormfront.config.UserConfig	F	h	Z	renderDetails
+com.desertstormfront.config.UserConfig	F	i	I	multiplayerPort
+com.desertstormfront.config.UserConfig	F	j	Z	touchScroll
+com.desertstormfront.config.UserConfig	F	k	Z	mouseControl
+com.desertstormfront.config.UserConfig	F	l	I	scrollSpeed
+com.desertstormfront.config.UserConfig	F	m	I	scrollKeyLeft
+com.desertstormfront.config.UserConfig	F	n	I	scrollKeyRight
+com.desertstormfront.config.UserConfig	F	o	I	scrollKeyUp
+com.desertstormfront.config.UserConfig	F	p	I	scrollKeyDown
+com.desertstormfront.config.UserConfig	F	q	[I	squadSelectKeys
+com.desertstormfront.config.UserConfig	F	r	I	actionKeyStop
+com.desertstormfront.config.UserConfig	F	s	I	actionKeyRepair
+com.desertstormfront.config.UserConfig	F	t	I	actionKeyPatrol
+com.desertstormfront.config.UserConfig	F	u	I	actionKeyGroup
+com.desertstormfront.config.UserConfig	F	v	I	actionKeyUngroup
+com.desertstormfront.config.UserConfig	F	w	I	actionKeyDeselect
+com.desertstormfront.config.UserConfig	F	x	Z	displayAi
+com.desertstormfront.config.UserConfig	F	y	Z	showTutorialDialog
+com.desertstormfront.config.UserConfig	F	z	Lcom/noblemaster/lib/data/Version;	newsSeenVersion
+com.desertstormfront.config.UserConfig	F	A	J	playingTime
+com.desertstormfront.config.UserConfig	F	B	Lcom/desertstormfront/game/player/PlayerStatistics;	statistics

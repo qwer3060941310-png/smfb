@@ -1,0 +1,26 @@
+# GameApplication batch (fields + clear accessors only): owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+# com.desertstormfront.app.GameApplication - abstract ApplicationListener base; abstract d/e/f/g/h/i/a(String) left as-is.
+#   fields: a=static float scale ; b=Market ; c=License ; d=BaseScreen->screen ; e=bool active
+#           f=scaleShader ; g=positionAttr ; h=texCoordAttr ; i=textureUniform ; j=mvpUniform
+#           k=scaledWidth ; l=scaledHeight ; m=scaleTexture ; n=vertexBuffer ; o=indexBuffer ; p=scaleFrameBuffer
+#   a()->getMarket ; b()->getLicense ; c()->exit ; j()->disposeGlResources
+com.desertstormfront.app.GameApplication	F	a	F	scale
+com.desertstormfront.app.GameApplication	F	b	Lcom/noblemaster/lib/market/Market;	market
+com.desertstormfront.app.GameApplication	F	c	Lcom/noblemaster/lib/license/License;	license
+com.desertstormfront.app.GameApplication	F	d	Lcom/desertstormfront/screen/BaseScreen;	screen
+com.desertstormfront.app.GameApplication	F	e	Z	active
+com.desertstormfront.app.GameApplication	F	f	Lcom/desertstormfront/ui/ShaderProgram;	scaleShader
+com.desertstormfront.app.GameApplication	F	g	I	positionAttr
+com.desertstormfront.app.GameApplication	F	h	I	texCoordAttr
+com.desertstormfront.app.GameApplication	F	i	I	textureUniform
+com.desertstormfront.app.GameApplication	F	j	I	mvpUniform
+com.desertstormfront.app.GameApplication	F	k	I	scaledWidth
+com.desertstormfront.app.GameApplication	F	l	I	scaledHeight
+com.desertstormfront.app.GameApplication	F	m	Lcom/desertstormfront/ui/GlTexture;	scaleTexture
+com.desertstormfront.app.GameApplication	F	n	Lcom/desertstormfront/ui/GlBuffer;	vertexBuffer
+com.desertstormfront.app.GameApplication	F	o	Lcom/desertstormfront/ui/GlBuffer;	indexBuffer
+com.desertstormfront.app.GameApplication	F	p	Lcom/desertstormfront/ui/FrameBuffer;	scaleFrameBuffer
+com.desertstormfront.app.GameApplication	M	a	()Lcom/noblemaster/lib/market/Market;	getMarket
+com.desertstormfront.app.GameApplication	M	b	()Lcom/noblemaster/lib/license/License;	getLicense
+com.desertstormfront.app.GameApplication	M	c	()V	exit
+com.desertstormfront.app.GameApplication	M	j	()V	disposeGlResources

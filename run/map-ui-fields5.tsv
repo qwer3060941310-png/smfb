@@ -1,0 +1,46 @@
+# ui field batch 5: ScoreDialog and GroupBar (23 fields).
+#
+# ScoreDialog extends OkDialog and only adds the score rows: three captions from the same set the
+# main menu shows (Units Destroyed/Lost, Damage Inflicted/Sustained, Bases Captured/Lost) each with a
+# player column at x=275 and an enemy column at x=360, and every value drawn twice - the black label
+# offset by (+1,+1) is the shadow, the coloured one on top is the value (green -7168 for the
+# destroyed/inflicted/captured half, red -65536 for the lost/sustained half):
+#   a/b unitsPlayerShadow/unitsPlayer     c/d unitsEnemyShadow/unitsEnemy
+#   e/f damagePlayerShadow/damagePlayer   g/h damageEnemyShadow/damageEnemy
+#   i/j basesPlayerShadow/basesPlayer     k/l basesEnemyShadow/basesEnemy
+# m/n/o (the three Images) stay unnamed: nothing in the constructor separates their roles.
+# GroupBar: the eight squad slots are the parallel arrays slotButtons (e, data = slot index, x = 63 +
+# i*60), slotRegions (f, the 32x32 unit icon), slotSelectionImages (g, the 58x58 highlight that
+# selectGroup() shows only for the selected slot) and slotLabels (h, the Dungeon15Outline badge), with
+# slotCounts (i, initialised to -1); slotButtonStyle (a) is the style every slot button is built with
+# and selectedGroup (l) is what selectGroup() stores. toggleButton (c, data -1) with its toggleIcon
+# (d) moves between y=0 (expanded) and y=8 (collapsed), which is exactly the expanded flag (k).
+# unitCommander (j) is the callback target. Left unnamed: the three-entry ButtonStyle array (b), whose
+# per-category split has no reader in the constructor.
+com.desertstormfront.ui.hud.GroupBar	F	a	Lcom/desertstormfront/ui/ButtonStyle;	slotButtonStyle
+com.desertstormfront.ui.hud.GroupBar	F	b	[Lcom/desertstormfront/ui/ButtonStyle;	
+com.desertstormfront.ui.hud.GroupBar	F	c	Lcom/desertstormfront/ui/Button;	toggleButton
+com.desertstormfront.ui.hud.GroupBar	F	d	Lcom/desertstormfront/ui/Image;	toggleIcon
+com.desertstormfront.ui.hud.GroupBar	F	e	[Lcom/desertstormfront/ui/Button;	slotButtons
+com.desertstormfront.ui.hud.GroupBar	F	f	[Lcom/desertstormfront/ui/TextureRegion;	slotRegions
+com.desertstormfront.ui.hud.GroupBar	F	g	[Lcom/desertstormfront/ui/Image;	slotSelectionImages
+com.desertstormfront.ui.hud.GroupBar	F	h	[Lcom/desertstormfront/ui/Label;	slotLabels
+com.desertstormfront.ui.hud.GroupBar	F	i	[I	slotCounts
+com.desertstormfront.ui.hud.GroupBar	F	j	Lcom/desertstormfront/command/UnitCommander;	unitCommander
+com.desertstormfront.ui.hud.GroupBar	F	k	Z	expanded
+com.desertstormfront.ui.hud.GroupBar	F	l	I	selectedGroup
+com.desertstormfront.ui.hud.ScoreDialog	F	a	Lcom/desertstormfront/ui/Label;	unitsPlayerShadow
+com.desertstormfront.ui.hud.ScoreDialog	F	b	Lcom/desertstormfront/ui/Label;	unitsPlayer
+com.desertstormfront.ui.hud.ScoreDialog	F	c	Lcom/desertstormfront/ui/Label;	unitsEnemyShadow
+com.desertstormfront.ui.hud.ScoreDialog	F	d	Lcom/desertstormfront/ui/Label;	unitsEnemy
+com.desertstormfront.ui.hud.ScoreDialog	F	e	Lcom/desertstormfront/ui/Label;	damagePlayerShadow
+com.desertstormfront.ui.hud.ScoreDialog	F	f	Lcom/desertstormfront/ui/Label;	damagePlayer
+com.desertstormfront.ui.hud.ScoreDialog	F	g	Lcom/desertstormfront/ui/Label;	damageEnemyShadow
+com.desertstormfront.ui.hud.ScoreDialog	F	h	Lcom/desertstormfront/ui/Label;	damageEnemy
+com.desertstormfront.ui.hud.ScoreDialog	F	i	Lcom/desertstormfront/ui/Label;	basesPlayerShadow
+com.desertstormfront.ui.hud.ScoreDialog	F	j	Lcom/desertstormfront/ui/Label;	basesPlayer
+com.desertstormfront.ui.hud.ScoreDialog	F	k	Lcom/desertstormfront/ui/Label;	basesEnemyShadow
+com.desertstormfront.ui.hud.ScoreDialog	F	l	Lcom/desertstormfront/ui/Label;	basesEnemy
+com.desertstormfront.ui.hud.ScoreDialog	F	m	Lcom/desertstormfront/ui/Image;	
+com.desertstormfront.ui.hud.ScoreDialog	F	n	Lcom/desertstormfront/ui/Image;	
+com.desertstormfront.ui.hud.ScoreDialog	F	o	Lcom/desertstormfront/ui/Image;	

@@ -1,0 +1,89 @@
+# ui field batch 1: the widget primitives (62 fields).
+#
+# Widget: its own accessors name every member - getData/setData (a), isVisible/setVisible (b),
+#   get/setX (c), Y (d), Width (e), Height (f) - and the only remaining int, g, is what the
+#   constructor's setColor(-1) and every draw call's getColor() use -> color.
+# Button: getStyle/setStyle (b), setLabel (c) and the ButtonState field toggled by handleInput (a).
+# Checkbox: same shape, with checked (b) toggled in handleInput and the doubled frame index in draw
+#   (state.ordinal() + (checked ? 4 : 0) / pressed flips it) confirming CheckboxStyle.frameX/frameY.
+# ButtonStyle / CheckboxStyle: draw() reads a[state]/b[state] as the frame x/y and c/d as the widget
+#   size (also used as the label's max width in the screens: getDialogButtonStyle().c).
+# Label: font (a), align (b), text (c), maxWidth (d) from their accessors; halfScale (e) is the
+#   constructor boolean that halves every advance and glyph offset in the draw path.
+# ListBox: selectedIndex (a), items (b), listener (c), previousButton/nextButton (e/f, data 0 and 1,
+#   enabled by index bounds) and label (g); d is the "just changed" flag the arrow buttons set and
+#   handleInput turns into one onAction call.
+# NinePatch: NinePatchImage.draw walks the eight values as four column and four row coordinates -
+#   columns left..leftSplit..rightSplit..right (a..d) and rows top..topSplit..bottomSplit..bottom
+#   (e..h) - which the nine batched draws reuse tile by tile.
+# NinePatchImage.ninePatch (a), TextureRegion.x/y/width/height (a..d, confirmed in BaseMenuScreen
+#   where textureRegion.c/d are passed to setWidth/setHeight), Container.children (a, addChild/
+#   clearChildren), Image.region (a).
+# ScrollPane: state (a), style (b), content (c), clipRect (d), lastInputTime (e, the nanoTime base of
+#   the frame delta), dragStartY (f), the 16-slot input history (h = timestamps, i = y positions)
+#   walked backwards from historyIndex (g) to compute the fling velocity (k), dragStartContentY (j),
+#   dragRegion (l: -1 when the press landed on the scroll bar, otherwise the content) and flinging
+#   (m), which keeps integrating the velocity after the release until it drops below 2.64 px/s.
+com.desertstormfront.ui.Widget	F	a	Ljava/lang/Object;	data
+com.desertstormfront.ui.Widget	F	b	Z	visible
+com.desertstormfront.ui.Widget	F	c	F	x
+com.desertstormfront.ui.Widget	F	d	F	y
+com.desertstormfront.ui.Widget	F	e	F	width
+com.desertstormfront.ui.Widget	F	f	F	height
+com.desertstormfront.ui.Widget	F	g	I	color
+com.desertstormfront.ui.Button	F	a	Lcom/desertstormfront/ui/ButtonState;	state
+com.desertstormfront.ui.Button	F	b	Lcom/desertstormfront/ui/ButtonStyle;	style
+com.desertstormfront.ui.Button	F	c	Lcom/desertstormfront/ui/Widget;	label
+com.desertstormfront.ui.ButtonStyle	F	a	[I	frameX
+com.desertstormfront.ui.ButtonStyle	F	b	[I	frameY
+com.desertstormfront.ui.ButtonStyle	F	c	I	width
+com.desertstormfront.ui.ButtonStyle	F	d	I	height
+com.desertstormfront.ui.Checkbox	F	a	Lcom/desertstormfront/ui/CheckboxState;	state
+com.desertstormfront.ui.Checkbox	F	b	Z	checked
+com.desertstormfront.ui.Checkbox	F	c	Lcom/desertstormfront/ui/CheckboxStyle;	style
+com.desertstormfront.ui.Checkbox	F	d	Lcom/desertstormfront/ui/Widget;	label
+com.desertstormfront.ui.CheckboxStyle	F	a	[I	frameX
+com.desertstormfront.ui.CheckboxStyle	F	b	[I	frameY
+com.desertstormfront.ui.CheckboxStyle	F	c	I	width
+com.desertstormfront.ui.CheckboxStyle	F	d	I	height
+com.desertstormfront.ui.Container	F	a	Ljava/util/List;	children
+com.desertstormfront.ui.GlTexture	F	a	Lcom/badlogic/gdx/graphics/Texture;	
+com.desertstormfront.ui.Image	F	a	Lcom/desertstormfront/ui/TextureRegion;	region
+com.desertstormfront.ui.Label	F	a	Lcom/desertstormfront/ui/BitmapFont;	font
+com.desertstormfront.ui.Label	F	b	Lcom/desertstormfront/ui/Align;	align
+com.desertstormfront.ui.Label	F	c	Ljava/lang/String;	text
+com.desertstormfront.ui.Label	F	d	I	maxWidth
+com.desertstormfront.ui.Label	F	e	Z	halfScale
+com.desertstormfront.ui.ListBox	F	a	I	selectedIndex
+com.desertstormfront.ui.ListBox	F	b	[Ljava/lang/String;	items
+com.desertstormfront.ui.ListBox	F	c	Lcom/desertstormfront/ui/ActionListener;	listener
+com.desertstormfront.ui.ListBox	F	d	Z	changed
+com.desertstormfront.ui.ListBox	F	e	Lcom/desertstormfront/ui/Button;	previousButton
+com.desertstormfront.ui.ListBox	F	f	Lcom/desertstormfront/ui/Button;	nextButton
+com.desertstormfront.ui.ListBox	F	g	Lcom/desertstormfront/ui/Label;	label
+com.desertstormfront.ui.NinePatch	F	a	I	left
+com.desertstormfront.ui.NinePatch	F	b	I	leftSplit
+com.desertstormfront.ui.NinePatch	F	c	I	rightSplit
+com.desertstormfront.ui.NinePatch	F	d	I	right
+com.desertstormfront.ui.NinePatch	F	e	I	top
+com.desertstormfront.ui.NinePatch	F	f	I	topSplit
+com.desertstormfront.ui.NinePatch	F	g	I	bottomSplit
+com.desertstormfront.ui.NinePatch	F	h	I	bottom
+com.desertstormfront.ui.NinePatchImage	F	a	Lcom/desertstormfront/ui/NinePatch;	ninePatch
+com.desertstormfront.ui.ScrollPane	F	a	Lcom/desertstormfront/ui/ScrollState;	state
+com.desertstormfront.ui.ScrollPane	F	b	Lcom/desertstormfront/ui/ScrollBarStyle;	style
+com.desertstormfront.ui.ScrollPane	F	c	Lcom/desertstormfront/ui/Widget;	content
+com.desertstormfront.ui.ScrollPane	F	d	Lcom/desertstormfront/ui/ClipRect;	clipRect
+com.desertstormfront.ui.ScrollPane	F	e	J	lastInputTime
+com.desertstormfront.ui.ScrollPane	F	f	F	dragStartY
+com.desertstormfront.ui.ScrollPane	F	g	I	historyIndex
+com.desertstormfront.ui.ScrollPane	F	h	[J	historyTimes
+com.desertstormfront.ui.ScrollPane	F	i	[F	historyPositions
+com.desertstormfront.ui.ScrollPane	F	j	F	dragStartContentY
+com.desertstormfront.ui.ScrollPane	F	k	F	flingVelocity
+com.desertstormfront.ui.ScrollPane	F	l	I	dragRegion
+com.desertstormfront.ui.ScrollPane	F	m	Z	flinging
+com.desertstormfront.ui.TextureRegion	F	a	I	x
+com.desertstormfront.ui.TextureRegion	F	b	I	y
+com.desertstormfront.ui.TextureRegion	F	c	I	width
+com.desertstormfront.ui.TextureRegion	F	d	I	height

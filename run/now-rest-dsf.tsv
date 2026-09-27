@@ -1,0 +1,46 @@
+# Skeleton for com.desertstormfront (package-wide) - fill in the LAST column (semantic name), then:
+#   powershell -File run\deobf-rename.ps1 -Map run\now-rest-dsf.tsv            # dry-run (also validates the map)
+#   powershell -File run\deobf-rename.ps1 -Map run\now-rest-dsf.tsv -Apply    # write
+# Descriptors come from javap: do not edit them, the renamer matches on them.
+# A row with a BLANK last column must keep its trailing tab, or it loses a column and is
+# misparsed as a different layout (see 26, pitfall 10).
+# 2697 already-semantic method(s) omitted; use -All to include them.
+# Columns: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> new
+com.desertstormfront.ai.intent.AIContext	M	c	()I	
+com.desertstormfront.ai.intent.AIContext	M	a	(I)V	
+com.desertstormfront.ai.intent.UnitRequest	M	of	(Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/model/UnitType;)Lcom/desertstormfront/ai/intent/UnitRequest;	
+com.desertstormfront.command.DirectUnitCommander	M	b	(Lcom/desertstormfront/game/model/Unit;)Z	
+com.desertstormfront.command.NetworkedUnitCommander	M	b	(Lcom/desertstormfront/game/model/Unit;)Z	
+com.desertstormfront.command.UnitCommander	M	b	(Lcom/desertstormfront/game/model/Unit;)Z	
+com.desertstormfront.command.UnitCommander	M	b	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;)Z	
+com.desertstormfront.game.model.Site	M	of	(Lcom/desertstormfront/game/model/TerrainType;ILcom/desertstormfront/world/Vec2;)Lcom/desertstormfront/game/model/Site;	
+com.desertstormfront.game.model.Unit	M	c	(Lcom/desertstormfront/game/model/UnitList;)V	
+com.desertstormfront.game.model.Unit	M	d	(Lcom/desertstormfront/game/model/UnitList;)V	
+com.desertstormfront.game.model.Unit	M	b	(Lcom/desertstormfront/game/model/Volley;)V	
+com.desertstormfront.game.model.Unit	M	Y	()Lcom/desertstormfront/world/UnitPosition;	
+com.desertstormfront.game.model.Unit	M	Z	()Z	
+com.desertstormfront.game.model.Unit	M	b	(Lcom/desertstormfront/world/UnitPosition;)V	
+com.desertstormfront.game.model.Unit	M	ad	()Lcom/desertstormfront/game/model/UnitList;	
+com.desertstormfront.game.model.Unit	M	ae	()Z	
+com.desertstormfront.game.model.Unit	M	af	()Lcom/desertstormfront/world/UnitPosition;	
+com.desertstormfront.game.model.Unit	M	ag	()Lcom/desertstormfront/game/model/UnitList;	
+com.desertstormfront.game.model.Unit	M	ai	()Z	
+com.desertstormfront.game.model.Unit	M	ak	()Z	
+com.desertstormfront.game.model.Unit	M	k	(Lcom/desertstormfront/game/model/Unit;)Lcom/desertstormfront/world/UnitPosition;	
+com.desertstormfront.game.model.UnitType	M	r	()Z	
+com.desertstormfront.game.player.Player	M	c	()J	
+com.desertstormfront.game.player.Player	M	a	(J)V	
+com.desertstormfront.game.player.Player	M	o	()I	
+com.desertstormfront.game.player.Player	M	b	(I)V	
+com.desertstormfront.io.WorldSerializer	M	a	(Ljava/lang/String;[Ljava/lang/String;)V	
+com.desertstormfront.session.impl.CampaignGameMode	M	p	()Z	
+com.desertstormfront.session.impl.TestScenarioMode	M	e	()V	
+com.desertstormfront.session.impl.TestScenarioMode	M	f	()V	
+com.desertstormfront.session.impl.TutorialGameMode	M	e	()V	
+com.desertstormfront.session.impl.TutorialGameMode	M	f	()V	
+com.desertstormfront.ui.Label	M	a	(I)V	
+com.desertstormfront.ui.hud.SelectionPanelBase	M	a	(Ljava/lang/String;ZZZZZZ)V	
+com.desertstormfront.world.DirectionFieldPathFinder	M	a	()[I	
+com.desertstormfront.world.Neighbor	M	of	(II)Lcom/desertstormfront/world/Neighbor;	
+com.desertstormfront.world.RoadTile	M	b	()Z	
+com.desertstormfront.world.RoadTile	M	a	(Z)V	

@@ -1,0 +1,59 @@
+# ui field batch 3: GuiAssets' private members plus the dialog/hint widgets (38 fields).
+#
+# GuiAssets: the fields were already carrying their semantic names when the accessors were named, so
+#   this pass only aligns the declarations with them - dialogContentInsets (i, the four insets
+#   BaseMenuScreen applies), menuButtonStyle (s), listPanelNinePatch (t), rowNinePatch (u),
+#   rowHighlightRegion (v), menuListBoxItemStyle/menuListBoxSelectionStyle (x/y), menuPanelNinePatch
+#   (z), optionRowNinePatch (A), hintBoxNinePatch (B), hintBoxButtonStyle (C) and hintPointerRegion
+#   (D). Its other CheckboxStyle (o) has no accessor and is never read - it stays unnamed.
+# TutorialHintBox: stepPlayer (a, the StepSequencePlayer every notifyStepEvent feeds), nextListener
+#   (b, NextClickListener), contentContainer (c), backgroundPatch (d), textLabel (e), nextButton (f),
+#   pointerImage (g), and the pointer bob state: pointerBaseY (h, the anchor Y), pointerBobOffset (i,
+#   integrated by delta*6e-8 and clamped to [-10,0]), bobbingUp (j, flipped at the clamp) and
+#   lastFrameTime (k, the nanoTime base of that integration).
+# NextClickListener/TutorialListener: the single field is the hint box they were constructed with.
+# LoadingProgressDialog: messageLabel (a, what setMessage writes), the ten progressSegments (b), the
+#   networkMode flag (c, the constructor boolean that switches the dialog's frame) and
+#   lastUpdateTime (d, the throttle for the progress redraw).
+# MessageDialog: titleLabel (a) with its 2px offset titleShadowLabel (b), scrollPane (c) whose
+#   content is textLabel (d), and buttons (e, the button list setLines rebuilds).
+# OkDialog is the same layout without the buttons, so its four fields take the same names.
+com.desertstormfront.ui.hud.GuiAssets	F	i	[I	dialogContentInsets
+com.desertstormfront.ui.hud.GuiAssets	F	o	Lcom/desertstormfront/ui/CheckboxStyle;	
+com.desertstormfront.ui.hud.GuiAssets	F	s	Lcom/desertstormfront/ui/ButtonStyle;	menuButtonStyle
+com.desertstormfront.ui.hud.GuiAssets	F	t	Lcom/desertstormfront/ui/NinePatch;	listPanelNinePatch
+com.desertstormfront.ui.hud.GuiAssets	F	u	Lcom/desertstormfront/ui/NinePatch;	rowNinePatch
+com.desertstormfront.ui.hud.GuiAssets	F	v	Lcom/desertstormfront/ui/TextureRegion;	rowHighlightRegion
+com.desertstormfront.ui.hud.GuiAssets	F	x	Lcom/desertstormfront/ui/ButtonStyle;	menuListBoxItemStyle
+com.desertstormfront.ui.hud.GuiAssets	F	y	Lcom/desertstormfront/ui/ButtonStyle;	menuListBoxSelectionStyle
+com.desertstormfront.ui.hud.GuiAssets	F	z	Lcom/desertstormfront/ui/NinePatch;	menuPanelNinePatch
+com.desertstormfront.ui.hud.GuiAssets	F	A	Lcom/desertstormfront/ui/NinePatch;	optionRowNinePatch
+com.desertstormfront.ui.hud.GuiAssets	F	B	Lcom/desertstormfront/ui/NinePatch;	hintBoxNinePatch
+com.desertstormfront.ui.hud.GuiAssets	F	C	Lcom/desertstormfront/ui/ButtonStyle;	hintBoxButtonStyle
+com.desertstormfront.ui.hud.GuiAssets	F	D	Lcom/desertstormfront/ui/TextureRegion;	hintPointerRegion
+com.desertstormfront.ui.hud.LoadingProgressDialog	F	a	Lcom/desertstormfront/ui/Label;	messageLabel
+com.desertstormfront.ui.hud.LoadingProgressDialog	F	b	[Lcom/desertstormfront/ui/Image;	progressSegments
+com.desertstormfront.ui.hud.LoadingProgressDialog	F	c	Z	networkMode
+com.desertstormfront.ui.hud.LoadingProgressDialog	F	d	J	lastUpdateTime
+com.desertstormfront.ui.hud.MessageDialog	F	a	Lcom/desertstormfront/ui/Label;	titleLabel
+com.desertstormfront.ui.hud.MessageDialog	F	b	Lcom/desertstormfront/ui/Label;	titleShadowLabel
+com.desertstormfront.ui.hud.MessageDialog	F	c	Lcom/desertstormfront/ui/ScrollPane;	scrollPane
+com.desertstormfront.ui.hud.MessageDialog	F	d	Lcom/desertstormfront/ui/Label;	textLabel
+com.desertstormfront.ui.hud.MessageDialog	F	e	Ljava/util/List;	buttons
+com.desertstormfront.ui.hud.NextClickListener	F	a	Lcom/desertstormfront/ui/hud/TutorialHintBox;	hintBox
+com.desertstormfront.ui.hud.OkDialog	F	a	Lcom/desertstormfront/ui/Label;	titleLabel
+com.desertstormfront.ui.hud.OkDialog	F	b	Lcom/desertstormfront/ui/Label;	titleShadowLabel
+com.desertstormfront.ui.hud.OkDialog	F	c	Lcom/desertstormfront/ui/ScrollPane;	scrollPane
+com.desertstormfront.ui.hud.OkDialog	F	d	Lcom/desertstormfront/ui/Label;	textLabel
+com.desertstormfront.ui.hud.TutorialHintBox	F	a	Lcom/noblemaster/lib/script/StepSequencePlayer;	stepPlayer
+com.desertstormfront.ui.hud.TutorialHintBox	F	b	Lcom/desertstormfront/ui/ActionListener;	nextListener
+com.desertstormfront.ui.hud.TutorialHintBox	F	c	Lcom/desertstormfront/ui/Container;	contentContainer
+com.desertstormfront.ui.hud.TutorialHintBox	F	d	Lcom/desertstormfront/ui/NinePatchImage;	backgroundPatch
+com.desertstormfront.ui.hud.TutorialHintBox	F	e	Lcom/desertstormfront/ui/Label;	textLabel
+com.desertstormfront.ui.hud.TutorialHintBox	F	f	Lcom/desertstormfront/ui/Button;	nextButton
+com.desertstormfront.ui.hud.TutorialHintBox	F	g	Lcom/desertstormfront/ui/Image;	pointerImage
+com.desertstormfront.ui.hud.TutorialHintBox	F	h	F	pointerBaseY
+com.desertstormfront.ui.hud.TutorialHintBox	F	i	F	pointerBobOffset
+com.desertstormfront.ui.hud.TutorialHintBox	F	j	Z	bobbingUp
+com.desertstormfront.ui.hud.TutorialHintBox	F	k	J	lastFrameTime
+com.desertstormfront.ui.hud.TutorialListener	F	a	Lcom/desertstormfront/ui/hud/TutorialHintBox;	hintBox

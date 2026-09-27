@@ -1,0 +1,63 @@
+# Method batch: ui.VectorTextRenderer, ui.hud.TutorialHintBox and the confident part of
+# ui.hud.GuiAssets.
+#
+# Evidence (two independent sources per row):
+#  * VectorTextRenderer - read straight off the bodies: a(int) caches a packed colour into the two
+#    short halves r/s; a(int,int) builds the 2D orthographic matrix (2/w, -2/h) and uploads it to
+#    u_mvpMatrix; a() calls ShaderProgram.a() (bind); the draw family ends in a(int,int,int,int,int)
+#    which pushes ONE line segment into the vertex/index buffers; a(float,float,float,float,int)
+#    fills that rectangle row by row, so it is a filled rect; c() disposes every GlBuffer and then
+#    calls ShaderProgram.b() (dispose).
+#  * TutorialHintBox   - a(II) sets width/height then re-anchors; a() and the "Next" button share the
+#    same condition (scriptStep.c() == null) at L135, so a() means "this step waits for a click";
+#    b(II)/c() show and hide the arrow Image g (whose y is animated in draw()); the private d()
+#    re-reads the current step into the label and re-measures the box; m() parses the "L|C:R" and
+#    "T|C|CT|CB|B" anchors of step position.
+#  * GuiAssets         - fonts are named from the font file each getter returns
+#    (font_dokchampa_15, font_xirod_17, font_dungeon_34/25, font_dungeon_15_outline);
+#    a(Faction) indexes the 10-entry TextureRegion[] r by faction id (flags);
+#    D() is called at the top of button listeners (RestartConfirmListener L22, QuitConfirmListener,
+#    PlayerSlotListener, PauseMenuListener) and its body is AudioClip.a() -> play the click sound.
+#
+# Rows left BLANK on purpose (keep the trailing tab, they stay 5-column):
+#  * TutorialHintBox.b() - returns ScriptStep.d(), the 4th field of a tutorial row; its meaning is
+#    not established by any call site yet.
+#  * GuiAssets styles/nine-patches (i..C, j, k, l..q, r..C) - each is only a set of texture
+#    coordinates; the honest name comes from WHERE it is used, which needs a per-caller pass.
+#
+# Descriptors come from javap: do not edit them, the renamer matches on them.
+# Columns: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> new
+com.desertstormfront.ui.VectorTextRenderer	M	a	(I)V	setColor
+com.desertstormfront.ui.VectorTextRenderer	M	a	(II)V	setViewport
+com.desertstormfront.ui.VectorTextRenderer	M	a	()V	bindShader
+com.desertstormfront.ui.VectorTextRenderer	M	a	(FFLjava/lang/String;II)V	drawText
+com.desertstormfront.ui.VectorTextRenderer	M	a	(IILjava/lang/String;II)V	drawText
+com.desertstormfront.ui.VectorTextRenderer	M	a	(IICII)V	drawGlyph
+com.desertstormfront.ui.VectorTextRenderer	M	a	(FFFFI)V	fillRectangle
+com.desertstormfront.ui.VectorTextRenderer	M	b	(FFFFI)V	drawLine
+com.desertstormfront.ui.VectorTextRenderer	M	a	(IIIII)V	drawLine
+com.desertstormfront.ui.VectorTextRenderer	M	b	()V	flush
+com.desertstormfront.ui.VectorTextRenderer	M	d	()V	flushBatch
+com.desertstormfront.ui.VectorTextRenderer	M	c	()V	dispose
+com.desertstormfront.ui.hud.TutorialHintBox	M	a	(II)V	setSize
+com.desertstormfront.ui.hud.TutorialHintBox	M	a	()Z	isWaitingForConfirmation
+com.desertstormfront.ui.hud.TutorialHintBox	M	b	()Ljava/lang/String;	
+com.desertstormfront.ui.hud.TutorialHintBox	M	a	(FFZ)V	handlePointer
+com.desertstormfront.ui.hud.TutorialHintBox	M	a	(Ljava/lang/String;)V	notifyStepEvent
+com.desertstormfront.ui.hud.TutorialHintBox	M	b	(II)V	showPointerAt
+com.desertstormfront.ui.hud.TutorialHintBox	M	c	()V	hidePointer
+com.desertstormfront.ui.hud.TutorialHintBox	M	d	()V	applyCurrentStep
+com.desertstormfront.ui.hud.TutorialHintBox	M	m	()V	layoutByAnchor
+com.desertstormfront.ui.hud.TutorialHintBox	M	a	(Lcom/desertstormfront/ui/hud/TutorialHintBox;)V	refreshFromListener
+com.desertstormfront.ui.hud.TutorialHintBox	M	b	(Lcom/desertstormfront/ui/hud/TutorialHintBox;)Lcom/noblemaster/lib/script/StepSequencePlayer;	getStepPlayerFromListener
+com.desertstormfront.ui.hud.GuiAssets	M	a	()Ljava/lang/String;	getFontSuffix
+com.desertstormfront.ui.hud.GuiAssets	M	E	()Ljava/lang/String;	resolveFontSuffix
+com.desertstormfront.ui.hud.GuiAssets	M	b	()[Lcom/noblemaster/lib/io/GameFile;	getGuiTextureFiles
+com.desertstormfront.ui.hud.GuiAssets	M	c	()Lcom/desertstormfront/ui/BitmapFont;	getDefaultFont
+com.desertstormfront.ui.hud.GuiAssets	M	d	()Lcom/desertstormfront/ui/BitmapFont;	getFontDokchampa15
+com.desertstormfront.ui.hud.GuiAssets	M	e	()Lcom/desertstormfront/ui/BitmapFont;	getFontXirod17
+com.desertstormfront.ui.hud.GuiAssets	M	f	()Lcom/desertstormfront/ui/BitmapFont;	getFontDungeon34
+com.desertstormfront.ui.hud.GuiAssets	M	g	()Lcom/desertstormfront/ui/BitmapFont;	getFontDungeon25
+com.desertstormfront.ui.hud.GuiAssets	M	h	()Lcom/desertstormfront/ui/BitmapFont;	getFontDungeon15Outline
+com.desertstormfront.ui.hud.GuiAssets	M	a	(Lcom/desertstormfront/game/player/Faction;)Lcom/desertstormfront/ui/TextureRegion;	getFlagRegion
+com.desertstormfront.ui.hud.GuiAssets	M	D	()V	playClickSound

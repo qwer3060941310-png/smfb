@@ -1,0 +1,30 @@
+# UserConfig no-arg methods: old<TAB>new
+# Every entry maps 1:1 to a static field whose meaning is fixed by its
+# user.config property key (see UserConfig.B()/C()), so confidence is high.
+a	load
+b	getLanguage
+c	isFullScreen
+d	getAudioVolume
+e	getMusicVolume
+f	getWorldSpeedFactor
+g	isRenderDetails
+h	getMultiplayerPort
+i	isTouchScroll
+j	isMouseControl
+k	getScrollSpeed
+l	getScrollKeyLeft
+m	getScrollKeyRight
+n	getScrollKeyUp
+o	getScrollKeyDown
+p	getSquadSelectKeys
+q	getActionKeyStop
+r	getActionKeyRepair
+s	getActionKeyPatrol
+t	getActionKeyGroup
+u	getActionKeyUngroup
+v	getActionKeyDeselect
+w	isDisplayAi
+x	isShowTutorialDialog
+y	getNewsSeenVersion
+z	getPlayingTime
+A	getStatistics

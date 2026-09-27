@@ -1,0 +1,15 @@
+# Skeleton for com.desertstormfront.screen (package-wide) - fill in the LAST column (semantic name), then:
+#   powershell -File run\deobf-rename.ps1 -Map run\now-screen-methods.tsv            # dry-run (also validates the map)
+#   powershell -File run\deobf-rename.ps1 -Map run\now-screen-methods.tsv -Apply    # write
+# Descriptors come from javap: do not edit them, the renamer matches on them.
+# A row with a BLANK last column must keep its trailing tab, or it loses a column and is
+# misparsed as a different layout (see 26, pitfall 10).
+# 294 already-semantic method(s) omitted; use -All to include them.
+# Columns: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> new
+com.desertstormfront.screen.BaseScreen	M	y	()V	
+com.desertstormfront.screen.CampaignScreen	M	j	()V	
+com.desertstormfront.screen.CampaignScreen	M	k	()V	
+com.desertstormfront.screen.GameScene	M	a	()Z	
+com.desertstormfront.screen.GameScene	M	b	()Z	
+com.desertstormfront.screen.GameScreen	M	r	(Lcom/desertstormfront/screen/GameScreen;)J	
+com.desertstormfront.screen.GameScreen	M	a	(Lcom/desertstormfront/screen/GameScreen;J)V	

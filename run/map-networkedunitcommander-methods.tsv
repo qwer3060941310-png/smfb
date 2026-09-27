@@ -1,0 +1,23 @@
+# NetworkedUnitCommander batch: owner | M | old | descriptor | semantic name
+#
+# This class is abstract and declares its own boolean "can X" checks on top of the base
+# contract; each one is a one-line delegation to the same-named check in UnitCommander, so
+# the semantics are those of the target helper (canRepair/canStop/canTargetUnit/...).
+# Two rows are blank on purpose: b(Unit) duplicates the already-renamed isCommandable, and
+# o(Unit) delegates to UnitCommander.m(W,P,Unit), whose precondition Unit.g() is unnamed.
+# Descriptors come from javap - do not edit them.
+com.desertstormfront.command.NetworkedUnitCommander	M	d	(Lcom/desertstormfront/game/model/Unit;FF)Z	canMoveUnitTo
+com.desertstormfront.command.NetworkedUnitCommander	M	b	(Lcom/desertstormfront/game/model/UnitList;FF)Z	canAnyUnitMoveTo
+com.desertstormfront.command.NetworkedUnitCommander	M	c	(Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/model/Unit;)Z	canTargetUnit
+com.desertstormfront.command.NetworkedUnitCommander	M	b	(Lcom/desertstormfront/game/model/UnitList;Lcom/desertstormfront/game/model/Unit;)Z	hasUnitThatCanTarget
+com.desertstormfront.command.NetworkedUnitCommander	M	b	(Lcom/desertstormfront/game/model/Unit;)Z	
+com.desertstormfront.command.NetworkedUnitCommander	M	e	(Lcom/desertstormfront/game/model/Unit;FF)Z	canAttackMoveUnitTo
+com.desertstormfront.command.NetworkedUnitCommander	M	d	(Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/model/Unit;)Z	canAttackUnit
+com.desertstormfront.command.NetworkedUnitCommander	M	m	(Lcom/desertstormfront/game/model/Unit;)Z	canToggleHostedAuto
+com.desertstormfront.command.NetworkedUnitCommander	M	j	(Lcom/desertstormfront/game/model/UnitList;)Z	canToggleHostedAutoAny
+com.desertstormfront.command.NetworkedUnitCommander	M	b	(Lcom/desertstormfront/game/player/UnitGroup;Lcom/desertstormfront/game/model/UnitList;)Z	canFormSquad
+com.desertstormfront.command.NetworkedUnitCommander	M	n	(Lcom/desertstormfront/game/model/Unit;)Z	hasSquad
+com.desertstormfront.command.NetworkedUnitCommander	M	k	(Lcom/desertstormfront/game/model/UnitList;)Z	hasSquadAny
+com.desertstormfront.command.NetworkedUnitCommander	M	f	(Lcom/desertstormfront/game/model/Unit;FF)Z	canSetRallyPoint
+com.desertstormfront.command.NetworkedUnitCommander	M	o	(Lcom/desertstormfront/game/model/Unit;)Z	
+com.desertstormfront.command.NetworkedUnitCommander	M	p	(Lcom/desertstormfront/game/model/Unit;)Z	canCancelBuild

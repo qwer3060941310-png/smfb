@@ -1,0 +1,7 @@
+# GameCommand dispatch/serialisation: owner | M | old | descriptor | new (from reverse\mapping\members.tsv); subclasses follow via the override family
+# Source: reverse\mapping/members.tsv (already reviewed there; this file is a run-time input)
+com/desertstormfront/command/GameCommand	M	a	(Lcom/desertstormfront/game/World;)V	execute
+com/desertstormfront/command/GameCommand	M	a	(Lcom/noblemaster/lib/io/stream/DataReader;)V	readFields
+com/desertstormfront/command/GameCommand	M	a	(Lcom/noblemaster/lib/io/stream/DataWriter;)V	writeFields
+com/desertstormfront/command/GameCommand	M	b	(Lcom/noblemaster/lib/io/stream/DataReader;)Lcom/desertstormfront/command/GameCommand;	read
+com/desertstormfront/command/GameCommand	M	b	(Lcom/noblemaster/lib/io/stream/DataWriter;)V	write

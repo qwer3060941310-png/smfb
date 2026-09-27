@@ -1,0 +1,36 @@
+# GuiAssets batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# com.desertstormfront.ui.hud.GuiAssets - the global UI asset registry (static typed accessors).
+# The fonts (fontDokchampa15...), defaultFont, flagRegions, clickSound and the get* / resolve*
+# methods are already meaningfully named, so they are not in this map. Only the anonymous
+# widget-style / nine-patch accessors are renamed, each confirmed from its call sites:
+#   h/NinePatch  -> backgroundNinePatch  : NinePatchImage(GuiAssets.i()) panel backdrops
+#                   (Options/Manual/Credits/Campaign/MultiplayerLobby/Skirmish screens).
+#   j/ScrollBarStyle -> scrollBarStyle   : new ScrollPane(GuiAssets.k()) everywhere.
+#   k/ButtonStyle -> dialogButtonStyle   : Button(GuiAssets.l(),...) in OkDialog/MessageDialog/InGameMenu.
+#   l/ButtonStyle -> unitSlotButtonStyle : Button(GuiAssets.m()...) in BuildingPanel/SquadPanel/SingleUnitPanel.
+#   m/ButtonStyle -> productionButtonStyle: the 6 production-choice buttons in BuildingPanel top row.
+#   n/ButtonStyle -> fullCountButtonStyle : state source copied onto a full sub-unit button (BuildingPanel a()).
+#   p/ButtonStyle -> listBoxItemStyle    : ListBox(GuiAssets.p(),...) item background (InGameMenu).
+#   q/ButtonStyle -> listBoxSelectionStyle: ListBox(...,GuiAssets.q(),...) selection (InGameMenu).
+#   w/CheckboxStyle -> checkboxStyle     : the only CheckboxStyle built.
+# The remaining single-letter accessors (other NinePatch/ButtonStyle/TextureRegion/assets) have no
+# distinguishable role from the call sites and are deliberately left obfuscated.
+com.desertstormfront.ui.hud.GuiAssets	F	h	Lcom/desertstormfront/ui/NinePatch;	backgroundNinePatch
+com.desertstormfront.ui.hud.GuiAssets	F	j	Lcom/desertstormfront/ui/ScrollBarStyle;	scrollBarStyle
+com.desertstormfront.ui.hud.GuiAssets	F	k	Lcom/desertstormfront/ui/ButtonStyle;	dialogButtonStyle
+com.desertstormfront.ui.hud.GuiAssets	F	l	Lcom/desertstormfront/ui/ButtonStyle;	unitSlotButtonStyle
+com.desertstormfront.ui.hud.GuiAssets	F	m	Lcom/desertstormfront/ui/ButtonStyle;	productionButtonStyle
+com.desertstormfront.ui.hud.GuiAssets	F	n	Lcom/desertstormfront/ui/ButtonStyle;	fullCountButtonStyle
+com.desertstormfront.ui.hud.GuiAssets	F	p	Lcom/desertstormfront/ui/ButtonStyle;	listBoxItemStyle
+com.desertstormfront.ui.hud.GuiAssets	F	q	Lcom/desertstormfront/ui/ButtonStyle;	listBoxSelectionStyle
+com.desertstormfront.ui.hud.GuiAssets	F	w	Lcom/desertstormfront/ui/CheckboxStyle;	checkboxStyle
+com.desertstormfront.ui.hud.GuiAssets	M	i	()Lcom/desertstormfront/ui/NinePatch;	getBackgroundNinePatch
+com.desertstormfront.ui.hud.GuiAssets	M	k	()Lcom/desertstormfront/ui/ScrollBarStyle;	getScrollBarStyle
+com.desertstormfront.ui.hud.GuiAssets	M	l	()Lcom/desertstormfront/ui/ButtonStyle;	getDialogButtonStyle
+com.desertstormfront.ui.hud.GuiAssets	M	m	()Lcom/desertstormfront/ui/ButtonStyle;	getUnitSlotButtonStyle
+com.desertstormfront.ui.hud.GuiAssets	M	n	()Lcom/desertstormfront/ui/ButtonStyle;	getProductionButtonStyle
+com.desertstormfront.ui.hud.GuiAssets	M	o	()Lcom/desertstormfront/ui/ButtonStyle;	getFullCountButtonStyle
+com.desertstormfront.ui.hud.GuiAssets	M	p	()Lcom/desertstormfront/ui/ButtonStyle;	getListBoxItemStyle
+com.desertstormfront.ui.hud.GuiAssets	M	q	()Lcom/desertstormfront/ui/ButtonStyle;	getListBoxSelectionStyle
+com.desertstormfront.ui.hud.GuiAssets	M	v	()Lcom/desertstormfront/ui/CheckboxStyle;	getCheckboxStyle

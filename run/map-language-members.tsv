@@ -1,0 +1,49 @@
+# Language batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# Evidence is on the declaration line itself - every constant carries its own (code, name)
+# literal, so no guessing is involved:
+#   a = new Language("ar","Arabic") -> ARABIC ... z = new Language("zh","Chinese") -> CHINESE
+#   d("de") is labelled "Deutsch" -> GERMAN (English display name, as with all the others).
+# Non-constant members are pinned by their bodies:
+#   A is the Language[] used by every static lookup            -> VALUES
+#   B is validated as "2-letter language code" and returned by b()/toString() -> code
+#   C is the human readable label ("Arabic") returned by c()   -> displayName
+#   a(String) looks the code up in VALUES                      -> fromCode
+#   a(int) indexes VALUES                                      -> byIndex
+#   a() returns VALUES.length                                  -> count
+# No reflection or name-based persistence touches this class: UserConfig stores language.b()
+# (the 2-letter code), so renaming cannot change saved data.
+com.noblemaster.lib.data.Language	F	a	Lcom/noblemaster/lib/data/Language;	ARABIC
+com.noblemaster.lib.data.Language	F	b	Lcom/noblemaster/lib/data/Language;	CZECH
+com.noblemaster.lib.data.Language	F	c	Lcom/noblemaster/lib/data/Language;	DANISH
+com.noblemaster.lib.data.Language	F	d	Lcom/noblemaster/lib/data/Language;	GERMAN
+com.noblemaster.lib.data.Language	F	e	Lcom/noblemaster/lib/data/Language;	GREEK
+com.noblemaster.lib.data.Language	F	f	Lcom/noblemaster/lib/data/Language;	ENGLISH
+com.noblemaster.lib.data.Language	F	g	Lcom/noblemaster/lib/data/Language;	SPANISH
+com.noblemaster.lib.data.Language	F	h	Lcom/noblemaster/lib/data/Language;	FINNISH
+com.noblemaster.lib.data.Language	F	i	Lcom/noblemaster/lib/data/Language;	FRENCH
+com.noblemaster.lib.data.Language	F	j	Lcom/noblemaster/lib/data/Language;	HEBREW
+com.noblemaster.lib.data.Language	F	k	Lcom/noblemaster/lib/data/Language;	CROATIAN
+com.noblemaster.lib.data.Language	F	l	Lcom/noblemaster/lib/data/Language;	HUNGARIAN
+com.noblemaster.lib.data.Language	F	m	Lcom/noblemaster/lib/data/Language;	ITALIAN
+com.noblemaster.lib.data.Language	F	n	Lcom/noblemaster/lib/data/Language;	JAPANESE
+com.noblemaster.lib.data.Language	F	o	Lcom/noblemaster/lib/data/Language;	KOREAN
+com.noblemaster.lib.data.Language	F	p	Lcom/noblemaster/lib/data/Language;	DUTCH
+com.noblemaster.lib.data.Language	F	q	Lcom/noblemaster/lib/data/Language;	NORWEGIAN
+com.noblemaster.lib.data.Language	F	r	Lcom/noblemaster/lib/data/Language;	POLISH
+com.noblemaster.lib.data.Language	F	s	Lcom/noblemaster/lib/data/Language;	PORTUGUESE
+com.noblemaster.lib.data.Language	F	t	Lcom/noblemaster/lib/data/Language;	ROMANIAN
+com.noblemaster.lib.data.Language	F	u	Lcom/noblemaster/lib/data/Language;	RUSSIAN
+com.noblemaster.lib.data.Language	F	v	Lcom/noblemaster/lib/data/Language;	SLOVAK
+com.noblemaster.lib.data.Language	F	w	Lcom/noblemaster/lib/data/Language;	SLOVENIAN
+com.noblemaster.lib.data.Language	F	x	Lcom/noblemaster/lib/data/Language;	SWEDISH
+com.noblemaster.lib.data.Language	F	y	Lcom/noblemaster/lib/data/Language;	TURKISH
+com.noblemaster.lib.data.Language	F	z	Lcom/noblemaster/lib/data/Language;	CHINESE
+com.noblemaster.lib.data.Language	F	A	[Lcom/noblemaster/lib/data/Language;	VALUES
+com.noblemaster.lib.data.Language	F	B	Ljava/lang/String;	code
+com.noblemaster.lib.data.Language	F	C	Ljava/lang/String;	displayName
+com.noblemaster.lib.data.Language	M	a	(Ljava/lang/String;)Lcom/noblemaster/lib/data/Language;	fromCode
+com.noblemaster.lib.data.Language	M	a	(I)Lcom/noblemaster/lib/data/Language;	byIndex
+com.noblemaster.lib.data.Language	M	a	()I	count
+com.noblemaster.lib.data.Language	M	b	()Ljava/lang/String;	getCode
+com.noblemaster.lib.data.Language	M	c	()Ljava/lang/String;	getDisplayName

@@ -1,0 +1,62 @@
+# model + session batch (evidence-backed rows only)
+#
+# Sortable.a()/b(): GameScreen's draw dispatch is the reader -
+#   while ((s = ci.poll()) != null) { if (s.a()) drawSite((Site)s); else if (s.b())
+#   drawUnitMoveTargetMarker((PositionedSortable)s); else drawUnitSpriteAndOverlays((Unit)s); }
+#   and the three implementations return constants (Site true/false, Unit false/false,
+#   PositionedSortable false/true for the move-target proxy). So -> isSite / isMoveTargetMarker.
+#
+# Unit selectors, each pinned by exactly one reader:
+#   H()/a(boolean): UnitCommander's canToggleHostedAuto/toggleHostedAuto toggle it around
+#     canCarryAircraft(), and WorldSimulator launches getSubUnits() when it is set -> isHostedAuto.
+#   E()/e(int): WorldSimulator's kill branch does kills = unit.E() + 1; unit.e(kills) and promotes
+#     the rank at 4 -> getKillCount/setKillCount.
+#   F()/f(int): the same branch switches on it for damage dealt/received and GameScreen draws a
+#     rank badge for it -> getRank/setRank.
+#   L()/g(int): WorldSimulator picks RALLY_SPREADS[L() % len] and stores L()+1 -> the rally
+#     formation counter -> getRallySpreadIndex/setRallySpreadIndex.
+#   B(): position.getUnit() == null || (health == 1000 && (!flying || progress == altitude)) - true
+#     while the unit is not attached and (for produced/launching units) still incomplete; every
+#     reader uses it as "this unit is out on the map and done" (UnitCommander refuses orders,
+#     BuildingPanel/CarrierUnitPanel hide the production overlay) -> isDeployed.
+#   v()/b(float): WorldSimulator accumulates the movement step into it (unit.b(unit.v() + step))
+#     and GameScreen passes it as the progress argument of getProgressRegion -> getMoveProgress.
+#
+# UnitList.a(int) writes the id counter read by getNextId -> setNextId.
+# ProjectileList.a() clears every contained projectile -> clearAll (ArrayList.clear is taken).
+# BirdType.a() is multiplied by the frame delta to move the bird -> getSpeed.
+# UnitType: E() returns the flag that is true only for the supply truck in DsfRuleset and is read
+#   exactly where trucks are counted (EscortMode) or selected (InitTruckPlan) -> isTruck ;
+#   F() is the loop radius World.revealFog walks around a unit -> getVisionRadiusInTiles.
+# MapTemplatePainter.a(x, y, rows): paints one template block (corner land, sites and the units it
+#   spawns) and returns them -> paintTemplate (the synthetic static forwards to it).
+#
+# Deliberately unnamed: UnitType.r() (only reader is a standoff branch in WorldSimulator; no name
+# is forced by evidence), Player.c()/o() (write-only in the save path, o() only compared against
+# game time by AIPlanner), UnitType/BirdType remaining letters.
+com.desertstormfront.game.MapTemplatePainter	M	a	(II[Ljava/lang/String;)Lcom/desertstormfront/game/model/UnitList;	paintTemplate
+com.desertstormfront.game.MapTemplatePainter	M	a	(Lcom/desertstormfront/game/MapTemplatePainter;II[Ljava/lang/String;)Lcom/desertstormfront/game/model/UnitList;	paintTemplate
+com.desertstormfront.game.model.BirdType	M	a	()F	getSpeed
+com.desertstormfront.game.model.PositionedSortable	M	a	()Z	isSite
+com.desertstormfront.game.model.PositionedSortable	M	b	()Z	isMoveTargetMarker
+com.desertstormfront.game.model.ProjectileList	M	a	()V	clearAll
+com.desertstormfront.game.model.Site	M	a	()Z	isSite
+com.desertstormfront.game.model.Site	M	b	()Z	isMoveTargetMarker
+com.desertstormfront.game.model.Sortable	M	a	()Z	isSite
+com.desertstormfront.game.model.Sortable	M	b	()Z	isMoveTargetMarker
+com.desertstormfront.game.model.Unit	M	a	()Z	isSite
+com.desertstormfront.game.model.Unit	M	b	()Z	isMoveTargetMarker
+com.desertstormfront.game.model.Unit	M	H	()Z	isHostedAuto
+com.desertstormfront.game.model.Unit	M	a	(Z)V	setHostedAuto
+com.desertstormfront.game.model.Unit	M	E	()I	getKillCount
+com.desertstormfront.game.model.Unit	M	e	(I)V	setKillCount
+com.desertstormfront.game.model.Unit	M	F	()I	getRank
+com.desertstormfront.game.model.Unit	M	f	(I)V	setRank
+com.desertstormfront.game.model.Unit	M	L	()I	getRallySpreadIndex
+com.desertstormfront.game.model.Unit	M	g	(I)V	setRallySpreadIndex
+com.desertstormfront.game.model.Unit	M	B	()Z	isDeployed
+com.desertstormfront.game.model.Unit	M	v	()F	getMoveProgress
+com.desertstormfront.game.model.Unit	M	b	(F)V	setMoveProgress
+com.desertstormfront.game.model.UnitList	M	a	(I)V	setNextId
+com.desertstormfront.game.model.UnitType	M	E	()Z	isTruck
+com.desertstormfront.game.model.UnitType	M	F	()I	getVisionRadiusInTiles

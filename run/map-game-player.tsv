@@ -1,0 +1,49 @@
+# PlayerStatistics + Unit guard/move accessors batch
+#
+# PlayerStatistics: UserConfig pins every field through its persisted keys, and the save path
+# repeats it independently, so the six ints and their getters/setters are exact:
+#   b(int)/b() <=> "playing_stat_units_destroyed"   -> destroyedUnits
+#   a(int)/a() <=> "playing_stat_units_lost"        -> lostUnits
+#   c(int)/d() <=> "playing_stat_damage_inflicted"  -> damageInflicted
+#   d(int)/e() <=> "playing_stat_damage_received"   -> damageReceived
+#   e(int)/g() <=> "playing_bases_captured"         -> basesCaptured
+#   f(int)/h() <=> "playing_bases_lost"             -> basesLost
+#   The three computed members each clamp min(value*3/(lost*2), 3), i.e. a 0..3 star rating of one
+#   pair -> getUnitsRating (destroyed:lost), getDamageRating (inflicted:received),
+#   getBasesRating (captured:lost).
+#
+# Unit: aa() returns the field guarded by getGuardPositionOrNull(), and the plain getter name is
+#   free -> getGuardPosition. ae()/af()/ak() were tried as hasMoveTarget/getMoveTargetPosition/
+#   isEffectActive (their setters are already named), but RenameAst's collision check rejected all
+#   three: Unit already carries semantic accessors for the same state, i.e. they are duplicate
+#   leftover accessors with no distinct meaning. They stay obfuscated and are listed here with an
+#   empty target so the audit shows why.
+#   The remaining Unit accessors (Y, Z, ad, ag, ai, B, v, b(float), c/d(UnitList), b(Volley),
+#   a(boolean), e/f/g(int), E/F/H/L, the static k(Unit) and the Sortable pair) duplicate an
+#   existing semantic accessor of the same state or read a field whose meaning is not yet pinned,
+#   so they are left obfuscated (see the notes in run\map-game.tsv).
+com.desertstormfront.game.model.Unit	M	aa	()Lcom/desertstormfront/world/UnitPosition;	getGuardPosition
+com.desertstormfront.game.model.Unit	M	ae	()Z	
+com.desertstormfront.game.model.Unit	M	af	()Lcom/desertstormfront/world/UnitPosition;	
+com.desertstormfront.game.model.Unit	M	ak	()Z	
+com.desertstormfront.game.player.PlayerStatistics	F	a	I	destroyedUnits
+com.desertstormfront.game.player.PlayerStatistics	F	b	I	lostUnits
+com.desertstormfront.game.player.PlayerStatistics	F	c	I	damageInflicted
+com.desertstormfront.game.player.PlayerStatistics	F	d	I	damageReceived
+com.desertstormfront.game.player.PlayerStatistics	F	e	I	basesCaptured
+com.desertstormfront.game.player.PlayerStatistics	F	f	I	basesLost
+com.desertstormfront.game.player.PlayerStatistics	M	a	(I)V	setLostUnits
+com.desertstormfront.game.player.PlayerStatistics	M	a	()I	getLostUnits
+com.desertstormfront.game.player.PlayerStatistics	M	b	()I	getDestroyedUnits
+com.desertstormfront.game.player.PlayerStatistics	M	b	(I)V	setDestroyedUnits
+com.desertstormfront.game.player.PlayerStatistics	M	c	()I	getUnitsRating
+com.desertstormfront.game.player.PlayerStatistics	M	d	()I	getDamageInflicted
+com.desertstormfront.game.player.PlayerStatistics	M	c	(I)V	setDamageInflicted
+com.desertstormfront.game.player.PlayerStatistics	M	e	()I	getDamageReceived
+com.desertstormfront.game.player.PlayerStatistics	M	d	(I)V	setDamageReceived
+com.desertstormfront.game.player.PlayerStatistics	M	f	()I	getDamageRating
+com.desertstormfront.game.player.PlayerStatistics	M	g	()I	getBasesCaptured
+com.desertstormfront.game.player.PlayerStatistics	M	e	(I)V	setBasesCaptured
+com.desertstormfront.game.player.PlayerStatistics	M	h	()I	getBasesLost
+com.desertstormfront.game.player.PlayerStatistics	M	f	(I)V	setBasesLost
+com.desertstormfront.game.player.PlayerStatistics	M	i	()I	getBasesRating

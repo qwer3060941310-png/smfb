@@ -1,0 +1,17 @@
+# Skeleton for com.noblemaster.lib.io (package-wide) - fill in the LAST column (semantic name), then:
+#   powershell -File run\deobf-rename.ps1 -Map run\map-lib-io-fields.tsv            # dry-run (also validates the map)
+#   powershell -File run\deobf-rename.ps1 -Map run\map-lib-io-fields.tsv -Apply    # write
+# Descriptors come from javap: do not edit them, the renamer matches on them.
+# A row with a BLANK last column must keep its trailing tab, or it loses a column and is
+# misparsed as a different layout (see 26, pitfall 10).
+# 5 already-semantic method(s) omitted; use -All to include them.
+# Columns: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> new
+com.noblemaster.lib.io.DataFileResolver	F	a	Ljava/lang/String;	
+com.noblemaster.lib.io.FileLocation	F	d	Z	
+com.noblemaster.lib.io.FileLocation	F	e	Z	
+com.noblemaster.lib.io.GameFile	F	a	Lcom/noblemaster/lib/io/FileLocation;	
+com.noblemaster.lib.io.GameFile	F	b	Ljava/lang/String;	
+com.noblemaster.lib.io.stream.impl.StreamDataReader	F	a	Ljava/io/InputStream;	
+com.noblemaster.lib.io.stream.impl.StreamDataReader	F	b	Lcom/noblemaster/lib/io/stream/impl/StreamDataReader$UncheckedDataInputStream;	
+com.noblemaster.lib.io.stream.impl.StreamDataWriter	F	a	Ljava/io/OutputStream;	
+com.noblemaster.lib.io.stream.impl.StreamDataWriter	F	b	Lcom/noblemaster/lib/io/stream/impl/StreamDataWriter$UncheckedDataOutputStream;	

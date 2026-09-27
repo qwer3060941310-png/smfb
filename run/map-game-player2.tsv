@@ -1,0 +1,40 @@
+# game.player helper types batch (methods)
+#
+# Team / Faction / Difficulty / Controller: enum-style value types whose constructor tuples are
+# visible in the rulesets and in the enum constants itself:
+#   Team("TeamA[i18n]: Team A", "TEAM_A") -> getName / getKey ; the static lookup matches on the
+#   uppercase key -> fromKey.
+#   Faction(id, "USA[i18n]: USA", "USA") -> getId / getName / getKey ; FactionList searches by the
+#   third column -> getByKey.
+#   Difficulty("Casual[i18n]: Casual") -> getName.
+#   Controller("AI[i18n]: AI", Difficulty.Casual) -> the difficulty accessor is getDifficulty and
+#   the static lookup is the inverse mapping -> fromDifficulty.
+#
+# UnitGroup / UnitGroupSet: a squad slot (id + members) and the fixed-size set of them; UnitGroupSet
+#   builds one group per index in its constructor, so get(int)/size() are the natural accessors and
+#   the duplicate b(int) (same body as a(int)) is named getGroup to keep it distinct.
+#
+# PlayerList: a = alive player count -> countAlive ; b = whether the first player has a team
+#   -> hasTeams ; c = number of distinct teams among the alive players (bitmask over Team.ordinal)
+#   -> countAliveTeams ; d = teams when there are teams, otherwise players, i.e. the number of
+#   competing sides -> countActiveSides ; a(int) looks a player up by id -> getById.
+com.desertstormfront.game.player.Controller	M	a	()Lcom/desertstormfront/game/player/Difficulty;	getDifficulty
+com.desertstormfront.game.player.Controller	M	a	(Lcom/desertstormfront/game/player/Difficulty;)Lcom/desertstormfront/game/player/Controller;	fromDifficulty
+com.desertstormfront.game.player.Difficulty	M	a	()Ljava/lang/String;	getName
+com.desertstormfront.game.player.Faction	M	a	()I	getId
+com.desertstormfront.game.player.Faction	M	b	()Ljava/lang/String;	getName
+com.desertstormfront.game.player.Faction	M	c	()Ljava/lang/String;	getKey
+com.desertstormfront.game.player.FactionList	M	a	(Ljava/lang/String;)Lcom/desertstormfront/game/player/Faction;	getByKey
+com.desertstormfront.game.player.PlayerList	M	a	()I	countAlive
+com.desertstormfront.game.player.PlayerList	M	b	()Z	hasTeams
+com.desertstormfront.game.player.PlayerList	M	c	()I	countAliveTeams
+com.desertstormfront.game.player.PlayerList	M	d	()I	countActiveSides
+com.desertstormfront.game.player.PlayerList	M	a	(I)Lcom/desertstormfront/game/player/Player;	getById
+com.desertstormfront.game.player.Team	M	a	()Ljava/lang/String;	getName
+com.desertstormfront.game.player.Team	M	b	()Ljava/lang/String;	getKey
+com.desertstormfront.game.player.Team	M	a	(Ljava/lang/String;)Lcom/desertstormfront/game/player/Team;	fromKey
+com.desertstormfront.game.player.UnitGroup	M	a	()I	getId
+com.desertstormfront.game.player.UnitGroup	M	b	()Lcom/desertstormfront/game/model/UnitList;	getUnits
+com.desertstormfront.game.player.UnitGroupSet	M	a	(I)Lcom/desertstormfront/game/player/UnitGroup;	get
+com.desertstormfront.game.player.UnitGroupSet	M	a	()I	size
+com.desertstormfront.game.player.UnitGroupSet	M	b	(I)Lcom/desertstormfront/game/player/UnitGroup;	getGroup

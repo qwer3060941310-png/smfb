@@ -1,0 +1,17 @@
+# World fields (kind F). All 14 are named: every one already has a semantic accessor
+# (getMapDefinition, getName, getDescription, getRandom, getGameTime, getTurn, getGameMode,
+# getSpeedFactor, getTerrainGrid, getPlayers, getUnits, getBirds, getWind, getScratchUnits).
+com.desertstormfront.game.World	F	a	Lcom/desertstormfront/map/MapDefinition;	mapDefinition
+com.desertstormfront.game.World	F	b	Ljava/lang/String;	name
+com.desertstormfront.game.World	F	c	Ljava/lang/String;	description
+com.desertstormfront.game.World	F	d	Lcom/noblemaster/lib/util/FastRandom;	random
+com.desertstormfront.game.World	F	e	F	gameTime
+com.desertstormfront.game.World	F	f	I	turn
+com.desertstormfront.game.World	F	g	Lcom/desertstormfront/game/mode/GameMode;	gameMode
+com.desertstormfront.game.World	F	h	F	speedFactor
+com.desertstormfront.game.World	F	i	Lcom/desertstormfront/world/TerrainGrid;	terrainGrid
+com.desertstormfront.game.World	F	j	Lcom/desertstormfront/game/player/PlayerList;	players
+com.desertstormfront.game.World	F	k	Lcom/desertstormfront/game/model/UnitList;	units
+com.desertstormfront.game.World	F	l	Lcom/desertstormfront/game/model/BirdList;	birds
+com.desertstormfront.game.World	F	m	[F	wind
+com.desertstormfront.game.World	F	n	Lcom/desertstormfront/game/model/UnitList;	scratchUnits

@@ -1,0 +1,67 @@
+# app + desktop platform-hook batch
+#
+# GameApplication/DesktopApplication: the abstract hooks and their only implementation.
+#   d() returns Locale.getDefault().getLanguage() -> getLanguage.
+#   e() returns !SystemHook.isTabletMode() -> isDesktopMode (the UI needs to know it is not a slate).
+#   f()/g() build the DefaultAddressProvider / DesktopPortMapper -> getAddressProvider /
+#   getPortMappingCallback. a(String) opens the URI through java.awt.Desktop -> openUrl.
+#   h() forwards to DesktopLauncher.resetCursor() -> resetCursor ; i() loads data/shared/cursor.gif
+#   and applies it -> setCustomCursor. a(int,int)/b(int,int) pull the mouse back from the window
+#   edge (12px margin, using Mouse.getEventDX/DY) -> clampMouseX / clampMouseY.
+#   c(int,int) is the resize path called from render(): it rescales to 800px minimum, rebuilds the
+#   downscale framebuffer/shader/buffers and forwards to screen.resize -> onResize.
+#
+# DesktopLauncher: the static a is the shutdown flag the main loop waits on
+#   (the synthetic a(boolean) sets it -> setExitRequested).
+#   a() is the empty "restore the default cursor" hook -> resetCursor ; a(PlatformCursor) applies a
+#   cursor via Mouse.setNativeCursor -> applyCursor ; b(PlatformCursor) is the private worker behind
+#   it -> applyNativeCursor ; a(int,int,Pixmap) is the public single-image entry point
+#   -> createCursor ; b(int,int,Pixmap) is its private worker -> buildCursor ;
+#   a(int,int,Pixmap[],int[]) builds an animated cursor (frame delays array) -> createAnimatedCursor.
+#
+# SystemHook: a() reads GetSystemMetrics(8195) = SM_CONVERTIBLESLATEMODE -> isTabletMode ;
+#   a(int) calls SetDisplayAutoRotationPreferences -> setDisplayOrientationPreference ;
+#   b() lazily loads user32 through JNA -> getUser32 ; c()/d() detect Windows 8 or later
+#   -> detectWindowsVersion / isWindows8OrLater.
+#
+# UPnPMapper: the three static a(...) overloads map a port (TCP, or with an explicit protocol) and
+#   return the external IP -> mapPort ; a(String) removes a mapping by name -> unmapPort ; the
+#   private a(InternetGatewayDevice,int,PortProtocol) deletes it on the device -> deleteMapping ;
+#   the private a() finds the first gateway -> discoverGateway.
+com.desertstormfront.app.GameApplication	M	c	(II)V	onResize
+com.desertstormfront.app.GameApplication	M	d	()Ljava/lang/String;	getLanguage
+com.desertstormfront.app.GameApplication	M	e	()Z	isDesktopMode
+com.desertstormfront.app.GameApplication	M	f	()Lcom/noblemaster/lib/net/match/AddressProvider;	getAddressProvider
+com.desertstormfront.app.GameApplication	M	g	()Lcom/noblemaster/lib/net/match/PortMappingCallback;	getPortMappingCallback
+com.desertstormfront.app.GameApplication	M	a	(Ljava/lang/String;)V	openUrl
+com.desertstormfront.app.GameApplication	M	h	()V	resetCursor
+com.desertstormfront.app.GameApplication	M	i	()V	setCustomCursor
+com.desertstormfront.app.GameApplication	M	a	(II)I	clampMouseX
+com.desertstormfront.app.GameApplication	M	b	(II)I	clampMouseY
+com.desertstormfront.desktop.DesktopApplication	M	d	()Ljava/lang/String;	getLanguage
+com.desertstormfront.desktop.DesktopApplication	M	e	()Z	isDesktopMode
+com.desertstormfront.desktop.DesktopApplication	M	f	()Lcom/noblemaster/lib/net/match/AddressProvider;	getAddressProvider
+com.desertstormfront.desktop.DesktopApplication	M	g	()Lcom/noblemaster/lib/net/match/PortMappingCallback;	getPortMappingCallback
+com.desertstormfront.desktop.DesktopApplication	M	a	(Ljava/lang/String;)V	openUrl
+com.desertstormfront.desktop.DesktopApplication	M	h	()V	resetCursor
+com.desertstormfront.desktop.DesktopApplication	M	i	()V	setCustomCursor
+com.desertstormfront.desktop.DesktopApplication	M	a	(II)I	clampMouseX
+com.desertstormfront.desktop.DesktopApplication	M	b	(II)I	clampMouseY
+com.desertstormfront.desktop.DesktopLauncher	M	a	()V	resetCursor
+com.desertstormfront.desktop.DesktopLauncher	M	b	(IILcom/badlogic/gdx/graphics/Pixmap;)Lcom/desertstormfront/desktop/PlatformCursor;	buildCursor
+com.desertstormfront.desktop.DesktopLauncher	M	a	(II[Lcom/badlogic/gdx/graphics/Pixmap;[I)Lcom/desertstormfront/desktop/PlatformCursor;	createAnimatedCursor
+com.desertstormfront.desktop.DesktopLauncher	M	b	(Lcom/desertstormfront/desktop/PlatformCursor;)V	applyNativeCursor
+com.desertstormfront.desktop.DesktopLauncher	M	a	(IILcom/badlogic/gdx/graphics/Pixmap;)Lcom/desertstormfront/desktop/PlatformCursor;	createCursor
+com.desertstormfront.desktop.DesktopLauncher	M	a	(Lcom/desertstormfront/desktop/PlatformCursor;)V	applyCursor
+com.desertstormfront.desktop.DesktopLauncher	M	a	(Z)V	setExitRequested
+com.desertstormfront.desktop.SystemHook	M	a	()Z	isTabletMode
+com.desertstormfront.desktop.SystemHook	M	a	(I)V	setDisplayOrientationPreference
+com.desertstormfront.desktop.SystemHook	M	b	()Lcom/desertstormfront/desktop/SystemHook$User32;	getUser32
+com.desertstormfront.desktop.SystemHook	M	c	()V	detectWindowsVersion
+com.desertstormfront.desktop.SystemHook	M	d	()Z	isWindows8OrLater
+com.desertstormfront.desktop.UPnPMapper	M	a	(Ljava/lang/String;Ljava/lang/String;I)Ljava/lang/String;	mapPort
+com.desertstormfront.desktop.UPnPMapper	M	a	(Ljava/lang/String;Ljava/lang/String;III)Ljava/lang/String;	mapPort
+com.desertstormfront.desktop.UPnPMapper	M	a	(Ljava/lang/String;Ljava/lang/String;IIILcom/desertstormfront/desktop/PortProtocol;)Ljava/lang/String;	mapPort
+com.desertstormfront.desktop.UPnPMapper	M	a	(Ljava/lang/String;)V	unmapPort
+com.desertstormfront.desktop.UPnPMapper	M	a	(Lnet/sbbi/upnp/impls/InternetGatewayDevice;ILcom/desertstormfront/desktop/PortProtocol;)V	deleteMapping
+com.desertstormfront.desktop.UPnPMapper	M	a	()Lnet/sbbi/upnp/impls/InternetGatewayDevice;	discoverGateway

@@ -1,0 +1,39 @@
+# screen field batch 3: the self-contained animation/splash screens and the two text screens.
+#
+# CreditsScreen / ManualScreen share the same three-field shape: the background nine-patch, the
+# ScrollPane and the long text label that is set as its content.
+# LoadGameScreen: startTime (update waits 100ms), frameCount (update also waits 10 frames),
+#   renderer (texture_load.png), sessionMode, restoreStartWorld (when set, update() first calls
+#   sessionMode.restoreStartWorld()).
+# LogoScreen: startTime (update waits 3000ms), logoRenderer (logo_application.png),
+#   ratingRenderer (publisher_joymoa_rating.png, JoyMoa build only), introMusic (music_intro.mp3).
+# PublisherSplashScreen: startTime; logoDuration (the 3000ms base delay before LogoScreen);
+#   hasPublisherSplash (true for the JoyMoa/DarkGame/iWin markets); publisherPhaseActive (true while
+#   the publisher card is on screen, cleared once publisherSplashDuration elapsed so the NobleMaster
+#   music starts); publisherSplashDuration (5500ms for JoyMoa, 3000ms otherwise);
+#   nobleMasterRenderer (logo_noblemaster.png); publisherRenderer (publisher_<market>.png);
+#   nobleMasterMusic (music_noblemaster.mp3); publisherMusic (publisher_joymoa.mp3, null otherwise).
+com.desertstormfront.screen.CreditsScreen	F	a	Lcom/desertstormfront/ui/NinePatchImage;	backgroundImage
+com.desertstormfront.screen.CreditsScreen	F	b	Lcom/desertstormfront/ui/ScrollPane;	scrollPane
+com.desertstormfront.screen.CreditsScreen	F	c	Lcom/desertstormfront/ui/Label;	textLabel
+com.desertstormfront.screen.ManualScreen	F	a	Lcom/desertstormfront/ui/NinePatchImage;	backgroundImage
+com.desertstormfront.screen.ManualScreen	F	b	Lcom/desertstormfront/ui/ScrollPane;	scrollPane
+com.desertstormfront.screen.ManualScreen	F	c	Lcom/desertstormfront/ui/Label;	textLabel
+com.desertstormfront.screen.LoadGameScreen	F	a	J	startTime
+com.desertstormfront.screen.LoadGameScreen	F	b	I	frameCount
+com.desertstormfront.screen.LoadGameScreen	F	c	Lcom/desertstormfront/ui/BatchRenderer;	renderer
+com.desertstormfront.screen.LoadGameScreen	F	d	Lcom/desertstormfront/session/SessionMode;	sessionMode
+com.desertstormfront.screen.LoadGameScreen	F	e	Z	restoreStartWorld
+com.desertstormfront.screen.LogoScreen	F	a	J	startTime
+com.desertstormfront.screen.LogoScreen	F	b	Lcom/desertstormfront/ui/BatchRenderer;	logoRenderer
+com.desertstormfront.screen.LogoScreen	F	c	Lcom/desertstormfront/ui/BatchRenderer;	ratingRenderer
+com.desertstormfront.screen.LogoScreen	F	d	Lcom/desertstormfront/audio/AudioClip;	introMusic
+com.desertstormfront.screen.PublisherSplashScreen	F	a	J	startTime
+com.desertstormfront.screen.PublisherSplashScreen	F	b	J	logoDuration
+com.desertstormfront.screen.PublisherSplashScreen	F	c	Z	hasPublisherSplash
+com.desertstormfront.screen.PublisherSplashScreen	F	d	Z	publisherPhaseActive
+com.desertstormfront.screen.PublisherSplashScreen	F	e	J	publisherSplashDuration
+com.desertstormfront.screen.PublisherSplashScreen	F	f	Lcom/desertstormfront/ui/BatchRenderer;	nobleMasterRenderer
+com.desertstormfront.screen.PublisherSplashScreen	F	g	Lcom/desertstormfront/ui/BatchRenderer;	publisherRenderer
+com.desertstormfront.screen.PublisherSplashScreen	F	h	Lcom/desertstormfront/audio/AudioClip;	nobleMasterMusic
+com.desertstormfront.screen.PublisherSplashScreen	F	i	Lcom/desertstormfront/audio/AudioClip;	publisherMusic

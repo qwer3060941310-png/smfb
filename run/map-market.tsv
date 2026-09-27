@@ -1,0 +1,44 @@
+# lib.market batch (Market hierarchy)
+#
+# Market declares the two per-store strings plus one derived flag; DesktopLauncher selects the
+# store by matching a() against "Review"/"NobleMaster"/... and BootScreen logs a(), so
+#   a() -> getName ("Review", "NobleMaster", ...)
+#   b() -> getUrl (Review returns the noble master home page, NobleMasterMarket the purchase URL
+#          passed to its constructor)
+#   c() -> hasUrl (true when b() is non-null)
+# Every concrete market repeats the same two overrides, so one naming covers the hierarchy.
+com.noblemaster.lib.market.AmazonMarket	M	a	()Ljava/lang/String;	getName
+com.noblemaster.lib.market.AmazonMarket	M	b	()Ljava/lang/String;	getUrl
+com.noblemaster.lib.market.ChinaMobileMarket	M	a	()Ljava/lang/String;	getName
+com.noblemaster.lib.market.ChinaMobileMarket	M	b	()Ljava/lang/String;	getUrl
+com.noblemaster.lib.market.DarkGameMarket	M	a	()Ljava/lang/String;	getName
+com.noblemaster.lib.market.DarkGameMarket	M	b	()Ljava/lang/String;	getUrl
+com.noblemaster.lib.market.DesuraMarket	M	a	()Ljava/lang/String;	getName
+com.noblemaster.lib.market.DesuraMarket	M	b	()Ljava/lang/String;	getUrl
+com.noblemaster.lib.market.FireFlowerMarket	M	a	()Ljava/lang/String;	getName
+com.noblemaster.lib.market.FireFlowerMarket	M	b	()Ljava/lang/String;	getUrl
+com.noblemaster.lib.market.GamersGateMarket	M	a	()Ljava/lang/String;	getName
+com.noblemaster.lib.market.GamersGateMarket	M	b	()Ljava/lang/String;	getUrl
+com.noblemaster.lib.market.ITunesMarket	M	a	()Ljava/lang/String;	getName
+com.noblemaster.lib.market.ITunesMarket	M	b	()Ljava/lang/String;	getUrl
+com.noblemaster.lib.market.IWinMarket	M	a	()Ljava/lang/String;	getName
+com.noblemaster.lib.market.IWinMarket	M	b	()Ljava/lang/String;	getUrl
+com.noblemaster.lib.market.ImmanitasMarket	M	a	()Ljava/lang/String;	getName
+com.noblemaster.lib.market.ImmanitasMarket	M	b	()Ljava/lang/String;	getUrl
+com.noblemaster.lib.market.IntelMarket	M	a	()Ljava/lang/String;	getName
+com.noblemaster.lib.market.IntelMarket	M	b	()Ljava/lang/String;	getUrl
+com.noblemaster.lib.market.JoyMoaMarket	M	a	()Ljava/lang/String;	getName
+com.noblemaster.lib.market.JoyMoaMarket	M	b	()Ljava/lang/String;	getUrl
+com.noblemaster.lib.market.MacGameStoreMarket	M	a	()Ljava/lang/String;	getName
+com.noblemaster.lib.market.MacGameStoreMarket	M	b	()Ljava/lang/String;	getUrl
+com.noblemaster.lib.market.Market	M	a	()Ljava/lang/String;	getName
+com.noblemaster.lib.market.Market	M	b	()Ljava/lang/String;	getUrl
+com.noblemaster.lib.market.Market	M	c	()Z	hasUrl
+com.noblemaster.lib.market.NobleMasterMarket	M	a	()Ljava/lang/String;	getName
+com.noblemaster.lib.market.NobleMasterMarket	M	b	()Ljava/lang/String;	getUrl
+com.noblemaster.lib.market.PlayismMarket	M	a	()Ljava/lang/String;	getName
+com.noblemaster.lib.market.PlayismMarket	M	b	()Ljava/lang/String;	getUrl
+com.noblemaster.lib.market.ReviewMarket	M	a	()Ljava/lang/String;	getName
+com.noblemaster.lib.market.ReviewMarket	M	b	()Ljava/lang/String;	getUrl
+com.noblemaster.lib.market.UbuntuMarket	M	a	()Ljava/lang/String;	getName
+com.noblemaster.lib.market.UbuntuMarket	M	b	()Ljava/lang/String;	getUrl

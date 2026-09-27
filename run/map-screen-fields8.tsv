@@ -1,0 +1,58 @@
+# screen field batch 8: SkirmishSetupScreen.
+#
+# The two finals are the random-map size formula: n = minRandomMapSize + randomMapSizeStep * index
+# (32 + 8 * n). randomMapVariants (d = 7) is the number of sizes per family and inMemoryRandomMapCount
+# (e = 3) the number that fit in memory - the strings past it get the "(mem?)" suffix. skirmishSaves
+# and campaignSaves hold WorldSerializer.listSaves("skirmish_"/"campaign_") and their concatenation
+# (plus the three random families of d entries) is exactly the map list box.
+# The list boxes are named by the action id each reports and by the items they are filled with:
+# map (100), nation (101, from the map definition's factions), players (102), teams (103),
+# view (104), commando (105), money (106), income (107), time limit (103 again - the original reuses
+# the teams id, but the items are TextFormatter.formatTime(...) so the role is not in doubt) and
+# difficulty (199, pre-selected to Difficulty.Normal). gameMode (M) is the StartableSessionMode the
+# screen both drives and queries for an existing save.
+# The panel members mirror CampaignScreen's: winsPanel/winsCaption/winsValue and
+# gamesPlayedPanel/gamesPlayedCaption/gamesPlayedValue only exist for a SkirmishGameMode; the
+# existing-game branch owns existingGameContainer with its message label, the shared buttonRowPanel
+# and the two row highlights under the continue/delete buttons; the options branch owns
+# optionsContainer with the shared actionRowPanel plus playRowHighlight/randomizeRowHighlight and the
+# two buttons (data 200 = Play, 99 = Randomize, which randomly re-selects every list box).
+com.desertstormfront.screen.SkirmishSetupScreen	F	a	I	minRandomMapSize
+com.desertstormfront.screen.SkirmishSetupScreen	F	b	I	randomMapSizeStep
+com.desertstormfront.screen.SkirmishSetupScreen	F	c	[Lcom/desertstormfront/io/WorldSaveInfo;	skirmishSaves
+com.desertstormfront.screen.SkirmishSetupScreen	F	d	I	randomMapVariants
+com.desertstormfront.screen.SkirmishSetupScreen	F	e	I	inMemoryRandomMapCount
+com.desertstormfront.screen.SkirmishSetupScreen	F	f	[Lcom/desertstormfront/io/WorldSaveInfo;	campaignSaves
+com.desertstormfront.screen.SkirmishSetupScreen	F	g	Lcom/desertstormfront/ui/NinePatchImage;	backgroundImage
+com.desertstormfront.screen.SkirmishSetupScreen	F	h	Lcom/desertstormfront/ui/ScrollPane;	scrollPane
+com.desertstormfront.screen.SkirmishSetupScreen	F	i	Lcom/desertstormfront/ui/Container;	contentContainer
+com.desertstormfront.screen.SkirmishSetupScreen	F	j	Lcom/desertstormfront/ui/NinePatchImage;	winsPanel
+com.desertstormfront.screen.SkirmishSetupScreen	F	k	Lcom/desertstormfront/ui/Label;	winsCaption
+com.desertstormfront.screen.SkirmishSetupScreen	F	l	Lcom/desertstormfront/ui/Label;	winsValue
+com.desertstormfront.screen.SkirmishSetupScreen	F	m	Lcom/desertstormfront/ui/NinePatchImage;	gamesPlayedPanel
+com.desertstormfront.screen.SkirmishSetupScreen	F	n	Lcom/desertstormfront/ui/Label;	gamesPlayedCaption
+com.desertstormfront.screen.SkirmishSetupScreen	F	o	Lcom/desertstormfront/ui/Label;	gamesPlayedValue
+com.desertstormfront.screen.SkirmishSetupScreen	F	p	Lcom/desertstormfront/ui/Container;	existingGameContainer
+com.desertstormfront.screen.SkirmishSetupScreen	F	q	Lcom/desertstormfront/ui/Label;	existingGameMessageLabel
+com.desertstormfront.screen.SkirmishSetupScreen	F	r	Lcom/desertstormfront/ui/NinePatchImage;	buttonRowPanel
+com.desertstormfront.screen.SkirmishSetupScreen	F	s	Lcom/desertstormfront/ui/Image;	continueRowHighlight
+com.desertstormfront.screen.SkirmishSetupScreen	F	t	Lcom/desertstormfront/ui/Image;	deleteRowHighlight
+com.desertstormfront.screen.SkirmishSetupScreen	F	u	Lcom/desertstormfront/ui/Button;	continueButton
+com.desertstormfront.screen.SkirmishSetupScreen	F	v	Lcom/desertstormfront/ui/Button;	deleteButton
+com.desertstormfront.screen.SkirmishSetupScreen	F	w	Lcom/desertstormfront/ui/Container;	optionsContainer
+com.desertstormfront.screen.SkirmishSetupScreen	F	x	Lcom/desertstormfront/ui/NinePatchImage;	actionRowPanel
+com.desertstormfront.screen.SkirmishSetupScreen	F	y	Lcom/desertstormfront/ui/Image;	playRowHighlight
+com.desertstormfront.screen.SkirmishSetupScreen	F	z	Lcom/desertstormfront/ui/Image;	randomizeRowHighlight
+com.desertstormfront.screen.SkirmishSetupScreen	F	A	Lcom/desertstormfront/ui/Button;	playButton
+com.desertstormfront.screen.SkirmishSetupScreen	F	B	Lcom/desertstormfront/ui/Button;	randomizeButton
+com.desertstormfront.screen.SkirmishSetupScreen	F	C	Lcom/desertstormfront/ui/ListBox;	mapListBox
+com.desertstormfront.screen.SkirmishSetupScreen	F	D	Lcom/desertstormfront/ui/ListBox;	nationListBox
+com.desertstormfront.screen.SkirmishSetupScreen	F	E	Lcom/desertstormfront/ui/ListBox;	playersListBox
+com.desertstormfront.screen.SkirmishSetupScreen	F	F	Lcom/desertstormfront/ui/ListBox;	teamsListBox
+com.desertstormfront.screen.SkirmishSetupScreen	F	G	Lcom/desertstormfront/ui/ListBox;	viewListBox
+com.desertstormfront.screen.SkirmishSetupScreen	F	H	Lcom/desertstormfront/ui/ListBox;	commandoListBox
+com.desertstormfront.screen.SkirmishSetupScreen	F	I	Lcom/desertstormfront/ui/ListBox;	moneyListBox
+com.desertstormfront.screen.SkirmishSetupScreen	F	J	Lcom/desertstormfront/ui/ListBox;	incomeListBox
+com.desertstormfront.screen.SkirmishSetupScreen	F	K	Lcom/desertstormfront/ui/ListBox;	timeLimitListBox
+com.desertstormfront.screen.SkirmishSetupScreen	F	L	Lcom/desertstormfront/ui/ListBox;	difficultyListBox
+com.desertstormfront.screen.SkirmishSetupScreen	F	M	Lcom/desertstormfront/session/StartableSessionMode;	gameMode

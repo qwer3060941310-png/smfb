@@ -1,0 +1,26 @@
+# MathHelper batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+# com.noblemaster.lib.math.MathHelper - fast math utilities (sine/atan2 lookup tables + rounding/abs/sign).
+# Semantics confirmed from implementations; e(float)=round (used 40+ times for coord rounding),
+# a()/randomFloat delegates to FastRandom.c() (float), f/int/long abs overloads, b(int)=signum.
+#   a(float)->sqrt ; b(float)->sin ; c(float)->cos ; a(float,float)->atan2 ; b(float,float)->angleDifference
+#   d(float)->floor ; e(float)->round ; a()->randomFloat ; f(float)/a(int)/a(long)->abs ; b(int)->sign
+#   a[720]->sineTable ; b(=128)->atanTableSize ; c(=127)->atanTableMax ; d[16384]->atanTable ;
+#   e(double, unused)->maxDoubleBelow16385 ; f(FastRandom)->random
+com.noblemaster.lib.math.MathHelper	F	a	[F	sineTable
+com.noblemaster.lib.math.MathHelper	F	b	I	atanTableSize
+com.noblemaster.lib.math.MathHelper	F	c	F	atanTableMax
+com.noblemaster.lib.math.MathHelper	F	d	[F	atanTable
+com.noblemaster.lib.math.MathHelper	F	e	D	maxDoubleBelow16385
+com.noblemaster.lib.math.MathHelper	F	f	Lcom/noblemaster/lib/util/FastRandom;	random
+com.noblemaster.lib.math.MathHelper	M	a	(F)F	sqrt
+com.noblemaster.lib.math.MathHelper	M	b	(F)F	sin
+com.noblemaster.lib.math.MathHelper	M	c	(F)F	cos
+com.noblemaster.lib.math.MathHelper	M	a	(FF)F	atan2
+com.noblemaster.lib.math.MathHelper	M	b	(FF)F	angleDifference
+com.noblemaster.lib.math.MathHelper	M	d	(F)I	floor
+com.noblemaster.lib.math.MathHelper	M	e	(F)I	round
+com.noblemaster.lib.math.MathHelper	M	a	()F	randomFloat
+com.noblemaster.lib.math.MathHelper	M	f	(F)F	abs
+com.noblemaster.lib.math.MathHelper	M	a	(I)I	abs
+com.noblemaster.lib.math.MathHelper	M	a	(J)J	abs
+com.noblemaster.lib.math.MathHelper	M	b	(I)I	sign

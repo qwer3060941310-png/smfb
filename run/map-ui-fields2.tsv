@@ -1,0 +1,44 @@
+# ui field batch 2: the font/graphics data classes (29 fields).
+#
+# Glyph: BitmapFont's .fnt parser reads the columns in order - x (d), y (e), width (b), height (c),
+#   xoffset (h), yoffset (i), xadvance (j) - then derives right/bottom as d+b (f) and e+c (g) and
+#   stores its own index (a); k is the per-character data table that getData/setData index as
+#   [char >>> 9][char & 0x1FF]. Label.drawGlyph draws with the source rect (glyph.d, glyph.e, glyph.b,
+#   glyph.c) and advances by glyph.j, which matches.
+# TextMetrics: BitmapFont fills width (a), height (b) and line count (c) in measure()/measureWrapped().
+# ScrollBarStyle: ScrollPane.draw paints the three parts in one pass - the up arrow with
+#   a/b frames and c/d size, the track with e/f frames and g/h size (g is also getScrollBarWidth()),
+#   the down arrow with i/j frames and k/l size - and getScrollBarHeight() enforces the minimum
+#   upArrowHeight + downArrowHeight, which is exactly d + l.
+# GlTexture: the constructor generates the GL name into b, binds it, loads the pixmap into the
+#   libGDX Texture a and records its size in c (width) and d (height).
+com.desertstormfront.ui.Glyph	F	a	I	index
+com.desertstormfront.ui.Glyph	F	b	I	width
+com.desertstormfront.ui.Glyph	F	c	I	height
+com.desertstormfront.ui.Glyph	F	d	I	x
+com.desertstormfront.ui.Glyph	F	e	I	y
+com.desertstormfront.ui.Glyph	F	f	I	right
+com.desertstormfront.ui.Glyph	F	g	I	bottom
+com.desertstormfront.ui.Glyph	F	h	I	xOffset
+com.desertstormfront.ui.Glyph	F	i	I	yOffset
+com.desertstormfront.ui.Glyph	F	j	I	xAdvance
+com.desertstormfront.ui.Glyph	F	k	[[B	data
+com.desertstormfront.ui.GlTexture	F	a	Lcom/badlogic/gdx/graphics/Texture;	texture
+com.desertstormfront.ui.GlTexture	F	b	I	textureId
+com.desertstormfront.ui.GlTexture	F	c	I	width
+com.desertstormfront.ui.GlTexture	F	d	I	height
+com.desertstormfront.ui.ScrollBarStyle	F	a	[I	upArrowFrameX
+com.desertstormfront.ui.ScrollBarStyle	F	b	[I	upArrowFrameY
+com.desertstormfront.ui.ScrollBarStyle	F	c	I	upArrowWidth
+com.desertstormfront.ui.ScrollBarStyle	F	d	I	upArrowHeight
+com.desertstormfront.ui.ScrollBarStyle	F	e	[I	trackFrameX
+com.desertstormfront.ui.ScrollBarStyle	F	f	[I	trackFrameY
+com.desertstormfront.ui.ScrollBarStyle	F	g	I	trackWidth
+com.desertstormfront.ui.ScrollBarStyle	F	h	I	trackHeight
+com.desertstormfront.ui.ScrollBarStyle	F	i	[I	downArrowFrameX
+com.desertstormfront.ui.ScrollBarStyle	F	j	[I	downArrowFrameY
+com.desertstormfront.ui.ScrollBarStyle	F	k	I	downArrowWidth
+com.desertstormfront.ui.ScrollBarStyle	F	l	I	downArrowHeight
+com.desertstormfront.ui.TextMetrics	F	a	I	width
+com.desertstormfront.ui.TextMetrics	F	b	I	height
+com.desertstormfront.ui.TextMetrics	F	c	I	lineCount

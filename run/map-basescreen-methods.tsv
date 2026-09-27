@@ -1,0 +1,49 @@
+# BaseScreen batch: 26 real methods + 13 javac accessors used by ScreenInputProcessor.
+# Touch state was resolved from ScreenInputProcessor: g/i are the touch-down flag and its
+# expiry frame (h = the frame it was raised), j/l the same for touch-up (k = raised frame),
+# and m/n hold the last touch x/y written by its touch handlers.
+# Application forwarding was resolved from DesktopApplication: d() returns
+# Locale.getDefault().getLanguage(), a(String) drives Desktop.Action.BROWSE, c() is
+# Gdx.app.exit(), and a/b(int,int) add Mouse.getEventDX/DY with a 12px dead zone, i.e. the
+# edge-scrolling pointer accumulators.
+# One row stays blank on purpose: y() forwards to GameApplication.h(), whose only
+# implementation calls DesktopLauncher.a() with no observable meaning.
+com.desertstormfront.screen.BaseScreen	M	a	(Lcom/desertstormfront/app/GameApplication;)V	setApplication
+com.desertstormfront.screen.BaseScreen	M	l	()Z	isTouchDown
+com.desertstormfront.screen.BaseScreen	M	m	()Z	isTouchUp
+com.desertstormfront.screen.BaseScreen	M	n	()I	getTouchX
+com.desertstormfront.screen.BaseScreen	M	o	()I	getTouchY
+com.desertstormfront.screen.BaseScreen	M	c	(II)V	resize
+com.desertstormfront.screen.BaseScreen	M	p	()Lcom/noblemaster/lib/license/License;	getLicense
+com.desertstormfront.screen.BaseScreen	M	q	()Lcom/noblemaster/lib/market/Market;	getMarket
+com.desertstormfront.screen.BaseScreen	M	r	()Lcom/desertstormfront/ui/BatchRenderer;	getHudRenderer
+com.desertstormfront.screen.BaseScreen	M	s	()V	disposeHudRenderer
+com.desertstormfront.screen.BaseScreen	M	t	()I	getWidth
+com.desertstormfront.screen.BaseScreen	M	u	()I	getHeight
+com.desertstormfront.screen.BaseScreen	M	v	()Ljava/lang/String;	getLanguage
+com.desertstormfront.screen.BaseScreen	M	w	()Lcom/noblemaster/lib/net/match/AddressProvider;	getAddressProvider
+com.desertstormfront.screen.BaseScreen	M	x	()Lcom/noblemaster/lib/net/match/PortMappingCallback;	getPortMappingCallback
+com.desertstormfront.screen.BaseScreen	M	a	(Ljava/lang/String;)V	openUrl
+com.desertstormfront.screen.BaseScreen	M	y	()V	
+com.desertstormfront.screen.BaseScreen	M	z	()V	exitApplication
+com.desertstormfront.screen.BaseScreen	M	d	(II)I	accumulatePointerX
+com.desertstormfront.screen.BaseScreen	M	e	(II)I	accumulatePointerY
+com.desertstormfront.screen.BaseScreen	M	A	()Lcom/desertstormfront/ui/BatchRenderer;	getMenuBackgroundRenderer
+com.desertstormfront.screen.BaseScreen	M	B	()V	disposeMenuBackgroundRenderer
+com.desertstormfront.screen.BaseScreen	M	C	()Lcom/desertstormfront/ui/GlTexture;	getTilesTexture
+com.desertstormfront.screen.BaseScreen	M	D	()V	disposeTilesTexture
+com.desertstormfront.screen.BaseScreen	M	E	()Lcom/desertstormfront/ui/GlTexture;	getUnitsTexture
+com.desertstormfront.screen.BaseScreen	M	F	()V	disposeUnitsTexture
+com.desertstormfront.screen.BaseScreen	M	a	(Lcom/desertstormfront/screen/BaseScreen;)I	getFrameCounter
+com.desertstormfront.screen.BaseScreen	M	a	(Lcom/desertstormfront/screen/BaseScreen;I)V	setTouchDownUntilFrame
+com.desertstormfront.screen.BaseScreen	M	b	(Lcom/desertstormfront/screen/BaseScreen;)I	getTouchDownUntilFrame
+com.desertstormfront.screen.BaseScreen	M	c	(Lcom/desertstormfront/screen/BaseScreen;)I	getTouchDownFrame
+com.desertstormfront.screen.BaseScreen	M	b	(Lcom/desertstormfront/screen/BaseScreen;I)V	setTouchUpUntilFrame
+com.desertstormfront.screen.BaseScreen	M	d	(Lcom/desertstormfront/screen/BaseScreen;)I	getTouchUpUntilFrame
+com.desertstormfront.screen.BaseScreen	M	e	(Lcom/desertstormfront/screen/BaseScreen;)I	getTouchUpFrame
+com.desertstormfront.screen.BaseScreen	M	c	(Lcom/desertstormfront/screen/BaseScreen;I)V	setTouchX
+com.desertstormfront.screen.BaseScreen	M	d	(Lcom/desertstormfront/screen/BaseScreen;I)V	setTouchY
+com.desertstormfront.screen.BaseScreen	M	a	(Lcom/desertstormfront/screen/BaseScreen;Z)V	setTouchDown
+com.desertstormfront.screen.BaseScreen	M	e	(Lcom/desertstormfront/screen/BaseScreen;I)V	setTouchDownFrame
+com.desertstormfront.screen.BaseScreen	M	b	(Lcom/desertstormfront/screen/BaseScreen;Z)V	setTouchUp
+com.desertstormfront.screen.BaseScreen	M	f	(Lcom/desertstormfront/screen/BaseScreen;I)V	setTouchUpFrame

@@ -1,0 +1,46 @@
+# World batch: owner <TAB> M <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# Getter/setter pairs follow the field they touch (a=MapDefinition, b/c=name/description, d=random,
+# g=GameMode, h=speed factor from UserConfig.getWorldSpeedFactor(), i=TerrainGrid, j=players,
+# k=units, l=birds, m=wind). Field e (float) is the game clock (birds use it for heading, CTF for
+# its timer, WorldSerializer writes it) and field f (int) is the turn (WorldSimulator does i()+1).
+# n is a reusable scratch list: WorldSimulator clears it inside the collision hot loop.
+com.desertstormfront.game.World	M	a	(Lcom/desertstormfront/map/MapDefinition;Ljava/lang/String;Lcom/desertstormfront/game/ScenarioType;III)Lcom/desertstormfront/game/World;	create
+com.desertstormfront.game.World	M	a	()V	activateHumanPlayer
+com.desertstormfront.game.World	M	a	(Lcom/desertstormfront/game/player/Faction;)V	activateHumanPlayer
+com.desertstormfront.game.World	M	a	(Lcom/desertstormfront/game/player/Difficulty;)V	setupDefaultPlayers
+com.desertstormfront.game.World	M	a	(ZIZIZZZJZJZZZZZLcom/desertstormfront/game/model/UnitTypeList;ZFLcom/desertstormfront/game/player/Difficulty;)V	setupPlayers
+com.desertstormfront.game.World	M	a	(Lcom/desertstormfront/app/support/ProgressCallback;)V	buildTerrain
+com.desertstormfront.game.World	M	a	(Lcom/desertstormfront/game/World;)V	shareTerrainFrom
+com.desertstormfront.game.World	M	a	(Lcom/desertstormfront/game/player/Player;)V	updateFogOfWar
+com.desertstormfront.game.World	M	b	()Lcom/desertstormfront/map/MapDefinition;	getMapDefinition
+com.desertstormfront.game.World	M	a	(Lcom/desertstormfront/map/MapDefinition;)V	setMapDefinition
+com.desertstormfront.game.World	M	c	()Ljava/lang/String;	getName
+com.desertstormfront.game.World	M	a	(Ljava/lang/String;)V	setName
+com.desertstormfront.game.World	M	d	()Ljava/lang/String;	getDescription
+com.desertstormfront.game.World	M	b	(Ljava/lang/String;)V	setDescription
+com.desertstormfront.game.World	M	e	()Lcom/noblemaster/lib/util/FastRandom;	getRandom
+com.desertstormfront.game.World	M	a	(Lcom/noblemaster/lib/util/FastRandom;)V	setRandom
+com.desertstormfront.game.World	M	f	()Lcom/desertstormfront/game/mode/GameMode;	getGameMode
+com.desertstormfront.game.World	M	a	(Lcom/desertstormfront/game/mode/GameMode;)V	setGameMode
+com.desertstormfront.game.World	M	g	()F	getSpeedFactor
+com.desertstormfront.game.World	M	a	(F)V	setSpeedFactor
+com.desertstormfront.game.World	M	h	()F	getGameTime
+com.desertstormfront.game.World	M	b	(F)V	setGameTime
+com.desertstormfront.game.World	M	i	()I	getTurn
+com.desertstormfront.game.World	M	a	(I)V	setTurn
+com.desertstormfront.game.World	M	j	()Lcom/desertstormfront/world/TerrainGrid;	getTerrainGrid
+com.desertstormfront.game.World	M	a	(Lcom/desertstormfront/world/TerrainGrid;)V	setTerrainGrid
+com.desertstormfront.game.World	M	k	()Lcom/desertstormfront/game/player/PlayerList;	getPlayers
+com.desertstormfront.game.World	M	a	(Lcom/desertstormfront/game/player/PlayerList;)V	setPlayers
+com.desertstormfront.game.World	M	b	(Lcom/desertstormfront/game/player/Player;)V	removePlayer
+com.desertstormfront.game.World	M	l	()Lcom/desertstormfront/game/model/UnitList;	getUnits
+com.desertstormfront.game.World	M	a	(Lcom/desertstormfront/game/model/UnitList;)V	setUnits
+com.desertstormfront.game.World	M	a	(Lcom/desertstormfront/game/model/UnitType;Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/player/Player;)V	addHostedUnit
+com.desertstormfront.game.World	M	a	(Lcom/desertstormfront/game/model/Unit;)V	removeUnit
+com.desertstormfront.game.World	M	b	(Lcom/desertstormfront/game/model/UnitType;Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/player/Player;)Lcom/desertstormfront/game/model/Unit;	createHostedUnit
+com.desertstormfront.game.World	M	a	(Lcom/desertstormfront/game/model/UnitType;FFLcom/desertstormfront/game/player/Player;)Lcom/desertstormfront/game/model/Unit;	spawnUnit
+com.desertstormfront.game.World	M	m	()Lcom/desertstormfront/game/model/BirdList;	getBirds
+com.desertstormfront.game.World	M	a	(Lcom/desertstormfront/game/model/BirdList;)V	setBirds
+com.desertstormfront.game.World	M	n	()[F	getWind
+com.desertstormfront.game.World	M	o	()Lcom/desertstormfront/game/model/UnitList;	getScratchUnits

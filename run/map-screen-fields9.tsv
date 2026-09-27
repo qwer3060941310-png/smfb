@@ -1,0 +1,71 @@
+# screen field batch 9: GameScreen, slice 1 - the HUD/dialog wiring and the draw queues.
+#
+# Every assignment below was read out of createGlResources(), where the object built for each field
+# names the field: the input multiplexer (g), the game-event listener (k), the unit commander the
+# game mode provides (p, NetworkedUnitCommander when MultiplayerGameMode), the background loader (i),
+# the sprite shader (aD) and the vector text renderer (aY).
+# The selection triple: selectedUnits (u, what the panels and orders consume), selectionScratch (v,
+# the buffer that expands a selection into its hosted sub-units and is cleared afterwards) and
+# hoveredUnits (A, the units under the pointer that the click handlers turn into targets).
+# The HUD widgets keep the type they are built from, disambiguated by their listener and by the
+# panel they sit next to: lanNoticeDialog + lanNoticeListener, loadingProgressDialog (Lobby "Loading")
+# and networkProgressDialog ("Network"), nationSelectDialog + playerSlotListener,
+# missionBriefingDialog + briefingAcceptListener, inGameMenu + pauseMenuListener with
+# inGameMenuButtonListener, resultBanner + gameOverDismissListener, scoreDialog, restartDialog +
+# restartConfirmListener, quitDialog + quitConfirmListener, timeStatusBar, minimapRenderer +
+# minimapPanel with zoomButtonListener (and the zoom label bv), singleUnitPanel + unitPanelListener,
+# carrierUnitPanel + productionPanelListener, buildingPanel + buildPanelListener, squadPanel +
+# squadBarListener, groupBar + multiSelectPanelListener.
+# The three DrawQueues are named by the layer switch that fills them: ch receives the Under layer and
+# is drained by drawUnitSpriteUnder, ci receives everything else (sites, tile occupants, Base) and
+# dispatches drawSite/drawUnitMoveTargetMarker/drawUnitSpriteAndOverlays, cj receives the Upper layer
+# and is drained last. ck is the screen's FastRandom.
+#
+# Left unnamed on purpose: bx (a plain label created next to the minimap, whose text is never
+# distinguishable from bv's) and the remaining camera/GL/state fields of the class.
+com.desertstormfront.screen.GameScreen	F	g	Lcom/badlogic/gdx/InputProcessor;	inputMultiplexer
+com.desertstormfront.screen.GameScreen	F	i	Lcom/desertstormfront/app/support/BackgroundTask;	backgroundTask
+com.desertstormfront.screen.GameScreen	F	k	Lcom/desertstormfront/game/GameEventListener;	gameEventListener
+com.desertstormfront.screen.GameScreen	F	p	Lcom/desertstormfront/command/UnitCommander;	unitCommander
+com.desertstormfront.screen.GameScreen	F	u	Lcom/desertstormfront/game/model/UnitList;	selectedUnits
+com.desertstormfront.screen.GameScreen	F	v	Lcom/desertstormfront/game/model/UnitList;	selectionScratch
+com.desertstormfront.screen.GameScreen	F	A	Lcom/desertstormfront/game/model/UnitList;	hoveredUnits
+com.desertstormfront.screen.GameScreen	F	aD	Lcom/desertstormfront/ui/ShaderProgram;	spriteShaderProgram
+com.desertstormfront.screen.GameScreen	F	aY	Lcom/desertstormfront/ui/VectorTextRenderer;	vectorTextRenderer
+com.desertstormfront.screen.GameScreen	F	br	Lcom/desertstormfront/ui/hud/TimeStatusBar;	timeStatusBar
+com.desertstormfront.screen.GameScreen	F	bs	Lcom/desertstormfront/ui/ActionListener;	inGameMenuButtonListener
+com.desertstormfront.screen.GameScreen	F	bt	Lcom/desertstormfront/ui/hud/MinimapRenderer;	minimapRenderer
+com.desertstormfront.screen.GameScreen	F	bu	Lcom/desertstormfront/ui/hud/MinimapPanel;	minimapPanel
+com.desertstormfront.screen.GameScreen	F	bv	Lcom/desertstormfront/ui/Label;	zoomLabel
+com.desertstormfront.screen.GameScreen	F	bw	Lcom/desertstormfront/ui/ActionListener;	zoomButtonListener
+com.desertstormfront.screen.GameScreen	F	by	Lcom/desertstormfront/ui/hud/SingleUnitPanel;	singleUnitPanel
+com.desertstormfront.screen.GameScreen	F	bz	Lcom/desertstormfront/ui/ActionListener;	unitPanelListener
+com.desertstormfront.screen.GameScreen	F	bA	Lcom/desertstormfront/ui/hud/CarrierUnitPanel;	carrierUnitPanel
+com.desertstormfront.screen.GameScreen	F	bB	Lcom/desertstormfront/ui/ActionListener;	productionPanelListener
+com.desertstormfront.screen.GameScreen	F	bC	Lcom/desertstormfront/ui/hud/BuildingPanel;	buildingPanel
+com.desertstormfront.screen.GameScreen	F	bD	Lcom/desertstormfront/ui/ActionListener;	buildPanelListener
+com.desertstormfront.screen.GameScreen	F	bE	Lcom/desertstormfront/ui/hud/SquadPanel;	squadPanel
+com.desertstormfront.screen.GameScreen	F	bF	Lcom/desertstormfront/ui/ActionListener;	squadBarListener
+com.desertstormfront.screen.GameScreen	F	bG	Lcom/desertstormfront/ui/hud/GroupBar;	groupBar
+com.desertstormfront.screen.GameScreen	F	bH	Lcom/desertstormfront/ui/ActionListener;	multiSelectPanelListener
+com.desertstormfront.screen.GameScreen	F	ba	Lcom/desertstormfront/ui/hud/MessageDialog;	lanNoticeDialog
+com.desertstormfront.screen.GameScreen	F	bb	Lcom/desertstormfront/ui/ActionListener;	lanNoticeListener
+com.desertstormfront.screen.GameScreen	F	bc	Lcom/desertstormfront/ui/hud/LoadingProgressDialog;	loadingProgressDialog
+com.desertstormfront.screen.GameScreen	F	bd	Lcom/desertstormfront/ui/hud/LoadingProgressDialog;	networkProgressDialog
+com.desertstormfront.screen.GameScreen	F	be	Lcom/desertstormfront/ui/hud/InGameMenu;	inGameMenu
+com.desertstormfront.screen.GameScreen	F	bf	Lcom/desertstormfront/ui/ActionListener;	pauseMenuListener
+com.desertstormfront.screen.GameScreen	F	bg	Lcom/desertstormfront/ui/hud/NationSelectDialog;	nationSelectDialog
+com.desertstormfront.screen.GameScreen	F	bh	Lcom/desertstormfront/ui/ActionListener;	playerSlotListener
+com.desertstormfront.screen.GameScreen	F	bi	Lcom/desertstormfront/ui/hud/MissionBriefingDialog;	missionBriefingDialog
+com.desertstormfront.screen.GameScreen	F	bj	Lcom/desertstormfront/ui/ActionListener;	briefingAcceptListener
+com.desertstormfront.screen.GameScreen	F	bk	Lcom/desertstormfront/ui/hud/ResultBanner;	resultBanner
+com.desertstormfront.screen.GameScreen	F	bl	Lcom/desertstormfront/ui/hud/ScoreDialog;	scoreDialog
+com.desertstormfront.screen.GameScreen	F	bm	Lcom/desertstormfront/ui/ActionListener;	gameOverDismissListener
+com.desertstormfront.screen.GameScreen	F	bn	Lcom/desertstormfront/ui/hud/MessageDialog;	restartDialog
+com.desertstormfront.screen.GameScreen	F	bo	Lcom/desertstormfront/ui/ActionListener;	restartConfirmListener
+com.desertstormfront.screen.GameScreen	F	bp	Lcom/desertstormfront/ui/hud/MessageDialog;	quitDialog
+com.desertstormfront.screen.GameScreen	F	bq	Lcom/desertstormfront/ui/ActionListener;	quitConfirmListener
+com.desertstormfront.screen.GameScreen	F	ch	Lcom/desertstormfront/game/model/DrawQueue;	underLayerQueue
+com.desertstormfront.screen.GameScreen	F	ci	Lcom/desertstormfront/game/model/DrawQueue;	baseLayerQueue
+com.desertstormfront.screen.GameScreen	F	cj	Lcom/desertstormfront/game/model/DrawQueue;	upperLayerQueue
+com.desertstormfront.screen.GameScreen	F	ck	Lcom/noblemaster/lib/util/FastRandom;	random

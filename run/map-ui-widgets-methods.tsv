@@ -1,0 +1,64 @@
+# Method batch: ui.Widget (UI base class) + ui.Label.
+# First batch of the ui package (86% obfuscated): Widget is the root of the widget hierarchy, so
+# naming it clarifies every subclass and every call site in screen/ and ui/hud/.
+#
+# Evidence (two independent sources per row):
+#   * geometry  - Widget.a(float,float) is the hit test: f1 >= c && f2 >= d && f1 < c+e && f2 < d+f,
+#                 i.e. (c,d) = position and (e,f) = size. Container.pack() then confirms it by
+#                 computing its own extent as h()+j() (x+width) and i()+k() (y+height).
+#   * visibility- Container skips children for which g() is false in BOTH pack() and draw(), and
+#                 gates input dispatch on it. Button additionally gates its hit test on g() and
+#                 keeps its own DISABLED state, so g() is "visible" and not "enabled".
+#                 The constructor sets a_(true) (widgets start visible) and Widget.draw() only
+#                 delegates when that flag is set.
+#   * color     - the int is handed to SpriteBatch.draw as its last argument, and
+#                 SkirmishSetupScreen sets label.a(-65536) = 0xFFFF0000 = opaque red.
+#   * data      - listeners read it as an action id: "(Integer)widget.f()" in ListBoxListener,
+#                 SquadBarListener, handleWidgetAction(...); MultiplayerLobbyScreen stores a whole
+#                 MatchRecord in it, so it is generic user data.
+#   * pack()    - Label computes its own size from the text, Button from its style, Container from
+#                 the extents of its visible children; it is called after every content change.
+#   * input     - Button turns the boolean into PRESSED/HOVER and fires actionListener.onAction(this)
+#                 when released; Container forwards with translated coordinates.
+#
+# Rows left BLANK on purpose (see 26: keep the trailing tab, they stay 5-column):
+#   Label.a(I)          - pure delegate to the inherited setColor(int); naming it setColor would
+#                         rewrite its own body into a recursive call.
+#   Label.a(ActionListener,FFZ) and Label.a(SpriteBatch,FF) - overrides of the Widget methods
+#                         mapped below; the renamer carries the whole override family.
+#
+# Descriptors come from javap: do not edit them, the renamer matches on them.
+# Columns: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> new
+com.desertstormfront.ui.Widget	M	f	()Ljava/lang/Object;	getData
+com.desertstormfront.ui.Widget	M	a	(Ljava/lang/Object;)V	setData
+com.desertstormfront.ui.Widget	M	g	()Z	isVisible
+com.desertstormfront.ui.Widget	M	a_	(Z)V	setVisible
+com.desertstormfront.ui.Widget	M	h	()F	getX
+com.desertstormfront.ui.Widget	M	b	(F)V	setX
+com.desertstormfront.ui.Widget	M	i	()F	getY
+com.desertstormfront.ui.Widget	M	c	(F)V	setY
+com.desertstormfront.ui.Widget	M	j	()F	getWidth
+com.desertstormfront.ui.Widget	M	d	(F)V	setWidth
+com.desertstormfront.ui.Widget	M	k	()F	getHeight
+com.desertstormfront.ui.Widget	M	e	(F)V	setHeight
+com.desertstormfront.ui.Widget	M	l	()I	getColor
+com.desertstormfront.ui.Widget	M	c	(I)V	setColor
+com.desertstormfront.ui.Widget	M	a	(FF)Z	contains
+com.desertstormfront.ui.Widget	M	a	(Lcom/desertstormfront/ui/ActionListener;FFZ)Z	handleInput
+com.desertstormfront.ui.Widget	M	a	(Lcom/desertstormfront/ui/SpriteBatch;)V	draw
+com.desertstormfront.ui.Widget	M	a	(Lcom/desertstormfront/ui/SpriteBatch;FF)V	draw
+com.desertstormfront.ui.Widget	M	a_	()V	pack
+com.desertstormfront.ui.Label	M	a	(I)V	
+com.desertstormfront.ui.Label	M	a	(Lcom/desertstormfront/ui/BitmapFont;)V	setFont
+com.desertstormfront.ui.Label	M	a	(Lcom/desertstormfront/ui/Align;)V	setAlign
+com.desertstormfront.ui.Label	M	a	()Ljava/lang/String;	getText
+com.desertstormfront.ui.Label	M	a	(Ljava/lang/String;)V	setText
+com.desertstormfront.ui.Label	M	b	()I	getMaxWidth
+com.desertstormfront.ui.Label	M	b	(I)V	setMaxWidth
+com.desertstormfront.ui.Label	M	d	()I	getTextWidth
+com.desertstormfront.ui.Label	M	a	(Ljava/lang/String;I)I	measureTextWidth
+com.desertstormfront.ui.Label	M	a	(Lcom/desertstormfront/ui/ActionListener;FFZ)Z	
+com.desertstormfront.ui.Label	M	a	(Lcom/desertstormfront/ui/SpriteBatch;FF)V	
+com.desertstormfront.ui.Label	M	a	(Lcom/desertstormfront/ui/SpriteBatch;IILjava/lang/String;)V	drawWrappedText
+com.desertstormfront.ui.Label	M	a	(Lcom/desertstormfront/ui/SpriteBatch;IILjava/lang/CharSequence;II)I	drawTextLine
+com.desertstormfront.ui.Label	M	a	(Lcom/desertstormfront/ui/SpriteBatch;Lcom/desertstormfront/ui/Glyph;II)V	drawGlyph

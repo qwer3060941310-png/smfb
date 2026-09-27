@@ -1,0 +1,46 @@
+# screen field batch 5: BaseMenuScreen - the animated menu shell every menu screen shares.
+#
+# render() pins the animation state: backgroundPlates (e, the eight 752x447 plates scrolled by the
+# frame delta and wrapped at 2048), floatingImages (h) with floatingMotion (i, one {speed, startX,
+# wrapX} row each, flipping sign when the image reaches the wrap point), curtainImages (g, the
+# fifteen narrow 30x144 strips) and logoImage (f, the 273x273 market-dependent logo). lastFrameTime
+# (b) is the delta clock render() computes; showTime (a) is stamped by show() and only ever copied -
+# nothing reads it, so it keeps that neutral name.
+# The three renderers/containers are named by their root widget: backgroundRenderer (d, the parallax
+# scene), hudRenderer (j, the widget tree the input is dispatched to), menuContainer (k), the
+# Back/Exit button container (l) with its white backLabel (m) and offset black backLabelShadow (n),
+# the per-screen contentContainer (s) that createContent() fills, and the four dialog items built by
+# createMenuItemContainer: websiteItem (p, hidden for ChinaMobile/iWin/JoyMoa), forumItem (q, hidden
+# for ChinaMobile/iWin), purchaseItem (r, shown when the license is purchasable) and unusedMenuItem
+# (o, a null-text item that is created and then only ever hidden).
+# Listening/state members: active (c, cleared on the parent when a child screen takes over and the
+# only thing pause() checks), wasTouchDown (t, the previous frame's press), menuActionListener (u),
+# dialogListener (y), nextScreen (v), pendingAction (w), messageDialog (x) - the last three are
+# exactly what the synthetic accessors setNextScreen/getMessageDialog/getPendingAction expose - and
+# the shared in-menu musicPlaylist (z) that render() updates and pause() disposes.
+com.desertstormfront.screen.BaseMenuScreen	F	a	J	showTime
+com.desertstormfront.screen.BaseMenuScreen	F	b	J	lastFrameTime
+com.desertstormfront.screen.BaseMenuScreen	F	c	Z	active
+com.desertstormfront.screen.BaseMenuScreen	F	d	Lcom/desertstormfront/ui/BatchRenderer;	backgroundRenderer
+com.desertstormfront.screen.BaseMenuScreen	F	e	[Lcom/desertstormfront/ui/Image;	backgroundPlates
+com.desertstormfront.screen.BaseMenuScreen	F	f	Lcom/desertstormfront/ui/Image;	logoImage
+com.desertstormfront.screen.BaseMenuScreen	F	g	[Lcom/desertstormfront/ui/Image;	curtainImages
+com.desertstormfront.screen.BaseMenuScreen	F	h	[Lcom/desertstormfront/ui/Image;	floatingImages
+com.desertstormfront.screen.BaseMenuScreen	F	i	[[F	floatingMotion
+com.desertstormfront.screen.BaseMenuScreen	F	j	Lcom/desertstormfront/ui/BatchRenderer;	hudRenderer
+com.desertstormfront.screen.BaseMenuScreen	F	k	Lcom/desertstormfront/ui/Container;	menuContainer
+com.desertstormfront.screen.BaseMenuScreen	F	l	Lcom/desertstormfront/ui/Container;	backButtonContainer
+com.desertstormfront.screen.BaseMenuScreen	F	m	Lcom/desertstormfront/ui/Label;	backLabel
+com.desertstormfront.screen.BaseMenuScreen	F	n	Lcom/desertstormfront/ui/Label;	backLabelShadow
+com.desertstormfront.screen.BaseMenuScreen	F	o	Lcom/desertstormfront/ui/Container;	unusedMenuItem
+com.desertstormfront.screen.BaseMenuScreen	F	p	Lcom/desertstormfront/ui/Container;	websiteItem
+com.desertstormfront.screen.BaseMenuScreen	F	q	Lcom/desertstormfront/ui/Container;	forumItem
+com.desertstormfront.screen.BaseMenuScreen	F	r	Lcom/desertstormfront/ui/Container;	purchaseItem
+com.desertstormfront.screen.BaseMenuScreen	F	s	Lcom/desertstormfront/ui/Container;	contentContainer
+com.desertstormfront.screen.BaseMenuScreen	F	t	Z	wasTouchDown
+com.desertstormfront.screen.BaseMenuScreen	F	u	Lcom/desertstormfront/ui/ActionListener;	menuActionListener
+com.desertstormfront.screen.BaseMenuScreen	F	v	Lcom/desertstormfront/screen/BaseScreen;	nextScreen
+com.desertstormfront.screen.BaseMenuScreen	F	w	I	pendingAction
+com.desertstormfront.screen.BaseMenuScreen	F	x	Lcom/desertstormfront/ui/hud/MessageDialog;	messageDialog
+com.desertstormfront.screen.BaseMenuScreen	F	y	Lcom/desertstormfront/ui/ActionListener;	dialogListener
+com.desertstormfront.screen.BaseMenuScreen	F	z	Lcom/desertstormfront/audio/MusicPlaylist;	musicPlaylist

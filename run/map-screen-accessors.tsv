@@ -1,0 +1,22 @@
+# GameScreen static accessors (CFR /* synthetic */ bridges plus two cached switch maps).
+#
+# l / b(GameScreen,float) read and write field ae. GameEventSoundListener compares l() with
+# world.getGameTime() before playing the under-attack sound and then stores gameTime + 6.0f, so
+# ae is that sound cooldown timestamp. The neighbouring accessor already reads
+# getUnderAttackSound(GameScreen), which pins the naming convention.
+# C / b(GameScreen,long) read and write field X: BuildPanelListener throttles with
+# C() <= r() followed by X = r() + 1000000000L, i.e. one build action per second.
+# E(GameScreen) exposes field v, the buffer MultiSelectPanelListener accumulates into before
+# merging it into getSelectedUnits().
+# j() and k() are cached switch maps, used as switch (j()[ammoType.ordinal()]) and
+# switch (k()[birdType.ordinal()]).
+#
+# Left blank: r(GameScreen) / a(GameScreen,long) touch two DIFFERENT long fields (bK read, bM
+# written) and no usage pins their meaning.
+com.desertstormfront.screen.GameScreen	M	l	(Lcom/desertstormfront/screen/GameScreen;)F	getUnderAttackSoundTime
+com.desertstormfront.screen.GameScreen	M	b	(Lcom/desertstormfront/screen/GameScreen;F)V	setUnderAttackSoundTime
+com.desertstormfront.screen.GameScreen	M	C	(Lcom/desertstormfront/screen/GameScreen;)J	getLastBuildActionTime
+com.desertstormfront.screen.GameScreen	M	b	(Lcom/desertstormfront/screen/GameScreen;J)V	setLastBuildActionTime
+com.desertstormfront.screen.GameScreen	M	E	(Lcom/desertstormfront/screen/GameScreen;)Lcom/desertstormfront/game/model/UnitList;	getMultiSelectBuffer
+com.desertstormfront.screen.GameScreen	M	j	()[I	getAmmoTypeSwitchMap
+com.desertstormfront.screen.GameScreen	M	k	()[I	getBirdSwitchMap

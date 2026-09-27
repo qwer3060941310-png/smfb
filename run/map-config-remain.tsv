@@ -1,0 +1,20 @@
+# config package tail: owner <TAB> M <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# F() and G() are the screen size: DesktopLauncher feeds them straight into
+# LwjglApplicationConfiguration.width/height after clamping them to 1280x800.
+# n() just forwards to AbstractGameInfo.getCampaignMissionIndices(), so it keeps that name.
+# E()/a(boolean) read and write the flag that selects the com.desertstormfront.mac build in
+# configure(), hence isMacBuild/setMacBuild.
+# C() gates AIPlanner step logging (it labels the step EVALUATOR) and UnitCommander guards.
+# AbstractGameInfo.E() and its protected static worker iterate all nine languages and log the
+# localized title/name of every language - a translator aid.
+com.desertstormfront.config.AbstractGameInfo	M	E	()V	logLocalizedNames
+com.desertstormfront.config.AbstractGameInfo	M	a	(Lcom/desertstormfront/config/AbstractGameInfo;)V	logLocalizedNames
+com.desertstormfront.config.GameConfig	M	n	()[I	getCampaignMissionIndices
+com.desertstormfront.config.GameConfig	M	C	()Z	isDebugEnabled
+com.desertstormfront.config.GameConfig	M	E	()Z	isMacBuild
+com.desertstormfront.config.GameConfig	M	a	(Z)V	setMacBuild
+com.desertstormfront.config.GameConfig	M	F	()I	getScreenWidth
+com.desertstormfront.config.GameConfig	M	G	()I	getScreenHeight
+com.desertstormfront.config.TouchDeviceFlags	M	a	(Z)V	setTouchDevice
+com.desertstormfront.config.TouchDeviceFlags	M	a	()Z	isTouchDevice

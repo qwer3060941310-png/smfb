@@ -1,0 +1,38 @@
+# Unit fields (kind F). Every name is backed by an accessor that already exists on this class:
+# getId/getUnitType/getOwner/getPosition/getOrderMode/getGuardPositionOrNull (field f, used when g is set)
+# isGuarding/getRallyPosition/hasRally/getAngle/getDirection/getCount/getProgress/getHealth/
+# getSalvoCount/getSubUnits/hasMoveTarget/getMoveTargetPosition/getSortProxy/getGuardFollowers/
+# getUnitGroup/getVolley/isVolleyActive/getReadyTime/getEffectTimer/isEffectActive.
+#
+# Left blank: l (only the obfuscated v() reads it), q and r (E()/F(), meaning unknown), t (H()) and w (L()).
+com.desertstormfront.game.model.Unit	F	a	I	id
+com.desertstormfront.game.model.Unit	F	b	Lcom/desertstormfront/game/model/UnitType;	unitType
+com.desertstormfront.game.model.Unit	F	c	Lcom/desertstormfront/game/player/Player;	owner
+com.desertstormfront.game.model.Unit	F	d	Lcom/desertstormfront/world/UnitPosition;	position
+com.desertstormfront.game.model.Unit	F	e	Lcom/desertstormfront/game/model/UnitOrderMode;	orderMode
+com.desertstormfront.game.model.Unit	F	f	Lcom/desertstormfront/world/UnitPosition;	guardPosition
+com.desertstormfront.game.model.Unit	F	g	Z	guarding
+com.desertstormfront.game.model.Unit	F	h	Lcom/desertstormfront/world/UnitPosition;	rallyPosition
+com.desertstormfront.game.model.Unit	F	i	Z	hasRally
+com.desertstormfront.game.model.Unit	F	j	F	angle
+com.desertstormfront.game.model.Unit	F	k	Lcom/desertstormfront/game/model/Direction;	direction
+com.desertstormfront.game.model.Unit	F	l	F	
+com.desertstormfront.game.model.Unit	F	m	I	count
+com.desertstormfront.game.model.Unit	F	n	F	progress
+com.desertstormfront.game.model.Unit	F	o	I	health
+com.desertstormfront.game.model.Unit	F	p	I	salvoCount
+com.desertstormfront.game.model.Unit	F	q	I	
+com.desertstormfront.game.model.Unit	F	r	I	
+com.desertstormfront.game.model.Unit	F	s	Lcom/desertstormfront/game/model/UnitList;	subUnits
+com.desertstormfront.game.model.Unit	F	t	Z	
+com.desertstormfront.game.model.Unit	F	u	Z	hasMoveTarget
+com.desertstormfront.game.model.Unit	F	v	Lcom/desertstormfront/world/UnitPosition;	moveTargetPosition
+com.desertstormfront.game.model.Unit	F	w	I	
+com.desertstormfront.game.model.Unit	F	x	Lcom/desertstormfront/game/model/PositionedSortable;	sortProxy
+com.desertstormfront.game.model.Unit	F	y	Lcom/desertstormfront/game/model/UnitList;	guardFollowers
+com.desertstormfront.game.model.Unit	F	z	Lcom/desertstormfront/game/player/UnitGroup;	unitGroup
+com.desertstormfront.game.model.Unit	F	A	Lcom/desertstormfront/game/model/Volley;	volley
+com.desertstormfront.game.model.Unit	F	B	Z	volleyActive
+com.desertstormfront.game.model.Unit	F	C	F	readyTime
+com.desertstormfront.game.model.Unit	F	D	Lcom/desertstormfront/game/model/EffectTimer;	effectTimer
+com.desertstormfront.game.model.Unit	F	E	Z	effectActive

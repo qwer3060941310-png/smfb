@@ -1,0 +1,16 @@
+# Skeleton for com.desertstormfront.ui.ClipRect - fill in the LAST column (semantic name), then:
+#   powershell -File run\deobf-rename.ps1 -Map run\map-ui-cliprect.tsv            # dry-run (also validates the map)
+#   powershell -File run\deobf-rename.ps1 -Map run\map-ui-cliprect.tsv -Apply    # write
+# Descriptors come from javap: do not edit them, the renamer matches on them.
+# A row with a BLANK last column must keep its trailing tab, or it loses a column and is
+# misparsed as a different layout (see 26, pitfall 10).
+# 1 already-semantic method(s) omitted; use -All to include them.
+# Columns: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> new
+com.desertstormfront.ui.ClipRect	M	a	()I	
+com.desertstormfront.ui.ClipRect	M	a	(I)V	
+com.desertstormfront.ui.ClipRect	M	b	()I	
+com.desertstormfront.ui.ClipRect	M	b	(I)V	
+com.desertstormfront.ui.ClipRect	M	c	()I	
+com.desertstormfront.ui.ClipRect	M	c	(I)V	
+com.desertstormfront.ui.ClipRect	M	d	()I	
+com.desertstormfront.ui.ClipRect	M	d	(I)V	

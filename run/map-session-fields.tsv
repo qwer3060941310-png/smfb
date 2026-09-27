@@ -1,0 +1,78 @@
+# session field batch - every field is pinned by the member that reads it (all bodies were read while
+# naming this package's methods, so the roles are already established):
+#
+# GameClient: addressProvider/matchRecord (constructor), socket/reader/writer (connect/close),
+#   pendingStateCount (++ per STATUS, -- per consumed state), serverState (the state popped from the
+#   queue), incomingMessages (mixed command/state queue), commandsToExecute (the batch drained from
+#   it), ticksRemaining (set to 3, one decrement per simulator tick), chatTimes/chatMessages/chatText
+#   (the 20s chat window), playerCount/playerNames (written by the STATUS branch, read by the lobby),
+#   lock, nextTickTime (compared with System.currentTimeMillis, += 33), readerThread, world,
+#   playerIndex (assigned from SLOTS, -1 until then).
+# GameServer: world, sessions (one slot per player), pendingCommands (queued for local execution),
+#   commandsToApply (the drained copy), matchRecord, serverSocket, clients, state, lock, startTime
+#   (base of the mm:ss log stamp), tickThread, acceptThread.
+# ServerClientSession: server, socket, reader, writer, playerName, ready (READY opcode),
+#   playing (STATUS flag), pendingMessages (what send() appends to), sendBatch (the writer thread's
+#   working copy; ClientWriterThread clears it, copies pendingMessages in, then writes each element).
+# ClientWriterThread.session / ServerTickThread.server: the owner handed in by the constructor.
+# FileSaveStore.saveFile / MemorySaveStore.world: the single slot each store wraps.
+# SkirmishGameMode: counterFile (the saved counters), saveStore (the playable world),
+#   startSaveStore (the pristine copy restoreStartWorld reloads), gamesPlayed/wins (the two counters
+#   read by getGamesPlayed/getWins).
+# TutorialGameMode.started / TestScenarioMode & TutorialGameMode.saveStore: same roles as the
+#   campaign mode's flags.
+com.desertstormfront.session.impl.ClientWriterThread	F	a	Lcom/desertstormfront/session/impl/ServerClientSession;	session
+com.desertstormfront.session.impl.FileSaveStore	F	a	Lcom/noblemaster/lib/io/GameFile;	saveFile
+com.desertstormfront.session.impl.GameClient	F	a	Lcom/noblemaster/lib/net/match/AddressProvider;	addressProvider
+com.desertstormfront.session.impl.GameClient	F	b	Lcom/noblemaster/lib/net/match/MatchRecord;	matchRecord
+com.desertstormfront.session.impl.GameClient	F	c	Lcom/badlogic/gdx/net/Socket;	socket
+com.desertstormfront.session.impl.GameClient	F	d	Lcom/noblemaster/lib/io/stream/DataReader;	reader
+com.desertstormfront.session.impl.GameClient	F	e	Lcom/noblemaster/lib/io/stream/DataWriter;	writer
+com.desertstormfront.session.impl.GameClient	F	f	I	pendingStateCount
+com.desertstormfront.session.impl.GameClient	F	g	Lcom/desertstormfront/session/impl/ServerState;	serverState
+com.desertstormfront.session.impl.GameClient	F	h	Ljava/util/List;	incomingMessages
+com.desertstormfront.session.impl.GameClient	F	i	Ljava/util/List;	commandsToExecute
+com.desertstormfront.session.impl.GameClient	F	j	I	ticksRemaining
+com.desertstormfront.session.impl.GameClient	F	k	Ljava/util/List;	chatTimes
+com.desertstormfront.session.impl.GameClient	F	l	Ljava/util/List;	chatMessages
+com.desertstormfront.session.impl.GameClient	F	m	Ljava/lang/String;	chatText
+com.desertstormfront.session.impl.GameClient	F	n	I	playerCount
+com.desertstormfront.session.impl.GameClient	F	o	[Ljava/lang/String;	playerNames
+com.desertstormfront.session.impl.GameClient	F	p	Ljava/lang/Object;	lock
+com.desertstormfront.session.impl.GameClient	F	q	J	nextTickTime
+com.desertstormfront.session.impl.GameClient	F	r	Ljava/lang/Thread;	readerThread
+com.desertstormfront.session.impl.GameClient	F	s	Lcom/desertstormfront/game/World;	world
+com.desertstormfront.session.impl.GameClient	F	t	I	playerIndex
+com.desertstormfront.session.impl.GameServer	F	a	Lcom/desertstormfront/game/World;	world
+com.desertstormfront.session.impl.GameServer	F	b	[Lcom/desertstormfront/session/impl/ServerClientSession;	sessions
+com.desertstormfront.session.impl.GameServer	F	c	Ljava/util/List;	pendingCommands
+com.desertstormfront.session.impl.GameServer	F	d	Ljava/util/List;	commandsToApply
+com.desertstormfront.session.impl.GameServer	F	e	Lcom/noblemaster/lib/net/match/MatchRecord;	matchRecord
+com.desertstormfront.session.impl.GameServer	F	f	Lcom/badlogic/gdx/net/ServerSocket;	serverSocket
+com.desertstormfront.session.impl.GameServer	F	g	Ljava/util/List;	clients
+com.desertstormfront.session.impl.GameServer	F	h	Lcom/desertstormfront/session/impl/ServerState;	state
+com.desertstormfront.session.impl.GameServer	F	i	Ljava/lang/Object;	lock
+com.desertstormfront.session.impl.GameServer	F	j	J	startTime
+com.desertstormfront.session.impl.GameServer	F	k	Ljava/lang/Thread;	tickThread
+com.desertstormfront.session.impl.GameServer	F	l	Ljava/lang/Thread;	acceptThread
+com.desertstormfront.session.impl.MemorySaveStore	F	a	Lcom/desertstormfront/game/World;	world
+com.desertstormfront.session.impl.ServerClientSession	F	a	Lcom/desertstormfront/session/impl/GameServer;	server
+com.desertstormfront.session.impl.ServerClientSession	F	b	Lcom/badlogic/gdx/net/Socket;	socket
+com.desertstormfront.session.impl.ServerClientSession	F	c	Lcom/noblemaster/lib/io/stream/DataReader;	reader
+com.desertstormfront.session.impl.ServerClientSession	F	d	Lcom/noblemaster/lib/io/stream/DataWriter;	writer
+com.desertstormfront.session.impl.ServerClientSession	F	e	Ljava/lang/String;	playerName
+com.desertstormfront.session.impl.ServerClientSession	F	f	Z	ready
+com.desertstormfront.session.impl.ServerClientSession	F	g	Z	playing
+com.desertstormfront.session.impl.ServerClientSession	F	h	Ljava/util/List;	pendingMessages
+com.desertstormfront.session.impl.ServerClientSession	F	i	Ljava/util/List;	sendBatch
+com.desertstormfront.session.impl.ServerClientSession	F	j	Ljava/lang/Thread;	readerThread
+com.desertstormfront.session.impl.ServerClientSession	F	k	Ljava/lang/Thread;	writerThread
+com.desertstormfront.session.impl.ServerTickThread	F	a	Lcom/desertstormfront/session/impl/GameServer;	server
+com.desertstormfront.session.impl.SkirmishGameMode	F	a	Lcom/noblemaster/lib/io/GameFile;	counterFile
+com.desertstormfront.session.impl.SkirmishGameMode	F	b	Lcom/desertstormfront/session/SaveGameStore;	saveStore
+com.desertstormfront.session.impl.SkirmishGameMode	F	c	Lcom/desertstormfront/session/SaveGameStore;	startSaveStore
+com.desertstormfront.session.impl.SkirmishGameMode	F	d	I	gamesPlayed
+com.desertstormfront.session.impl.SkirmishGameMode	F	e	I	wins
+com.desertstormfront.session.impl.TestScenarioMode	F	a	Lcom/desertstormfront/session/SaveGameStore;	saveStore
+com.desertstormfront.session.impl.TutorialGameMode	F	a	Lcom/desertstormfront/session/SaveGameStore;	saveStore
+com.desertstormfront.session.impl.TutorialGameMode	F	b	Z	started

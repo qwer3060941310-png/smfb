@@ -1,0 +1,19 @@
+# UnitBlackboard batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+# com.desertstormfront.ai.behavior.UnitBlackboard - per-unit AI shared data carrier.
+#   fields: a=AIContext->context ; b=UnitCommander->commander ; c=Unit->unit ; d=IntentGroup->intentGroup
+#   a(Unit)->setUnit ; a()->getContext ; b()->refreshIntentGroup (cache from getIntents().b(unit), ret has)
+#   c()->getIntentGroup ; d()->getUnit ; a(float,float)->moveUnitTo (delegate commander.moveUnitTo)
+#   b(Unit)->targetUnit (delegate commander.targetUnit) ; e()->canStop (delegate) ; f()->stopUnit (delegate)
+com.desertstormfront.ai.behavior.UnitBlackboard	F	a	Lcom/desertstormfront/ai/intent/AIContext;	context
+com.desertstormfront.ai.behavior.UnitBlackboard	F	b	Lcom/desertstormfront/command/UnitCommander;	commander
+com.desertstormfront.ai.behavior.UnitBlackboard	F	c	Lcom/desertstormfront/game/model/Unit;	unit
+com.desertstormfront.ai.behavior.UnitBlackboard	F	d	Lcom/desertstormfront/ai/intent/IntentGroup;	intentGroup
+com.desertstormfront.ai.behavior.UnitBlackboard	M	a	(Lcom/desertstormfront/game/model/Unit;)V	setUnit
+com.desertstormfront.ai.behavior.UnitBlackboard	M	a	()Lcom/desertstormfront/ai/intent/AIContext;	getContext
+com.desertstormfront.ai.behavior.UnitBlackboard	M	b	()Z	refreshIntentGroup
+com.desertstormfront.ai.behavior.UnitBlackboard	M	c	()Lcom/desertstormfront/ai/intent/IntentGroup;	getIntentGroup
+com.desertstormfront.ai.behavior.UnitBlackboard	M	d	()Lcom/desertstormfront/game/model/Unit;	getUnit
+com.desertstormfront.ai.behavior.UnitBlackboard	M	a	(FF)Z	moveUnitTo
+com.desertstormfront.ai.behavior.UnitBlackboard	M	b	(Lcom/desertstormfront/game/model/Unit;)Z	targetUnit
+com.desertstormfront.ai.behavior.UnitBlackboard	M	e	()Z	canStop
+com.desertstormfront.ai.behavior.UnitBlackboard	M	f	()Z	stopUnit

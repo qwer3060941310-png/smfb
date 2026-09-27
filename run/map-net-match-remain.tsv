@@ -1,0 +1,54 @@
+# Skeleton for com.noblemaster.lib.net.match (package-wide) - fill in the LAST column (semantic name), then:
+#   powershell -File run\deobf-rename.ps1 -Map run\map-net-match-remain.tsv            # dry-run (also validates the map)
+#   powershell -File run\deobf-rename.ps1 -Map run\map-net-match-remain.tsv -Apply    # write
+# Descriptors come from javap: do not edit them, the renamer matches on them.
+# A row with a BLANK last column must keep its trailing tab, or it loses a column and is
+# misparsed as a different layout (see 26, pitfall 10).
+# 17 already-semantic method(s) omitted; use -All to include them.
+# Columns: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> new
+com.noblemaster.lib.net.match.AddressProvider	M	a	()Ljava/lang/String;	
+com.noblemaster.lib.net.match.AddressProvider	M	b	()Ljava/lang/String;	
+com.noblemaster.lib.net.match.DefaultAddressProvider	M	a	()Ljava/lang/String;	
+com.noblemaster.lib.net.match.DefaultAddressProvider	M	b	()Ljava/lang/String;	
+com.noblemaster.lib.net.match.DefaultAddressProvider	M	a	(Ljava/lang/String;)Ljava/lang/String;	
+com.noblemaster.lib.net.match.IpHelper	M	a	(Ljava/lang/String;)Z	
+com.noblemaster.lib.net.match.MatchCodec	M	a	(Lcom/noblemaster/lib/io/stream/DataReader;)Lcom/noblemaster/lib/net/match/MatchRecord;	
+com.noblemaster.lib.net.match.MatchCodec	M	a	(Lcom/noblemaster/lib/io/stream/DataWriter;Lcom/noblemaster/lib/net/match/MatchRecord;)V	
+com.noblemaster.lib.net.match.MatchCodec	M	a	(Lcom/noblemaster/lib/io/stream/DataReader;Lcom/noblemaster/lib/net/match/MatchRecord;)V	
+com.noblemaster.lib.net.match.MatchCodec	M	b	(Lcom/noblemaster/lib/io/stream/DataWriter;Lcom/noblemaster/lib/net/match/MatchRecord;)V	
+com.noblemaster.lib.net.match.MatchListCodec	M	a	(Lcom/noblemaster/lib/io/stream/DataReader;)Lcom/noblemaster/lib/net/match/MatchList;	
+com.noblemaster.lib.net.match.MatchListCodec	M	a	(Lcom/noblemaster/lib/io/stream/DataWriter;Lcom/noblemaster/lib/net/match/MatchList;)V	
+com.noblemaster.lib.net.match.MatchListCodec	M	a	(Lcom/noblemaster/lib/io/stream/DataReader;Lcom/noblemaster/lib/net/match/MatchList;)V	
+com.noblemaster.lib.net.match.MatchListCodec	M	b	(Lcom/noblemaster/lib/io/stream/DataWriter;Lcom/noblemaster/lib/net/match/MatchList;)V	
+com.noblemaster.lib.net.match.MatchMakingClient	M	a	(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILcom/noblemaster/lib/net/match/AddressProvider;Lcom/noblemaster/lib/net/match/PortMappingCallback;)Lcom/noblemaster/lib/net/match/MatchRecord;	
+com.noblemaster.lib.net.match.MatchMakingClient	M	a	(Lcom/noblemaster/lib/net/match/MatchRecord;)V	
+com.noblemaster.lib.net.match.MatchMakingClient	M	a	(Ljava/lang/String;J)Lcom/noblemaster/lib/net/match/MatchRecord;	
+com.noblemaster.lib.net.match.MatchMakingClient	M	a	(Ljava/lang/String;)Lcom/noblemaster/lib/net/match/MatchList;	
+com.noblemaster.lib.net.match.MatchMakingClient	M	a	(Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;ILcom/noblemaster/lib/net/match/AddressProvider;Lcom/noblemaster/lib/net/match/PortMappingCallback;)Lcom/noblemaster/lib/net/match/MatchRecord;	
+com.noblemaster.lib.net.match.MatchMakingClient	M	a	(Ljava/lang/String;ILcom/noblemaster/lib/net/match/MatchRecord;)V	
+com.noblemaster.lib.net.match.MatchMakingClient	M	a	(Ljava/lang/String;ILjava/lang/String;J)Lcom/noblemaster/lib/net/match/MatchRecord;	
+com.noblemaster.lib.net.match.MatchMakingClient	M	a	(Ljava/lang/String;ILjava/lang/String;)Lcom/noblemaster/lib/net/match/MatchList;	
+com.noblemaster.lib.net.match.MatchMakingClient	M	a	(Lcom/badlogic/gdx/net/Socket;Lcom/noblemaster/lib/io/stream/DataReader;Lcom/noblemaster/lib/io/stream/DataWriter;)V	
+com.noblemaster.lib.net.match.MatchMakingServer	M	a	(III)Lcom/noblemaster/lib/net/match/MatchMakingServer;	
+com.noblemaster.lib.net.match.MatchMakingServer	M	a	()V	
+com.noblemaster.lib.net.match.MatchRecord	M	a	()J	
+com.noblemaster.lib.net.match.MatchRecord	M	a	(J)V	
+com.noblemaster.lib.net.match.MatchRecord	M	b	()Ljava/lang/String;	
+com.noblemaster.lib.net.match.MatchRecord	M	a	(Ljava/lang/String;)V	
+com.noblemaster.lib.net.match.MatchRecord	M	c	()Ljava/lang/String;	
+com.noblemaster.lib.net.match.MatchRecord	M	b	(Ljava/lang/String;)V	
+com.noblemaster.lib.net.match.MatchRecord	M	d	()Ljava/lang/String;	
+com.noblemaster.lib.net.match.MatchRecord	M	c	(Ljava/lang/String;)V	
+com.noblemaster.lib.net.match.MatchRecord	M	e	()Ljava/lang/String;	
+com.noblemaster.lib.net.match.MatchRecord	M	d	(Ljava/lang/String;)V	
+com.noblemaster.lib.net.match.MatchRecord	M	f	()I	
+com.noblemaster.lib.net.match.MatchRecord	M	a	(I)V	
+com.noblemaster.lib.net.match.MatchRecord	M	g	()Ljava/lang/String;	
+com.noblemaster.lib.net.match.MatchRecord	M	e	(Ljava/lang/String;)V	
+com.noblemaster.lib.net.match.MatchRecord	M	h	()I	
+com.noblemaster.lib.net.match.MatchRecord	M	b	(I)V	
+com.noblemaster.lib.net.match.MatchRecord	M	i	()Z	
+com.noblemaster.lib.net.match.MatchRecord	M	a	(Z)V	
+com.noblemaster.lib.net.match.MatchRecord	M	j	()J	
+com.noblemaster.lib.net.match.MatchRecord	M	b	(J)V	
+com.noblemaster.lib.net.match.PortMappingCallback	M	a	(Ljava/lang/String;I)Ljava/lang/String;	

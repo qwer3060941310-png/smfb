@@ -1,0 +1,134 @@
+# session + ui + screen batch (evidence-backed rows only)
+#
+# --- session: every name below is pinned by the peer that talks to it ---
+# GameClient: b()/c() are the player count and the name array the lobby screen displays (written by
+#   the STATUS branch from the server's slot list) -> getPlayerCount/getPlayerNames ;
+#   a(GameEventListener) is the per-frame pump that drains received commands, ticks the simulator and
+#   returns whether the server is RUNNING -> update ; d() prunes chat older than 20s and returns the
+#   accumulated text -> getChatText ; a(int) sends SLOTS (slot index + user name) -> claimSlot ;
+#   a(boolean) sends READY -> setReady ; a(GameCommand) sends COMMAND (used by NetworkedUnitCommander
+#   for every order) -> sendCommand ; f() is the local Player behind NetworkedUnitCommander.getPlayer
+#   -> getPlayer ; g() is "reader thread alive" -> isConnected ; j() dials the socket -> connect ;
+#   k() closes reader/writer/socket -> close.
+# GameServer: c() is the tick body invoked by ServerTickThread (drain commands, broadcast state, run
+#   three 33ms simulator steps) -> tick ; a(GameCommand) fans a command out to all clients and queues
+#   it locally -> broadcastCommand ; a(String) fans a chat line out -> broadcast ; b() clears the
+#   accept-loop thread -> stop ; a(World,int) builds the "4|name, n/m Players, k Teams, type" match
+#   label -> buildMatchLabel ; d() is the "mm:ss: " uptime stamp used as the log prefix
+#   -> getLogPrefix. The synthetics forward to those very members (a->lock, b->sessions,
+#   c->getLogPrefix, d->clients, e->world, f->state, g->tick thread, h->tick and the three setters).
+# ServerClientSession: a(Object) enqueues a message for ClientWriterThread -> send ; a() is "reader
+#   thread alive" -> isOpen ; b() is "open and the client said READY" -> isReady ; c() is "open and
+#   the client's STATUS flag is set" -> isPlaying ; d() is the player name used in every log line
+#   -> getPlayerName ; e() stops the reader loop (called by GameServer's shutdown) -> stop ;
+#   g() closes writer/reader/socket -> close. The synthetics expose writer thread, send batch,
+#   pending queue, writer and server to the two helper threads.
+# Modes: TutorialGameMode/TestScenarioMode.d() is what restoreStartWorld() calls to rebuild the
+#   scenario world from its .world file -> createStartWorld. Their empty e()/f() hooks carry no
+#   evidence and stay unnamed, as does CampaignGameMode.p() (evidence: it is "lite mode or Mac
+#   build" gating the mission subset, but no call-site name is forced).
+#
+# --- ui ---
+# Label.a(int) delegates to setColor(int) - i.e. the class already has that semantic name, which is
+# why RenameAst's collision check rejects it. It is a leftover delegating accessor and stays as is.
+# ScriptStep.d() / TutorialHintBox.b() are the same script column: GameScreen parses it as a command
+#   code ("A...", "AD...", digit fields) -> getActionCode.
+# GuiAssets accessors, named from where they are consumed:
+#   j() -> the four content insets BaseMenuScreen applies around a dialog nine-patch
+#        -> getDialogContentInsets
+#   r() -> the ButtonStyle BaseMenuScreen.createButton builds every dialog button with
+#        -> getMenuButtonStyle
+#   w()/x() -> the item and selection styles BaseMenuScreen.createListBox passes to ListBox
+#        -> getMenuListBoxItemStyle / getMenuListBoxSelectionStyle
+#   y() -> the big nine-patch behind menu panels (MainMenuScreen/CampaignScreen/SkirmishSetupScreen)
+#        -> getMenuPanelNinePatch
+#   z() -> the nine-patch behind the FullScreen option row in MainMenuScreen -> getOptionRowNinePatch
+#   t() -> the 55px row strip used above buttons in the menu/dialog lists -> getRowNinePatch
+#   u() -> the 196x51 region drawn on that strip -> getRowHighlightRegion
+#   s() -> the nine-patch behind the difficulty list in CampaignScreen -> getListPanelNinePatch
+#   A()/B()/C() -> the three assets GameScreen hands to the TutorialHintBox constructor
+#        (background nine-patch, Next-button style, pointer region)
+#        -> getHintBoxNinePatch / getHintBoxButtonStyle / getHintPointerRegion
+# SelectionPanelBase.a(String,ZZZZZZ) is left unnamed: it switches four sub-panels by six booleans
+#   whose meaning is not decidable from the body alone.
+#
+# --- screen ---
+# BaseScreen.y() forwards to GameApplication.resetCursor() and is called after a display-mode change
+#   -> resetCursor.
+# CampaignScreen.j() clears the mission container and rebuilds the mission buttons from the campaign
+#   mode -> rebuildMissionList ; k() resets the campaign and rebuilds -> resetCampaign.
+# GameScene.a()/b(): b() is the flag the input code checks as "a panel/dialog owns the input"
+#   (if (!t.b()) ...), a() is true exactly for the five map scenes f..j -> isPanelOpen / isMapScene.
+# GameScreen.r(GameScreen)/a(GameScreen,long) are the nanos clock the listeners read
+#   (onGameTick stores it; BuildPanelListener compares and advances it by 1e9) -> getGameTimeNanos /
+#   setLastTickTime.
+com.desertstormfront.screen.BaseScreen	M	y	()V	resetCursor
+com.desertstormfront.screen.CampaignScreen	M	j	()V	rebuildMissionList
+com.desertstormfront.screen.CampaignScreen	M	k	()V	resetCampaign
+com.desertstormfront.screen.GameScene	M	a	()Z	isMapScene
+com.desertstormfront.screen.GameScene	M	b	()Z	isPanelOpen
+com.desertstormfront.screen.GameScreen	M	r	(Lcom/desertstormfront/screen/GameScreen;)J	getGameTimeNanos
+com.desertstormfront.screen.GameScreen	M	a	(Lcom/desertstormfront/screen/GameScreen;J)V	setLastTickTime
+com.desertstormfront.session.impl.CampaignGameMode	M	p	()Z	
+com.desertstormfront.session.impl.GameClient	M	b	()I	getPlayerCount
+com.desertstormfront.session.impl.GameClient	M	c	()[Ljava/lang/String;	getPlayerNames
+com.desertstormfront.session.impl.GameClient	M	a	(Lcom/desertstormfront/game/GameEventListener;)Z	update
+com.desertstormfront.session.impl.GameClient	M	d	()Ljava/lang/String;	getChatText
+com.desertstormfront.session.impl.GameClient	M	a	(I)V	claimSlot
+com.desertstormfront.session.impl.GameClient	M	a	(Z)V	setReady
+com.desertstormfront.session.impl.GameClient	M	a	(Lcom/desertstormfront/command/GameCommand;)V	sendCommand
+com.desertstormfront.session.impl.GameClient	M	f	()Lcom/desertstormfront/game/player/Player;	getPlayer
+com.desertstormfront.session.impl.GameClient	M	g	()Z	isConnected
+com.desertstormfront.session.impl.GameClient	M	j	()V	connect
+com.desertstormfront.session.impl.GameClient	M	k	()V	close
+com.desertstormfront.session.impl.GameServer	M	c	()V	tick
+com.desertstormfront.session.impl.GameServer	M	a	(Lcom/desertstormfront/command/GameCommand;)V	broadcastCommand
+com.desertstormfront.session.impl.GameServer	M	a	(Ljava/lang/String;)V	broadcast
+com.desertstormfront.session.impl.GameServer	M	b	()V	stop
+com.desertstormfront.session.impl.GameServer	M	a	(Lcom/desertstormfront/game/World;I)Ljava/lang/String;	buildMatchLabel
+com.desertstormfront.session.impl.GameServer	M	d	()Ljava/lang/String;	getLogPrefix
+com.desertstormfront.session.impl.GameServer	M	a	(Lcom/desertstormfront/session/impl/GameServer;)Ljava/lang/Object;	getLock
+com.desertstormfront.session.impl.GameServer	M	b	(Lcom/desertstormfront/session/impl/GameServer;)[Lcom/desertstormfront/session/impl/ServerClientSession;	getSessions
+com.desertstormfront.session.impl.GameServer	M	c	(Lcom/desertstormfront/session/impl/GameServer;)Ljava/lang/String;	getLogPrefix
+com.desertstormfront.session.impl.GameServer	M	a	(Lcom/desertstormfront/session/impl/GameServer;Ljava/lang/String;)V	broadcast
+com.desertstormfront.session.impl.GameServer	M	d	(Lcom/desertstormfront/session/impl/GameServer;)Ljava/util/List;	getClients
+com.desertstormfront.session.impl.GameServer	M	e	(Lcom/desertstormfront/session/impl/GameServer;)Lcom/desertstormfront/game/World;	getWorld
+com.desertstormfront.session.impl.GameServer	M	f	(Lcom/desertstormfront/session/impl/GameServer;)Lcom/desertstormfront/session/impl/ServerState;	getState
+com.desertstormfront.session.impl.GameServer	M	a	(Lcom/desertstormfront/session/impl/GameServer;Lcom/desertstormfront/session/impl/ServerState;)V	setState
+com.desertstormfront.session.impl.GameServer	M	a	(Lcom/desertstormfront/session/impl/GameServer;Lcom/desertstormfront/command/GameCommand;)V	broadcastCommand
+com.desertstormfront.session.impl.GameServer	M	g	(Lcom/desertstormfront/session/impl/GameServer;)Ljava/lang/Thread;	getTickThread
+com.desertstormfront.session.impl.GameServer	M	h	(Lcom/desertstormfront/session/impl/GameServer;)V	tick
+com.desertstormfront.session.impl.ServerClientSession	M	a	(Ljava/lang/Object;)V	send
+com.desertstormfront.session.impl.ServerClientSession	M	a	()Z	isOpen
+com.desertstormfront.session.impl.ServerClientSession	M	b	()Z	isReady
+com.desertstormfront.session.impl.ServerClientSession	M	c	()Z	isPlaying
+com.desertstormfront.session.impl.ServerClientSession	M	d	()Ljava/lang/String;	getPlayerName
+com.desertstormfront.session.impl.ServerClientSession	M	e	()V	stop
+com.desertstormfront.session.impl.ServerClientSession	M	g	()V	close
+com.desertstormfront.session.impl.ServerClientSession	M	a	(Lcom/desertstormfront/session/impl/ServerClientSession;)Ljava/lang/Thread;	getWriterThread
+com.desertstormfront.session.impl.ServerClientSession	M	b	(Lcom/desertstormfront/session/impl/ServerClientSession;)Ljava/util/List;	getSendBatch
+com.desertstormfront.session.impl.ServerClientSession	M	c	(Lcom/desertstormfront/session/impl/ServerClientSession;)Ljava/util/List;	getPendingMessages
+com.desertstormfront.session.impl.ServerClientSession	M	d	(Lcom/desertstormfront/session/impl/ServerClientSession;)Lcom/noblemaster/lib/io/stream/DataWriter;	getWriter
+com.desertstormfront.session.impl.ServerClientSession	M	e	(Lcom/desertstormfront/session/impl/ServerClientSession;)Lcom/desertstormfront/session/impl/GameServer;	getServer
+com.desertstormfront.session.impl.TestScenarioMode	M	d	()V	createStartWorld
+com.desertstormfront.session.impl.TestScenarioMode	M	e	()V	
+com.desertstormfront.session.impl.TestScenarioMode	M	f	()V	
+com.desertstormfront.session.impl.TutorialGameMode	M	d	()V	createStartWorld
+com.desertstormfront.session.impl.TutorialGameMode	M	e	()V	
+com.desertstormfront.session.impl.TutorialGameMode	M	f	()V	
+com.noblemaster.lib.script.ScriptStep	M	d	()Ljava/lang/String;	getActionCode
+com.desertstormfront.ui.Label	M	a	(I)V	
+com.desertstormfront.ui.hud.GuiAssets	M	j	()[I	getDialogContentInsets
+com.desertstormfront.ui.hud.GuiAssets	M	r	()Lcom/desertstormfront/ui/ButtonStyle;	getMenuButtonStyle
+com.desertstormfront.ui.hud.GuiAssets	M	s	()Lcom/desertstormfront/ui/NinePatch;	getListPanelNinePatch
+com.desertstormfront.ui.hud.GuiAssets	M	t	()Lcom/desertstormfront/ui/NinePatch;	getRowNinePatch
+com.desertstormfront.ui.hud.GuiAssets	M	u	()Lcom/desertstormfront/ui/TextureRegion;	getRowHighlightRegion
+com.desertstormfront.ui.hud.GuiAssets	M	w	()Lcom/desertstormfront/ui/ButtonStyle;	getMenuListBoxItemStyle
+com.desertstormfront.ui.hud.GuiAssets	M	x	()Lcom/desertstormfront/ui/ButtonStyle;	getMenuListBoxSelectionStyle
+com.desertstormfront.ui.hud.GuiAssets	M	y	()Lcom/desertstormfront/ui/NinePatch;	getMenuPanelNinePatch
+com.desertstormfront.ui.hud.GuiAssets	M	z	()Lcom/desertstormfront/ui/NinePatch;	getOptionRowNinePatch
+com.desertstormfront.ui.hud.GuiAssets	M	A	()Lcom/desertstormfront/ui/NinePatch;	getHintBoxNinePatch
+com.desertstormfront.ui.hud.GuiAssets	M	B	()Lcom/desertstormfront/ui/ButtonStyle;	getHintBoxButtonStyle
+com.desertstormfront.ui.hud.GuiAssets	M	C	()Lcom/desertstormfront/ui/TextureRegion;	getHintPointerRegion
+com.desertstormfront.ui.hud.SelectionPanelBase	M	a	(Ljava/lang/String;ZZZZZZ)V	
+com.desertstormfront.ui.hud.TutorialHintBox	M	b	()Ljava/lang/String;	getActionCode

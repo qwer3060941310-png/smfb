@@ -1,0 +1,42 @@
+# screen field batch 7: MainMenuScreen.
+#
+# Layout() pins the two ornaments: menuDividerLine (i, the 57x14 strip moved to the right of the
+# item column and stretched to the height of the whole column) and menuDividerEnd (j, the 57x16 cap
+# placed directly under the last item); k is the five-element menuItemContainers array built from the
+# Tutorial/Campaign/Skirmish/Multiplayer/Options strings with its parallel menuItemImages (n).
+# The two icon+button pairs are named by the action their data value triggers in handleWidgetAction:
+# 100 -> ManualScreen (manualButton), 101 -> CreditsScreen (creditsButton), each preceded by its
+# 83x71 plate image. The touch-only full-screen row is fullScreenRowPanel (e, the option-row
+# nine-patch), fullScreenLabel (f) and fullScreenCheckbox (h) with its plate g (data 102 toggles
+# UserConfig.isFullScreen and resets the cursor).
+# statisticsPanel (l) with its statisticsTitleLabel (m) holds four caption/value pairs, each read
+# straight from UserConfig.getStatistics(): campaignHighScore (~/p), hoursPlayed (~/r, from
+# getPlayingTime), unitsDestroyedLost (s/t/u, green destroyed / red lost), damageInflictedSustained
+# (v/w/x) and basesCapturedLost (y/z/A).
+com.desertstormfront.screen.MainMenuScreen	F	a	Lcom/desertstormfront/ui/Image;	manualButtonImage
+com.desertstormfront.screen.MainMenuScreen	F	b	Lcom/desertstormfront/ui/Button;	manualButton
+com.desertstormfront.screen.MainMenuScreen	F	c	Lcom/desertstormfront/ui/Image;	creditsButtonImage
+com.desertstormfront.screen.MainMenuScreen	F	d	Lcom/desertstormfront/ui/Button;	creditsButton
+com.desertstormfront.screen.MainMenuScreen	F	e	Lcom/desertstormfront/ui/NinePatchImage;	fullScreenRowPanel
+com.desertstormfront.screen.MainMenuScreen	F	f	Lcom/desertstormfront/ui/Label;	fullScreenLabel
+com.desertstormfront.screen.MainMenuScreen	F	g	Lcom/desertstormfront/ui/Image;	fullScreenButtonImage
+com.desertstormfront.screen.MainMenuScreen	F	h	Lcom/desertstormfront/ui/Checkbox;	fullScreenCheckbox
+com.desertstormfront.screen.MainMenuScreen	F	i	Lcom/desertstormfront/ui/Image;	menuDividerLine
+com.desertstormfront.screen.MainMenuScreen	F	j	Lcom/desertstormfront/ui/Image;	menuDividerEnd
+com.desertstormfront.screen.MainMenuScreen	F	k	[Lcom/desertstormfront/ui/Container;	menuItemContainers
+com.desertstormfront.screen.MainMenuScreen	F	l	Lcom/desertstormfront/ui/NinePatchImage;	statisticsPanel
+com.desertstormfront.screen.MainMenuScreen	F	m	Lcom/desertstormfront/ui/Label;	statisticsTitleLabel
+com.desertstormfront.screen.MainMenuScreen	F	n	[Lcom/desertstormfront/ui/Image;	menuItemImages
+com.desertstormfront.screen.MainMenuScreen	F	o	Lcom/desertstormfront/ui/Label;	campaignHighScoreCaption
+com.desertstormfront.screen.MainMenuScreen	F	p	Lcom/desertstormfront/ui/Label;	campaignHighScoreValue
+com.desertstormfront.screen.MainMenuScreen	F	q	Lcom/desertstormfront/ui/Label;	hoursPlayedCaption
+com.desertstormfront.screen.MainMenuScreen	F	r	Lcom/desertstormfront/ui/Label;	hoursPlayedValue
+com.desertstormfront.screen.MainMenuScreen	F	s	Lcom/desertstormfront/ui/Label;	unitsCaption
+com.desertstormfront.screen.MainMenuScreen	F	t	Lcom/desertstormfront/ui/Label;	unitsDestroyedValue
+com.desertstormfront.screen.MainMenuScreen	F	u	Lcom/desertstormfront/ui/Label;	unitsLostValue
+com.desertstormfront.screen.MainMenuScreen	F	v	Lcom/desertstormfront/ui/Label;	damageCaption
+com.desertstormfront.screen.MainMenuScreen	F	w	Lcom/desertstormfront/ui/Label;	damageInflictedValue
+com.desertstormfront.screen.MainMenuScreen	F	x	Lcom/desertstormfront/ui/Label;	damageReceivedValue
+com.desertstormfront.screen.MainMenuScreen	F	y	Lcom/desertstormfront/ui/Label;	basesCaption
+com.desertstormfront.screen.MainMenuScreen	F	z	Lcom/desertstormfront/ui/Label;	basesCapturedValue
+com.desertstormfront.screen.MainMenuScreen	F	A	Lcom/desertstormfront/ui/Label;	basesLostValue

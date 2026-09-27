@@ -1,0 +1,54 @@
+# Field batch: screen.OptionsScreen (21 fields, was 100% obfuscated).
+#
+# The class builds a settings dialog: a panel image, a ScrollPane wrapping a Container of ListBox
+# rows, one ListBox per option. Every ListBox is created through createListBox(id, ...) and the
+# SAME id is the case label in handleWidgetAction, whose body calls the matching UserConfig setter
+# and whose i18n label confirms the option - so each field is pinned by THREE independent sources:
+# the createListBox(id) call, the switch case in handleWidgetAction, and the label string.
+#
+# Evidence (id -> field -> case -> UserConfig setter / label):
+#  1  d  language        case 1 -> UserConfig.setLanguage           (label "Language")
+#  2  f  soundVolume      case 2 -> UserConfig.setSoundVolume        (label "Sound")
+#  3  g  musicVolume       case 3 -> UserConfig.setMusicVolume        (label "Music")
+#  4  h  unitSpeed         case 4 -> UserConfig.setUnitSpeed          (label "Unit Speeds")
+#  8  i  port              case 8 -> UserConfig.setMultiplayerPort    (label "Multiplayer Port")
+#  9  j  scrollSpeed        case 9 -> UserConfig.setScrollSpeed       (label "Scroll Speed")
+#  50 k  stopKey           case 50 -> setTouchDeviceFlag(1)            (label "Unit [Stop] Key")
+#  51 l  repairKey         case 51 -> setTouchDeviceFlag(2)            (label "Unit [Repair] Key")
+#  52 m  patrolKey         case 52 -> setTouchDeviceFlag(3)            (label "Unit [Patrol] Key")
+#  53 n  groupKey          case 53 -> setTouchDeviceFlag(4)            (label "Unit [Group] Key")
+#  54 o  ungroupKey        case 54 -> setTouchDeviceFlag(5)            (label "Unit [Split/UnGroup] Key")
+#  100 p  scrollKeyLeft     case 100 -> setTouchDeviceFlag(6)          (label "Scroll Key Left")
+#  101 q  scrollKeyRight    case 101 -> setTouchDeviceFlag(7)          (label "Scroll Key Right")
+#  102 r  scrollKeyUp       case 102 -> setTouchDeviceFlag(8)          (label "Scroll Key Up")
+#  103 s  scrollKeyDown     case 103 -> setTouchDeviceFlag(9)          (label "Scroll Key Down")
+#  a  background       = new NinePatchImage(GuiAssets.i())            (i() is the panel nine-patch)
+#  b  scrollPane       = new ScrollPane(GuiAssets.k())               (k() is the ScrollBarStyle)
+#  c  contentContainer  = the Container that holds every option row
+#  e  languages        = the Language[] passed in (incl. the default null entry)
+#  t  contentHeight    = running y offset accumulated while adding rows, compared to scrollPane height
+#  u  selectedLanguage  = this.u = UserConfig.getLanguage(); compared in case 0/1
+#
+# Descriptors come from javap: do not edit them, the renamer matches on them.
+# Columns: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> new
+com.desertstormfront.screen.OptionsScreen	F	a	Lcom/desertstormfront/ui/NinePatchImage;	background
+com.desertstormfront.screen.OptionsScreen	F	b	Lcom/desertstormfront/ui/ScrollPane;	scrollPane
+com.desertstormfront.screen.OptionsScreen	F	c	Lcom/desertstormfront/ui/Container;	contentContainer
+com.desertstormfront.screen.OptionsScreen	F	d	Lcom/desertstormfront/ui/ListBox;	languageList
+com.desertstormfront.screen.OptionsScreen	F	e	[Lcom/noblemaster/lib/data/Language;	languages
+com.desertstormfront.screen.OptionsScreen	F	f	Lcom/desertstormfront/ui/ListBox;	soundVolumeList
+com.desertstormfront.screen.OptionsScreen	F	g	Lcom/desertstormfront/ui/ListBox;	musicVolumeList
+com.desertstormfront.screen.OptionsScreen	F	h	Lcom/desertstormfront/ui/ListBox;	unitSpeedList
+com.desertstormfront.screen.OptionsScreen	F	i	Lcom/desertstormfront/ui/ListBox;	portList
+com.desertstormfront.screen.OptionsScreen	F	j	Lcom/desertstormfront/ui/ListBox;	scrollSpeedList
+com.desertstormfront.screen.OptionsScreen	F	k	Lcom/desertstormfront/ui/ListBox;	stopKeyList
+com.desertstormfront.screen.OptionsScreen	F	l	Lcom/desertstormfront/ui/ListBox;	repairKeyList
+com.desertstormfront.screen.OptionsScreen	F	m	Lcom/desertstormfront/ui/ListBox;	patrolKeyList
+com.desertstormfront.screen.OptionsScreen	F	n	Lcom/desertstormfront/ui/ListBox;	groupKeyList
+com.desertstormfront.screen.OptionsScreen	F	o	Lcom/desertstormfront/ui/ListBox;	ungroupKeyList
+com.desertstormfront.screen.OptionsScreen	F	p	Lcom/desertstormfront/ui/ListBox;	scrollKeyLeftList
+com.desertstormfront.screen.OptionsScreen	F	q	Lcom/desertstormfront/ui/ListBox;	scrollKeyRightList
+com.desertstormfront.screen.OptionsScreen	F	r	Lcom/desertstormfront/ui/ListBox;	scrollKeyUpList
+com.desertstormfront.screen.OptionsScreen	F	s	Lcom/desertstormfront/ui/ListBox;	scrollKeyDownList
+com.desertstormfront.screen.OptionsScreen	F	t	F	contentHeight
+com.desertstormfront.screen.OptionsScreen	F	u	Lcom/noblemaster/lib/data/Language;	selectedLanguage

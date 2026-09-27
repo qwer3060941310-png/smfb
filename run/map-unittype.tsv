@@ -1,0 +1,52 @@
+# UnitType batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# com.desertstormfront.game.model.UnitType - immutable per-type template.
+# Semantics confirmed from 17_UnitType字段与方法语义映射.md (read from source) + ruleset cross-check.
+# Fields already renamed in the 2026-09-18 pilot (name/key/code/health/building/layer/domain/size/
+# moveFactor/speed/flyHeight/ammo/damage/range/sightRange/capacity) are NOT in this map.
+# Fields left obfuscated on purpose (unconfirmed semantics): p (r()), A (E()), B (F()).
+#
+# Field -> name
+#   a/UnitTypeList -> allUnitTypes        : the master list this type belongs to (damage-matrix universe).
+#   b/int[][]      -> damageMatrix         : what-this-deals-to-other matrix (getDamageAgainst).
+#   c/int          -> id                   : unique type id (getId).
+#   o/float        -> verticalOffset       : computed vertical draw offset for flying units.
+#   q/boolean      -> requiresFacingTarget : must rotate to face target (requiresFacingTarget).
+#   u/int          -> salvo                : shots per volley (getSalvo / hasSalvo).
+#   v/float        -> reloadTime           : cooldown/reload seconds (getReloadTime).
+#   w/boolean      -> isGeneral            : the commander unit (only General has it true; +15000 sort).
+#   x/boolean      -> canCapture           : can capture terrain/props (canCapture).
+#   y/boolean      -> capturable           : can itself be captured (isCapturable).
+#   z/boolean      -> canRepair            : can repair (canRepair).
+#   C/int          -> rangeInTiles         : attack range expressed in tiles (getRangeInTiles).
+#   E/UnitType     -> producer             : the unit type that produces this one (getProducer, computed).
+#   F/UnitTypeList -> producedBy           : types that can build this one (getProducedBy).
+#   G/UnitTypeList -> canProduce           : types this one can carry/produce (getCanProduce).
+#   I/boolean      -> canCarryAircraft     : can hold aircraft (carrier/airfield; canCarryAircraft).
+#   J/int          -> sortWeight           : computed selection/sort weight (getSortWeight).
+# Methods
+#   g()/static int -> getSlotLimit         : the slot-limit constant 24 (WorldSimulator uses /5).
+#   n()/float      -> getMoveFactor        : move-factor accessor (field moveFactor).
+#   A()/boolean    -> isGeneral            : accessor for w/isGeneral.
+# NOTE: buildUnit() reads legacy JSON keys positionally, so it is untouched. Only ModLoader.ALIASES
+# and ModFieldAliasTest must be updated so fieldName() still resolves the legacy letters.
+com.desertstormfront.game.model.UnitType	F	a	Lcom/desertstormfront/game/model/UnitTypeList;	allUnitTypes
+com.desertstormfront.game.model.UnitType	F	b	[[I	damageMatrix
+com.desertstormfront.game.model.UnitType	F	c	I	id
+com.desertstormfront.game.model.UnitType	F	o	F	verticalOffset
+com.desertstormfront.game.model.UnitType	F	q	Z	requiresFacingTarget
+com.desertstormfront.game.model.UnitType	F	u	I	salvo
+com.desertstormfront.game.model.UnitType	F	v	F	reloadTime
+com.desertstormfront.game.model.UnitType	F	w	Z	isGeneral
+com.desertstormfront.game.model.UnitType	F	x	Z	canCapture
+com.desertstormfront.game.model.UnitType	F	y	Z	capturable
+com.desertstormfront.game.model.UnitType	F	z	Z	canRepair
+com.desertstormfront.game.model.UnitType	F	C	I	rangeInTiles
+com.desertstormfront.game.model.UnitType	F	E	Lcom/desertstormfront/game/model/UnitType;	producer
+com.desertstormfront.game.model.UnitType	F	F	Lcom/desertstormfront/game/model/UnitTypeList;	producedBy
+com.desertstormfront.game.model.UnitType	F	G	Lcom/desertstormfront/game/model/UnitTypeList;	canProduce
+com.desertstormfront.game.model.UnitType	F	I	Z	canCarryAircraft
+com.desertstormfront.game.model.UnitType	F	J	I	sortWeight
+com.desertstormfront.game.model.UnitType	M	g	()I	getSlotLimit
+com.desertstormfront.game.model.UnitType	M	n	()F	getMoveFactor
+com.desertstormfront.game.model.UnitType	M	A	()Z	isGeneral

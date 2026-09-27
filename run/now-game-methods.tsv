@@ -1,0 +1,53 @@
+# Skeleton for com.desertstormfront.game (package-wide) - fill in the LAST column (semantic name), then:
+#   powershell -File run\deobf-rename.ps1 -Map run\now-game-methods.tsv            # dry-run (also validates the map)
+#   powershell -File run\deobf-rename.ps1 -Map run\now-game-methods.tsv -Apply    # write
+# Descriptors come from javap: do not edit them, the renamer matches on them.
+# A row with a BLANK last column must keep its trailing tab, or it loses a column and is
+# misparsed as a different layout (see 26, pitfall 10).
+# 537 already-semantic method(s) omitted; use -All to include them.
+# Columns: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> new
+com.desertstormfront.game.MapTemplatePainter	M	a	(II[Ljava/lang/String;)Lcom/desertstormfront/game/model/UnitList;	
+com.desertstormfront.game.MapTemplatePainter	M	a	(Lcom/desertstormfront/game/MapTemplatePainter;II[Ljava/lang/String;)Lcom/desertstormfront/game/model/UnitList;	
+com.desertstormfront.game.model.BirdType	M	a	()F	
+com.desertstormfront.game.model.PositionedSortable	M	a	()Z	
+com.desertstormfront.game.model.PositionedSortable	M	b	()Z	
+com.desertstormfront.game.model.ProjectileList	M	a	()V	
+com.desertstormfront.game.model.Site	M	of	(Lcom/desertstormfront/game/model/TerrainType;ILcom/desertstormfront/world/Vec2;)Lcom/desertstormfront/game/model/Site;	
+com.desertstormfront.game.model.Site	M	a	()Z	
+com.desertstormfront.game.model.Site	M	b	()Z	
+com.desertstormfront.game.model.Sortable	M	a	()Z	
+com.desertstormfront.game.model.Sortable	M	b	()Z	
+com.desertstormfront.game.model.Unit	M	a	()Z	
+com.desertstormfront.game.model.Unit	M	b	()Z	
+com.desertstormfront.game.model.Unit	M	v	()F	
+com.desertstormfront.game.model.Unit	M	b	(F)V	
+com.desertstormfront.game.model.Unit	M	B	()Z	
+com.desertstormfront.game.model.Unit	M	E	()I	
+com.desertstormfront.game.model.Unit	M	e	(I)V	
+com.desertstormfront.game.model.Unit	M	F	()I	
+com.desertstormfront.game.model.Unit	M	f	(I)V	
+com.desertstormfront.game.model.Unit	M	c	(Lcom/desertstormfront/game/model/UnitList;)V	
+com.desertstormfront.game.model.Unit	M	H	()Z	
+com.desertstormfront.game.model.Unit	M	a	(Z)V	
+com.desertstormfront.game.model.Unit	M	L	()I	
+com.desertstormfront.game.model.Unit	M	g	(I)V	
+com.desertstormfront.game.model.Unit	M	d	(Lcom/desertstormfront/game/model/UnitList;)V	
+com.desertstormfront.game.model.Unit	M	b	(Lcom/desertstormfront/game/model/Volley;)V	
+com.desertstormfront.game.model.Unit	M	Y	()Lcom/desertstormfront/world/UnitPosition;	
+com.desertstormfront.game.model.Unit	M	Z	()Z	
+com.desertstormfront.game.model.Unit	M	b	(Lcom/desertstormfront/world/UnitPosition;)V	
+com.desertstormfront.game.model.Unit	M	ad	()Lcom/desertstormfront/game/model/UnitList;	
+com.desertstormfront.game.model.Unit	M	ae	()Z	
+com.desertstormfront.game.model.Unit	M	af	()Lcom/desertstormfront/world/UnitPosition;	
+com.desertstormfront.game.model.Unit	M	ag	()Lcom/desertstormfront/game/model/UnitList;	
+com.desertstormfront.game.model.Unit	M	ai	()Z	
+com.desertstormfront.game.model.Unit	M	ak	()Z	
+com.desertstormfront.game.model.Unit	M	k	(Lcom/desertstormfront/game/model/Unit;)Lcom/desertstormfront/world/UnitPosition;	
+com.desertstormfront.game.model.UnitList	M	a	(I)V	
+com.desertstormfront.game.model.UnitType	M	r	()Z	
+com.desertstormfront.game.model.UnitType	M	E	()Z	
+com.desertstormfront.game.model.UnitType	M	F	()I	
+com.desertstormfront.game.player.Player	M	c	()J	
+com.desertstormfront.game.player.Player	M	a	(J)V	
+com.desertstormfront.game.player.Player	M	o	()I	
+com.desertstormfront.game.player.Player	M	b	(I)V	

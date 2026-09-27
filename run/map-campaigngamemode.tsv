@@ -1,0 +1,37 @@
+# CampaignGameMode batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+# com.desertstormfront.session.impl.CampaignGameMode - implements SessionMode; campaign progress carrier.
+# Semantics from implementation: file save/load, mission selection, scoring, difficulty.
+#   fields: a=GameFile->campaignFile ; b=SaveGameStore->saveStore ; c=bool started ; d=Difficulty
+#           e=int currentMission ; f=int attemptCount ; g=int selectedMission ; h=int score ; i=int bestScore
+#   a(int)->getMissionDescription ; d()->getMissionCount ; e()->getTotalMissions ; f()->isStarted
+#   g()->getCampaignStory ; h()->isComplete ; i()->getCampaignCompleteText ; j()->getDifficulty
+#   k()->getMissionNumber ; l()->getSelectedMission ; m()->getScore ; n()->getHighScore
+#   q()->loadProgress (DataReader) ; r()->saveProgress (DataWriter) ; s()->createMissionWorld
+#   a(Difficulty)->startCampaign ; o()->resetCampaign ; b(int)->selectMission
+com.desertstormfront.session.impl.CampaignGameMode	F	a	Lcom/noblemaster/lib/io/GameFile;	campaignFile
+com.desertstormfront.session.impl.CampaignGameMode	F	b	Lcom/desertstormfront/session/SaveGameStore;	saveStore
+com.desertstormfront.session.impl.CampaignGameMode	F	c	Z	started
+com.desertstormfront.session.impl.CampaignGameMode	F	d	Lcom/desertstormfront/game/player/Difficulty;	difficulty
+com.desertstormfront.session.impl.CampaignGameMode	F	e	I	currentMission
+com.desertstormfront.session.impl.CampaignGameMode	F	f	I	attemptCount
+com.desertstormfront.session.impl.CampaignGameMode	F	g	I	selectedMission
+com.desertstormfront.session.impl.CampaignGameMode	F	h	I	score
+com.desertstormfront.session.impl.CampaignGameMode	F	i	I	bestScore
+com.desertstormfront.session.impl.CampaignGameMode	M	a	(I)Ljava/lang/String;	getMissionDescription
+com.desertstormfront.session.impl.CampaignGameMode	M	d	()I	getMissionCount
+com.desertstormfront.session.impl.CampaignGameMode	M	e	()I	getTotalMissions
+com.desertstormfront.session.impl.CampaignGameMode	M	f	()Z	isStarted
+com.desertstormfront.session.impl.CampaignGameMode	M	g	()Ljava/lang/String;	getCampaignStory
+com.desertstormfront.session.impl.CampaignGameMode	M	h	()Z	isComplete
+com.desertstormfront.session.impl.CampaignGameMode	M	i	()Ljava/lang/String;	getCampaignCompleteText
+com.desertstormfront.session.impl.CampaignGameMode	M	j	()Lcom/desertstormfront/game/player/Difficulty;	getDifficulty
+com.desertstormfront.session.impl.CampaignGameMode	M	k	()I	getMissionNumber
+com.desertstormfront.session.impl.CampaignGameMode	M	l	()I	getSelectedMission
+com.desertstormfront.session.impl.CampaignGameMode	M	m	()I	getScore
+com.desertstormfront.session.impl.CampaignGameMode	M	n	()I	getHighScore
+com.desertstormfront.session.impl.CampaignGameMode	M	q	()V	loadProgress
+com.desertstormfront.session.impl.CampaignGameMode	M	r	()V	saveProgress
+com.desertstormfront.session.impl.CampaignGameMode	M	a	(Lcom/desertstormfront/game/player/Difficulty;)V	startCampaign
+com.desertstormfront.session.impl.CampaignGameMode	M	o	()V	resetCampaign
+com.desertstormfront.session.impl.CampaignGameMode	M	b	(I)V	selectMission
+com.desertstormfront.session.impl.CampaignGameMode	M	s	()V	createMissionWorld

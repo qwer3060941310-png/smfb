@@ -1,0 +1,85 @@
+# graphics.table batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# Scope: the whole com.desertstormfront.graphics.table package (20 methods + 23 fields, 8 classes).
+# Evidence per symbol:
+#
+# SpriteRegion: the six ints are the six columns SpriteSheetLoader parses out of the sprite config
+#   ("x y w h offX offY"), with the anchor already applied at both construction sites:
+#     a = x  = col0 - col4/2        b = y = col1 - col5/2
+#     c = w  = col2                 d = h = col3
+#     e = offsetX = col4            f = offsetY = col5
+#   The getters take the field names (see SpriteSheetLoader 120-138 and 265-304).
+#
+# TimedFrame / WeightedFrame / ProgressFrame: same shape (int + SpriteRegion) with different int
+#   meaning, read from how the tables consume them:
+#     TimedFrame.a    -> elapsed milliseconds for one animation step      -> duration   (a())
+#     WeightedFrame.a -> pick weight of a frame inside a weighted list    -> weight     (a())
+#     ProgressFrame.a -> duration stored as (int)(seconds * 10000)        -> duration   (a())
+#   Their /* synthetic */ static accessors are the only readers of the fields (constructor +
+#   the tables), so they inherit the same names: a(...) -> getDuration/getWeight, b(...) -> getRegion.
+#
+# SpriteAnimationSet: a = List[] indexed by facing, b = int[] total weight per facing
+#   (summed in the constructor) -> frameLists / totalWeights.
+#   a(int, long) walks the weights with (elapsed % total) -> getRegion(direction, elapsedMs);
+#   a() returns the facing count (Tables use it as the direction count) -> getListCount.
+#
+# UnitSpriteAnimation: (unitTypeId, facing) plus one base region, one progress-driven frame list
+#   and one time-driven frame list, each with its own pre-computed total:
+#     a -> unitTypeId, b -> facing, c -> baseRegion (returned when no progress list applies),
+#     d -> progressFrames (ProgressFrame), e -> progressTotal, f -> timedFrames (TimedFrame),
+#     g -> timedTotal.
+#   a(boolean, float) picks the progress frame: it only animates when the flag is set, and the
+#   float is the 0..1 progress (the stored duration is progress*10000) -> getProgressRegion.
+#   a(long) picks by elapsed time -> getTimedRegion. a()/b() -> getUnitTypeId/getFacing.
+#   Cross-check: UnitSpriteTable indexes rows by unitType.getId() and columns by
+#   unit.getDirection().a(), which fixes a/b; BuildingSpriteTable does the same with
+#   site.getTerrainType()/site.getVariantIndex().
+#
+# BuildingSpriteTable / UnitSpriteTable: a = per-unit-type/per-terrain-type lists -> tables;
+#   a(Site)/a(Unit) select one animation row -> getAnimationSet / getAnimation.
+#
+# No member here is reached by name (no reflection, no named persistence; a unit sprite is stored
+# as a sprite-sheet index), so renaming cannot change save data or config parsing.
+com.desertstormfront.graphics.table.BuildingSpriteTable	F	a	[Ljava/util/List;	tables
+com.desertstormfront.graphics.table.BuildingSpriteTable	M	a	(Lcom/desertstormfront/game/model/Site;)Lcom/desertstormfront/graphics/table/SpriteAnimationSet;	getAnimationSet
+com.desertstormfront.graphics.table.ProgressFrame	F	a	I	duration
+com.desertstormfront.graphics.table.ProgressFrame	F	b	Lcom/desertstormfront/graphics/table/SpriteRegion;	region
+com.desertstormfront.graphics.table.ProgressFrame	M	a	(Lcom/desertstormfront/graphics/table/ProgressFrame;)I	getDuration
+com.desertstormfront.graphics.table.ProgressFrame	M	b	(Lcom/desertstormfront/graphics/table/ProgressFrame;)Lcom/desertstormfront/graphics/table/SpriteRegion;	getRegion
+com.desertstormfront.graphics.table.SpriteAnimationSet	F	a	[Ljava/util/List;	frameLists
+com.desertstormfront.graphics.table.SpriteAnimationSet	F	b	[I	totalWeights
+com.desertstormfront.graphics.table.SpriteAnimationSet	M	a	(IJ)Lcom/desertstormfront/graphics/table/SpriteRegion;	getRegion
+com.desertstormfront.graphics.table.SpriteAnimationSet	M	a	()I	getListCount
+com.desertstormfront.graphics.table.SpriteRegion	F	a	I	x
+com.desertstormfront.graphics.table.SpriteRegion	F	b	I	y
+com.desertstormfront.graphics.table.SpriteRegion	F	c	I	width
+com.desertstormfront.graphics.table.SpriteRegion	F	d	I	height
+com.desertstormfront.graphics.table.SpriteRegion	F	e	I	offsetX
+com.desertstormfront.graphics.table.SpriteRegion	F	f	I	offsetY
+com.desertstormfront.graphics.table.SpriteRegion	M	a	()I	getX
+com.desertstormfront.graphics.table.SpriteRegion	M	b	()I	getY
+com.desertstormfront.graphics.table.SpriteRegion	M	c	()I	getWidth
+com.desertstormfront.graphics.table.SpriteRegion	M	d	()I	getHeight
+com.desertstormfront.graphics.table.SpriteRegion	M	e	()I	getOffsetX
+com.desertstormfront.graphics.table.SpriteRegion	M	f	()I	getOffsetY
+com.desertstormfront.graphics.table.TimedFrame	F	a	I	duration
+com.desertstormfront.graphics.table.TimedFrame	F	b	Lcom/desertstormfront/graphics/table/SpriteRegion;	region
+com.desertstormfront.graphics.table.TimedFrame	M	a	(Lcom/desertstormfront/graphics/table/TimedFrame;)I	getDuration
+com.desertstormfront.graphics.table.TimedFrame	M	b	(Lcom/desertstormfront/graphics/table/TimedFrame;)Lcom/desertstormfront/graphics/table/SpriteRegion;	getRegion
+com.desertstormfront.graphics.table.UnitSpriteAnimation	F	a	I	unitTypeId
+com.desertstormfront.graphics.table.UnitSpriteAnimation	F	b	I	facing
+com.desertstormfront.graphics.table.UnitSpriteAnimation	F	c	Lcom/desertstormfront/graphics/table/SpriteRegion;	baseRegion
+com.desertstormfront.graphics.table.UnitSpriteAnimation	F	d	Ljava/util/List;	progressFrames
+com.desertstormfront.graphics.table.UnitSpriteAnimation	F	e	I	progressTotal
+com.desertstormfront.graphics.table.UnitSpriteAnimation	F	f	Ljava/util/List;	timedFrames
+com.desertstormfront.graphics.table.UnitSpriteAnimation	F	g	I	timedTotal
+com.desertstormfront.graphics.table.UnitSpriteAnimation	M	a	()I	getUnitTypeId
+com.desertstormfront.graphics.table.UnitSpriteAnimation	M	b	()I	getFacing
+com.desertstormfront.graphics.table.UnitSpriteAnimation	M	a	(ZF)Lcom/desertstormfront/graphics/table/SpriteRegion;	getProgressRegion
+com.desertstormfront.graphics.table.UnitSpriteAnimation	M	a	(J)Lcom/desertstormfront/graphics/table/SpriteRegion;	getTimedRegion
+com.desertstormfront.graphics.table.UnitSpriteTable	F	a	[Ljava/util/List;	tables
+com.desertstormfront.graphics.table.UnitSpriteTable	M	a	(Lcom/desertstormfront/game/model/Unit;)Lcom/desertstormfront/graphics/table/UnitSpriteAnimation;	getAnimation
+com.desertstormfront.graphics.table.WeightedFrame	F	a	I	weight
+com.desertstormfront.graphics.table.WeightedFrame	F	b	Lcom/desertstormfront/graphics/table/SpriteRegion;	region
+com.desertstormfront.graphics.table.WeightedFrame	M	a	(Lcom/desertstormfront/graphics/table/WeightedFrame;)I	getWeight
+com.desertstormfront.graphics.table.WeightedFrame	M	b	(Lcom/desertstormfront/graphics/table/WeightedFrame;)Lcom/desertstormfront/graphics/table/SpriteRegion;	getRegion

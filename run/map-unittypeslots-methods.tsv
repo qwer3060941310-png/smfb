@@ -1,0 +1,31 @@
+# UnitTypeSlots batch: owner <TAB> M <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# Slots were derived by cross-comparing the two rulesets, which keep real unit names: TsfRuleset
+# line 41 and DsfRuleset line 85 both build a UnitTypeSlots. Slots a,c,d,e,g,h,i,k,l,n,o,p,q hold
+# the SAME unit in both (General, BattleTank, Artillery, MissileTank, BaseStation, Shipyard,
+# Airfield, Transport, Carrier, FighterPlane, Helicopter, Cruiser, Submarine), so those names are
+# certain. Slot m is Tsf Airship / Dsf Chinnook: both fly and both carry ground units, hence the
+# role name air transport.
+# Six rows stay blank on purpose: b (Tsf BattleTank but Dsf Humvee), r (Destroyer vs Gunboat),
+# and f/j/s/t whose Tsf value is null (4x4, OilField, Mechanic, Hovercraft exist only in Dsf),
+# so no ruleset-independent meaning can be established. Note getter t() reads field u.
+com.desertstormfront.game.model.UnitTypeSlots	M	a	()Lcom/desertstormfront/game/model/UnitType;	getGeneral
+com.desertstormfront.game.model.UnitTypeSlots	M	b	()Lcom/desertstormfront/game/model/UnitType;	
+com.desertstormfront.game.model.UnitTypeSlots	M	c	()Lcom/desertstormfront/game/model/UnitType;	getBattleTank
+com.desertstormfront.game.model.UnitTypeSlots	M	d	()Lcom/desertstormfront/game/model/UnitType;	getArtillery
+com.desertstormfront.game.model.UnitTypeSlots	M	e	()Lcom/desertstormfront/game/model/UnitType;	getMissileTank
+com.desertstormfront.game.model.UnitTypeSlots	M	f	()Lcom/desertstormfront/game/model/UnitType;	
+com.desertstormfront.game.model.UnitTypeSlots	M	g	()Lcom/desertstormfront/game/model/UnitType;	getBaseStation
+com.desertstormfront.game.model.UnitTypeSlots	M	h	()Lcom/desertstormfront/game/model/UnitType;	getShipyard
+com.desertstormfront.game.model.UnitTypeSlots	M	i	()Lcom/desertstormfront/game/model/UnitType;	getAirfield
+com.desertstormfront.game.model.UnitTypeSlots	M	j	()Lcom/desertstormfront/game/model/UnitType;	
+com.desertstormfront.game.model.UnitTypeSlots	M	k	()Lcom/desertstormfront/game/model/UnitType;	getTransport
+com.desertstormfront.game.model.UnitTypeSlots	M	l	()Lcom/desertstormfront/game/model/UnitType;	getCarrier
+com.desertstormfront.game.model.UnitTypeSlots	M	m	()Lcom/desertstormfront/game/model/UnitType;	getAirTransport
+com.desertstormfront.game.model.UnitTypeSlots	M	n	()Lcom/desertstormfront/game/model/UnitType;	getFighterPlane
+com.desertstormfront.game.model.UnitTypeSlots	M	o	()Lcom/desertstormfront/game/model/UnitType;	getHelicopter
+com.desertstormfront.game.model.UnitTypeSlots	M	p	()Lcom/desertstormfront/game/model/UnitType;	getCruiser
+com.desertstormfront.game.model.UnitTypeSlots	M	q	()Lcom/desertstormfront/game/model/UnitType;	getSubmarine
+com.desertstormfront.game.model.UnitTypeSlots	M	r	()Lcom/desertstormfront/game/model/UnitType;	
+com.desertstormfront.game.model.UnitTypeSlots	M	s	()Lcom/desertstormfront/game/model/UnitType;	
+com.desertstormfront.game.model.UnitTypeSlots	M	t	()Lcom/desertstormfront/game/model/UnitType;	

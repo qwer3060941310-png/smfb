@@ -1,0 +1,49 @@
+# screen field batch 6: CampaignScreen.
+#
+# The class rebuilds its whole content in rebuildMissionList(), which nulls and re-creates every
+# member, so the roles come straight from the two branches:
+#   not started -> overviewLabel (the CampaignOverviewETC text), difficultyListBox, actionRowPanel
+#     (a row nine-patch), actionRowHighlight (the 196x51 highlight image) and actionButton (the
+#     two-step "New Game"/"Create" button whose pending state is newGameConfirmStep: the first click
+#     only advances the counter, the second starts the campaign with selectedDifficulty);
+#   started -> scoreValue/highScoreValue plus the mission rows (missionWidgets/missionLabels, one
+#     pair per mission, indexed identically), difficultyCaption/difficultyPanel/difficultyListBoxStarted,
+#     and for the story branch storyLabel with its own storyRowPanel/storyRowHighlight/startButton;
+#   complete -> completeBarImage/completeRowPanel/completeRowHighlight/restartButton.
+# pendingMission (H) is the mission index stored while the "existing game active" dialog is up, so
+# that the confirmed action can switch to it. scoreCaption/highScoreCaption are the two grey labels
+# and scoreValue/highScoreValue the red right-aligned Dungeon34 values next to them.
+com.desertstormfront.screen.CampaignScreen	F	a	Lcom/desertstormfront/ui/NinePatchImage;	backgroundImage
+com.desertstormfront.screen.CampaignScreen	F	b	Lcom/desertstormfront/ui/ScrollPane;	scrollPane
+com.desertstormfront.screen.CampaignScreen	F	c	Lcom/desertstormfront/ui/Container;	contentContainer
+com.desertstormfront.screen.CampaignScreen	F	d	Lcom/desertstormfront/ui/NinePatchImage;	scorePanel
+com.desertstormfront.screen.CampaignScreen	F	e	Lcom/desertstormfront/ui/Label;	scoreCaption
+com.desertstormfront.screen.CampaignScreen	F	f	Lcom/desertstormfront/ui/Label;	scoreValue
+com.desertstormfront.screen.CampaignScreen	F	g	Lcom/desertstormfront/ui/NinePatchImage;	highScorePanel
+com.desertstormfront.screen.CampaignScreen	F	h	Lcom/desertstormfront/ui/Label;	highScoreCaption
+com.desertstormfront.screen.CampaignScreen	F	i	Lcom/desertstormfront/ui/Label;	highScoreValue
+com.desertstormfront.screen.CampaignScreen	F	j	Lcom/desertstormfront/ui/Label;	overviewLabel
+com.desertstormfront.screen.CampaignScreen	F	k	Lcom/desertstormfront/ui/ListBox;	difficultyListBox
+com.desertstormfront.screen.CampaignScreen	F	l	Lcom/desertstormfront/ui/NinePatchImage;	actionRowPanel
+com.desertstormfront.screen.CampaignScreen	F	m	Lcom/desertstormfront/ui/Image;	actionRowHighlight
+com.desertstormfront.screen.CampaignScreen	F	n	Lcom/desertstormfront/ui/Button;	actionButton
+com.desertstormfront.screen.CampaignScreen	F	o	Lcom/desertstormfront/ui/Label;	storyLabel
+com.desertstormfront.screen.CampaignScreen	F	p	Lcom/desertstormfront/ui/NinePatchImage;	storyRowPanel
+com.desertstormfront.screen.CampaignScreen	F	q	Lcom/desertstormfront/ui/Image;	storyRowHighlight
+com.desertstormfront.screen.CampaignScreen	F	r	Lcom/desertstormfront/ui/Button;	startButton
+com.desertstormfront.screen.CampaignScreen	F	s	Lcom/desertstormfront/ui/Image;	completeBarImage
+com.desertstormfront.screen.CampaignScreen	F	t	Lcom/desertstormfront/ui/Label;	campaignCompleteLabel
+com.desertstormfront.screen.CampaignScreen	F	u	Lcom/desertstormfront/ui/NinePatchImage;	completeRowPanel
+com.desertstormfront.screen.CampaignScreen	F	v	Lcom/desertstormfront/ui/Image;	completeRowHighlight
+com.desertstormfront.screen.CampaignScreen	F	w	Lcom/desertstormfront/ui/Button;	restartButton
+com.desertstormfront.screen.CampaignScreen	F	x	[Lcom/desertstormfront/ui/Widget;	missionWidgets
+com.desertstormfront.screen.CampaignScreen	F	y	[Lcom/desertstormfront/ui/Label;	missionLabels
+com.desertstormfront.screen.CampaignScreen	F	z	Lcom/desertstormfront/ui/Label;	difficultyCaption
+com.desertstormfront.screen.CampaignScreen	F	A	Lcom/desertstormfront/ui/NinePatchImage;	difficultyPanel
+com.desertstormfront.screen.CampaignScreen	F	B	Lcom/desertstormfront/ui/ListBox;	difficultyListBoxStarted
+com.desertstormfront.screen.CampaignScreen	F	C	Lcom/desertstormfront/ui/Label;	resetCaption
+com.desertstormfront.screen.CampaignScreen	F	D	Lcom/desertstormfront/ui/NinePatchImage;	resetPanel
+com.desertstormfront.screen.CampaignScreen	F	E	Lcom/desertstormfront/ui/Button;	resetButton
+com.desertstormfront.screen.CampaignScreen	F	F	I	newGameConfirmStep
+com.desertstormfront.screen.CampaignScreen	F	G	Lcom/desertstormfront/game/player/Difficulty;	selectedDifficulty
+com.desertstormfront.screen.CampaignScreen	F	H	I	pendingMission

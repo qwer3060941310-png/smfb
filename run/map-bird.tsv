@@ -1,0 +1,19 @@
+# Bird batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+# com.desertstormfront.game.model.Bird - decorative bird model.
+#   fields: a=BirdType->type ; b=Vec3->position ; c=float angle (heading) ; d=float distance (travelled)
+#   a(BirdType) static->create ; a()->getType ; b(BirdType)->setType ; b()->getPosition ; a(Vec3)->setPosition
+#   c()->getAngle ; a(float)->setAngle ; d()->getDistance ; b(float)->setDistance
+#   (WorldSimulator uses: bird.b() pos, bird.a().a() type speed, bird.c() angle, bird.d() distance accumulated)
+com.desertstormfront.game.model.Bird	F	a	Lcom/desertstormfront/game/model/BirdType;	type
+com.desertstormfront.game.model.Bird	F	b	Lcom/desertstormfront/world/Vec3;	position
+com.desertstormfront.game.model.Bird	F	c	F	angle
+com.desertstormfront.game.model.Bird	F	d	F	distance
+com.desertstormfront.game.model.Bird	M	a	(Lcom/desertstormfront/game/model/BirdType;)Lcom/desertstormfront/game/model/Bird;	create
+com.desertstormfront.game.model.Bird	M	a	()Lcom/desertstormfront/game/model/BirdType;	getType
+com.desertstormfront.game.model.Bird	M	b	(Lcom/desertstormfront/game/model/BirdType;)V	setType
+com.desertstormfront.game.model.Bird	M	b	()Lcom/desertstormfront/world/Vec3;	getPosition
+com.desertstormfront.game.model.Bird	M	a	(Lcom/desertstormfront/world/Vec3;)V	setPosition
+com.desertstormfront.game.model.Bird	M	c	()F	getAngle
+com.desertstormfront.game.model.Bird	M	a	(F)V	setAngle
+com.desertstormfront.game.model.Bird	M	d	()F	getDistance
+com.desertstormfront.game.model.Bird	M	b	(F)V	setDistance

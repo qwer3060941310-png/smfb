@@ -1,0 +1,13 @@
+# Skeleton for com.desertstormfront.ui.ScrollPane - fill in the LAST column (semantic name), then:
+#   powershell -File run\deobf-rename.ps1 -Map run\map-ui-scrollpane.tsv            # dry-run (also validates the map)
+#   powershell -File run\deobf-rename.ps1 -Map run\map-ui-scrollpane.tsv -Apply    # write
+# Descriptors come from javap: do not edit them, the renamer matches on them.
+# A row with a BLANK last column must keep its trailing tab, or it loses a column and is
+# misparsed as a different layout (see 26, pitfall 10).
+# 5 already-semantic method(s) omitted; use -All to include them.
+# Columns: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> new
+com.desertstormfront.ui.ScrollPane	M	a	()Lcom/desertstormfront/ui/Widget;	
+com.desertstormfront.ui.ScrollPane	M	a	(Lcom/desertstormfront/ui/Widget;)V	
+com.desertstormfront.ui.ScrollPane	M	b	()I	
+com.desertstormfront.ui.ScrollPane	M	d	()I	
+com.desertstormfront.ui.ScrollPane	M	a	(F)V	

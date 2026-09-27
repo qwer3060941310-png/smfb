@@ -1,0 +1,90 @@
+# UnitCommander batch: owner | M | old | descriptor | semantic name
+#
+# Semantics come from the bodies in UnitCommander.java (the log strings are explicit: "Cannot
+# REPAIR / AUTO / AUTO hosted units / STOP / SQUAD / UN-SQUAD / RALLY / UN-RALLY / BUILD / CANCEL
+# (check failed)") plus the abstract -> static delegation table in DirectUnitCommander.java.
+# The two entries left blank are deliberate: b(W,P,Unit) is byte-identical to a(W,P,Unit), and
+# the precondition m(W,P,Unit) depends on Unit.g(), which is not named yet (see 17 / members.tsv).
+# Descriptors come from javap - do not edit them.
+com.desertstormfront.command.UnitCommander	M	a	()Lcom/desertstormfront/game/World;	getWorld
+com.desertstormfront.command.UnitCommander	M	b	()Lcom/desertstormfront/game/player/Player;	getPlayer
+com.desertstormfront.command.UnitCommander	M	a	(Lcom/desertstormfront/game/model/Unit;)Z	isCommandable
+com.desertstormfront.command.UnitCommander	M	a	(Lcom/desertstormfront/game/model/UnitList;)Z	hasCommandableUnit
+com.desertstormfront.command.UnitCommander	M	a	(Lcom/desertstormfront/game/model/Unit;FF)Z	moveUnitTo
+com.desertstormfront.command.UnitCommander	M	a	(Lcom/desertstormfront/game/model/UnitList;FF)Z	moveUnitsTo
+com.desertstormfront.command.UnitCommander	M	a	(Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/model/Unit;)Z	targetUnit
+com.desertstormfront.command.UnitCommander	M	a	(Lcom/desertstormfront/game/model/UnitList;Lcom/desertstormfront/game/model/Unit;)Z	targetUnits
+com.desertstormfront.command.UnitCommander	M	b	(Lcom/desertstormfront/game/model/Unit;)Z	
+com.desertstormfront.command.UnitCommander	M	b	(Lcom/desertstormfront/game/model/Unit;FF)Z	attackMoveUnitTo
+com.desertstormfront.command.UnitCommander	M	b	(Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/model/Unit;)Z	attackUnit
+com.desertstormfront.command.UnitCommander	M	c	(Lcom/desertstormfront/game/model/Unit;)Z	canRepair
+com.desertstormfront.command.UnitCommander	M	b	(Lcom/desertstormfront/game/model/UnitList;)Z	hasRepairableUnit
+com.desertstormfront.command.UnitCommander	M	d	(Lcom/desertstormfront/game/model/Unit;)Z	repairUnit
+com.desertstormfront.command.UnitCommander	M	c	(Lcom/desertstormfront/game/model/UnitList;)Z	repairUnits
+com.desertstormfront.command.UnitCommander	M	e	(Lcom/desertstormfront/game/model/Unit;)Z	canSetAuto
+com.desertstormfront.command.UnitCommander	M	f	(Lcom/desertstormfront/game/model/Unit;)Z	setAuto
+com.desertstormfront.command.UnitCommander	M	g	(Lcom/desertstormfront/game/model/Unit;)Z	toggleHostedAuto
+com.desertstormfront.command.UnitCommander	M	d	(Lcom/desertstormfront/game/model/UnitList;)Z	toggleHostedAutoUnits
+com.desertstormfront.command.UnitCommander	M	h	(Lcom/desertstormfront/game/model/Unit;)Z	canStop
+com.desertstormfront.command.UnitCommander	M	e	(Lcom/desertstormfront/game/model/UnitList;)Z	canStopAny
+com.desertstormfront.command.UnitCommander	M	i	(Lcom/desertstormfront/game/model/Unit;)Z	stopUnit
+com.desertstormfront.command.UnitCommander	M	f	(Lcom/desertstormfront/game/model/UnitList;)Z	stopUnits
+com.desertstormfront.command.UnitCommander	M	a	(Lcom/desertstormfront/game/player/UnitGroup;Lcom/desertstormfront/game/model/UnitList;)Z	formSquad
+com.desertstormfront.command.UnitCommander	M	g	(Lcom/desertstormfront/game/model/UnitList;)Z	canAssignSquad
+com.desertstormfront.command.UnitCommander	M	h	(Lcom/desertstormfront/game/model/UnitList;)Z	assignSquad
+com.desertstormfront.command.UnitCommander	M	j	(Lcom/desertstormfront/game/model/Unit;)Z	leaveSquad
+com.desertstormfront.command.UnitCommander	M	i	(Lcom/desertstormfront/game/model/UnitList;)Z	leaveSquadUnits
+com.desertstormfront.command.UnitCommander	M	c	(Lcom/desertstormfront/game/model/Unit;FF)Z	setRallyPoint
+com.desertstormfront.command.UnitCommander	M	k	(Lcom/desertstormfront/game/model/Unit;)Z	clearRallyPoint
+com.desertstormfront.command.UnitCommander	M	a	(Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/model/UnitType;)Z	canBuildUnit
+com.desertstormfront.command.UnitCommander	M	b	(Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/model/UnitType;)Z	buildUnit
+com.desertstormfront.command.UnitCommander	M	l	(Lcom/desertstormfront/game/model/Unit;)Z	cancelBuild
+com.desertstormfront.command.UnitCommander	M	a	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;)Z	isCommandable
+com.desertstormfront.command.UnitCommander	M	a	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/UnitList;)Z	hasCommandableUnit
+com.desertstormfront.command.UnitCommander	M	a	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;FF)Z	canMoveUnitTo
+com.desertstormfront.command.UnitCommander	M	a	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/UnitList;FF)Z	canAnyUnitMoveTo
+com.desertstormfront.command.UnitCommander	M	b	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;FF)Z	moveUnitTo
+com.desertstormfront.command.UnitCommander	M	b	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/UnitList;FF)Z	moveUnitsTo
+com.desertstormfront.command.UnitCommander	M	a	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;FFZ)Z	moveUnitToInternal
+com.desertstormfront.command.UnitCommander	M	a	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/model/Unit;)Z	canTargetUnit
+com.desertstormfront.command.UnitCommander	M	a	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/UnitList;Lcom/desertstormfront/game/model/Unit;)Z	hasUnitThatCanTarget
+com.desertstormfront.command.UnitCommander	M	b	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/model/Unit;)Z	targetUnit
+com.desertstormfront.command.UnitCommander	M	b	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/UnitList;Lcom/desertstormfront/game/model/Unit;)Z	targetUnits
+com.desertstormfront.command.UnitCommander	M	a	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/model/Unit;Z)Z	targetUnitInternal
+com.desertstormfront.command.UnitCommander	M	b	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;)Z	
+com.desertstormfront.command.UnitCommander	M	c	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;FF)Z	canAttackMoveUnitTo
+com.desertstormfront.command.UnitCommander	M	d	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;FF)Z	attackMoveUnitTo
+com.desertstormfront.command.UnitCommander	M	b	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;FFZ)Z	attackMoveUnitToInternal
+com.desertstormfront.command.UnitCommander	M	c	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/model/Unit;)Z	canAttackUnit
+com.desertstormfront.command.UnitCommander	M	d	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/model/Unit;)Z	attackUnit
+com.desertstormfront.command.UnitCommander	M	b	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/model/Unit;Z)Z	attackUnitInternal
+com.desertstormfront.command.UnitCommander	M	c	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;)Z	canRepair
+com.desertstormfront.command.UnitCommander	M	b	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/UnitList;)Z	hasRepairableUnit
+com.desertstormfront.command.UnitCommander	M	d	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;)Z	repairUnit
+com.desertstormfront.command.UnitCommander	M	c	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/UnitList;)Z	repairUnits
+com.desertstormfront.command.UnitCommander	M	e	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;)Z	canSetAuto
+com.desertstormfront.command.UnitCommander	M	f	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;)Z	setAuto
+com.desertstormfront.command.UnitCommander	M	g	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;)Z	canToggleHostedAuto
+com.desertstormfront.command.UnitCommander	M	d	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/UnitList;)Z	canToggleHostedAutoAny
+com.desertstormfront.command.UnitCommander	M	h	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;)Z	toggleHostedAuto
+com.desertstormfront.command.UnitCommander	M	e	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/UnitList;)Z	toggleHostedAutoUnits
+com.desertstormfront.command.UnitCommander	M	i	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;)Z	canStop
+com.desertstormfront.command.UnitCommander	M	f	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/UnitList;)Z	canStopAny
+com.desertstormfront.command.UnitCommander	M	j	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;)Z	stopUnit
+com.desertstormfront.command.UnitCommander	M	g	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/UnitList;)Z	stopUnits
+com.desertstormfront.command.UnitCommander	M	a	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/player/UnitGroup;Lcom/desertstormfront/game/model/UnitList;)Z	canFormSquad
+com.desertstormfront.command.UnitCommander	M	b	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/player/UnitGroup;Lcom/desertstormfront/game/model/UnitList;)Z	formSquad
+com.desertstormfront.command.UnitCommander	M	h	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/UnitList;)Z	canAssignSquad
+com.desertstormfront.command.UnitCommander	M	i	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/UnitList;)Z	assignSquad
+com.desertstormfront.command.UnitCommander	M	k	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;)Z	hasSquad
+com.desertstormfront.command.UnitCommander	M	j	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/UnitList;)Z	hasSquadAny
+com.desertstormfront.command.UnitCommander	M	l	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;)Z	leaveSquad
+com.desertstormfront.command.UnitCommander	M	k	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/UnitList;)Z	leaveSquadUnits
+com.desertstormfront.command.UnitCommander	M	e	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;FF)Z	canSetRallyPoint
+com.desertstormfront.command.UnitCommander	M	f	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;FF)Z	setRallyPoint
+com.desertstormfront.command.UnitCommander	M	m	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;)Z	
+com.desertstormfront.command.UnitCommander	M	n	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;)Z	clearRallyPoint
+com.desertstormfront.command.UnitCommander	M	a	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/model/UnitType;)Z	canBuildUnit
+com.desertstormfront.command.UnitCommander	M	b	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/model/UnitType;)Z	buildUnit
+com.desertstormfront.command.UnitCommander	M	o	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;)Z	canCancelBuild
+com.desertstormfront.command.UnitCommander	M	p	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;)Z	cancelBuild

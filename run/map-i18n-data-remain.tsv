@@ -1,0 +1,105 @@
+# lib.i18n + lib.data batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# Scope: com.noblemaster.lib.i18n (17 methods + 5 fields) and the remaining members of
+# com.noblemaster.lib.data (26 methods + 5 fields). Both packages are the localisation stack:
+# OrderedProperties parses the .properties bundles, Iso88591Charset decodes their bytes and
+# Messages looks strings up. Evidence per symbol:
+#
+# LineReader: a = the whole text, b = the read cursor. a(String) is the factory -> of;
+#   a() returns the next line (skipping CR/LF) or null at the end -> readLine. Both name choices
+#   follow the single caller, OrderedProperties.readLogicalLine.
+#
+# CustomCharset (abstract decoder): a(byte[]) is the template method that walks the bytes,
+#   tries every byte length from getMinBytesPerChar() to getMaxBytesPerChar(), and appends the
+#   decoded chars -> decode; a()/b()/c() are the per-encoding bounds used by that loop and by the
+#   StringBuilder capacity guess (len * c() / a()) -> getMinBytesPerChar/getMaxBytesPerChar/
+#   getMaxCharsPerByte; a(int offset, int byteCount, byte[]) counts the characters that a given
+#   byte length yields at that offset (0 = not a valid sequence) -> countCharsAt;
+#   a(int index, int offset, int byteCount, byte[]) returns one decoded char -> decodeCharAt.
+#   Iso88591Charset is the only subclass and implements all bounds as 1 plus a 256-entry table,
+#   so it repeats the same five names; its INSTANCE field (formerly a) is the shared singleton
+#   Messages and OrderedProperties use.
+#
+# OrderedProperties: a = insertion-ordered key list, b = key -> value map -> keys / values;
+#   a(int) -> getKey ; a() -> size ; a(String)/a(String,String) -> get(key[,default]) ;
+#   b(String,String) -> put (a null value removes the key, matching a setter that clears) ;
+#   a(OrderedProperties) -> putAll ; b(OrderedProperties) -> serialize (writes "key=value" lines
+#   with escapes) ; the private static a(StringBuilder,String) is that escaper -> appendEscaped ;
+#   b(String) -> parse (reads a whole bundle text) ; a(char) -> hexValue (the backslash-u digit
+#   helper documented in-place after the blank-UI fix) ; a(LineReader,StringBuilder) ->
+#   readLogicalLine (joins continuation lines with a trailing backslash).
+#
+# Version: a = the shared unknown-version sentinel -> UNKNOWN, b = the "major.minor.build" text ->
+#   value; a() -> getUnknown ; a(String) -> parse (validates three numeric parts) ; b() ->
+#   getValue ; a(Version) returns compareTo(...) < 0 -> isOlderThan.
+#
+# Messages: a/b/c = current language, current properties and the "CJK punctuation rules apply"
+#   flag -> language/properties/cjk. a(Language) and a(Language,String) load a bundle (the latter
+#   takes the bundle name and merges the language-specific file) -> load ; the private state
+#   setter a(Language,OrderedProperties) -> apply ; a() -> getLanguage ; b()/a(String) list the
+#   languages that have a bundle file -> getAvailableLanguages ; c() -> getKeys ;
+#   a(String) -> get(key) (returning the inline "[i18n]: " default when absent) ;
+#   a(String,Object[]) -> format(key,args) ; c(String) -> getFallback (inline default text only) ;
+#   b(String,Object[]) -> formatFallback(text,args) (no bundle lookup) ; the private
+#   c(String,Object[]) -> formatPlaceholders ({0},{1}... substitution).
+#   The two char predicates drive word wrapping in ui.Label: a(char) answers "the line may be
+#   broken here" (CJK: everything except the full stop / enumeration comma; otherwise only space
+#   and newline) -> canWrapLineAt ; b(char) answers "that break character is consumed, so the next
+#   line starts after it" (CJK: only the newline; otherwise space and newline) -> isWrapCharDropped ;
+#   d() is the separator used when joining wrapped words -> getWordSeparator.
+#
+# No member here is reached by name: bundles are read through parse/put, the charset is a singleton,
+# and Messages never reflects over keys. Renaming cannot change bundle parsing or saved data.
+com.noblemaster.lib.data.CustomCharset	M	a	([B)Ljava/lang/String;	decode
+com.noblemaster.lib.data.CustomCharset	M	a	()I	getMinBytesPerChar
+com.noblemaster.lib.data.CustomCharset	M	b	()I	getMaxBytesPerChar
+com.noblemaster.lib.data.CustomCharset	M	c	()I	getMaxCharsPerByte
+com.noblemaster.lib.data.CustomCharset	M	a	(II[B)I	countCharsAt
+com.noblemaster.lib.data.CustomCharset	M	a	(III[B)C	decodeCharAt
+com.noblemaster.lib.data.Iso88591Charset	F	a	Lcom/noblemaster/lib/data/Iso88591Charset;	INSTANCE
+com.noblemaster.lib.data.Iso88591Charset	M	a	()I	getMinBytesPerChar
+com.noblemaster.lib.data.Iso88591Charset	M	b	()I	getMaxBytesPerChar
+com.noblemaster.lib.data.Iso88591Charset	M	c	()I	getMaxCharsPerByte
+com.noblemaster.lib.data.Iso88591Charset	M	a	(II[B)I	countCharsAt
+com.noblemaster.lib.data.Iso88591Charset	M	a	(III[B)C	decodeCharAt
+com.noblemaster.lib.data.OrderedProperties	F	a	Ljava/util/ArrayList;	keys
+com.noblemaster.lib.data.OrderedProperties	F	b	Ljava/util/HashMap;	values
+com.noblemaster.lib.data.OrderedProperties	M	a	(I)Ljava/lang/String;	getKey
+com.noblemaster.lib.data.OrderedProperties	M	a	()I	size
+com.noblemaster.lib.data.OrderedProperties	M	a	(Ljava/lang/String;)Ljava/lang/String;	get
+com.noblemaster.lib.data.OrderedProperties	M	a	(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;	get
+com.noblemaster.lib.data.OrderedProperties	M	b	(Ljava/lang/String;Ljava/lang/String;)V	put
+com.noblemaster.lib.data.OrderedProperties	M	a	(Lcom/noblemaster/lib/data/OrderedProperties;)V	putAll
+com.noblemaster.lib.data.OrderedProperties	M	b	(Lcom/noblemaster/lib/data/OrderedProperties;)Ljava/lang/String;	serialize
+com.noblemaster.lib.data.OrderedProperties	M	a	(Ljava/lang/StringBuilder;Ljava/lang/String;)V	appendEscaped
+com.noblemaster.lib.data.OrderedProperties	M	b	(Ljava/lang/String;)Lcom/noblemaster/lib/data/OrderedProperties;	parse
+com.noblemaster.lib.data.OrderedProperties	M	a	(C)I	hexValue
+com.noblemaster.lib.data.OrderedProperties	M	a	(Lcom/noblemaster/lib/i18n/LineReader;Ljava/lang/StringBuilder;)Ljava/lang/String;	readLogicalLine
+com.noblemaster.lib.data.Version	F	a	Lcom/noblemaster/lib/data/Version;	UNKNOWN
+com.noblemaster.lib.data.Version	F	b	Ljava/lang/String;	value
+com.noblemaster.lib.data.Version	M	a	()Lcom/noblemaster/lib/data/Version;	getUnknown
+com.noblemaster.lib.data.Version	M	a	(Ljava/lang/String;)V	parse
+com.noblemaster.lib.data.Version	M	b	()Ljava/lang/String;	getValue
+com.noblemaster.lib.data.Version	M	a	(Lcom/noblemaster/lib/data/Version;)Z	isOlderThan
+com.noblemaster.lib.i18n.LineReader	F	a	Ljava/lang/String;	text
+com.noblemaster.lib.i18n.LineReader	F	b	I	position
+com.noblemaster.lib.i18n.LineReader	M	a	(Ljava/lang/String;)Lcom/noblemaster/lib/i18n/LineReader;	of
+com.noblemaster.lib.i18n.LineReader	M	a	()Ljava/lang/String;	readLine
+com.noblemaster.lib.i18n.Messages	F	a	Lcom/noblemaster/lib/data/Language;	language
+com.noblemaster.lib.i18n.Messages	F	b	Lcom/noblemaster/lib/data/OrderedProperties;	properties
+com.noblemaster.lib.i18n.Messages	F	c	Z	cjk
+com.noblemaster.lib.i18n.Messages	M	a	(Lcom/noblemaster/lib/data/Language;)V	load
+com.noblemaster.lib.i18n.Messages	M	a	(Lcom/noblemaster/lib/data/Language;Ljava/lang/String;)V	load
+com.noblemaster.lib.i18n.Messages	M	a	(Lcom/noblemaster/lib/data/Language;Lcom/noblemaster/lib/data/OrderedProperties;)V	apply
+com.noblemaster.lib.i18n.Messages	M	a	()Lcom/noblemaster/lib/data/Language;	getLanguage
+com.noblemaster.lib.i18n.Messages	M	b	()[Lcom/noblemaster/lib/data/Language;	getAvailableLanguages
+com.noblemaster.lib.i18n.Messages	M	a	(Ljava/lang/String;)[Lcom/noblemaster/lib/data/Language;	getAvailableLanguages
+com.noblemaster.lib.i18n.Messages	M	c	()Ljava/util/List;	getKeys
+com.noblemaster.lib.i18n.Messages	M	a	(C)Z	canWrapLineAt
+com.noblemaster.lib.i18n.Messages	M	b	(C)Z	isWrapCharDropped
+com.noblemaster.lib.i18n.Messages	M	d	()Ljava/lang/String;	getWordSeparator
+com.noblemaster.lib.i18n.Messages	M	b	(Ljava/lang/String;)Ljava/lang/String;	get
+com.noblemaster.lib.i18n.Messages	M	a	(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;	format
+com.noblemaster.lib.i18n.Messages	M	c	(Ljava/lang/String;)Ljava/lang/String;	getFallback
+com.noblemaster.lib.i18n.Messages	M	b	(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;	formatFallback
+com.noblemaster.lib.i18n.Messages	M	c	(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;	formatPlaceholders

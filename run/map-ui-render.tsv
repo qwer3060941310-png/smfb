@@ -1,0 +1,87 @@
+# ui render primitives batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# Scope: com.desertstormfront.ui.{SpriteBatch, GlBuffer, FrameBuffer, ClipRect} (30 methods +
+# 22 fields) - the immediate-mode renderer front end. Evidence per symbol:
+#
+# ClipRect: the four ints are the clip bounds. SpriteBatch's clipping code fixes the order: a()/c()
+#   are the x range (rejected when x > c() and clamped when x < a()), b()/d() the y range ->
+#   left/top/right/bottom, with matching get/set pairs.
+#
+# SpriteBatch: a=BatchRenderer (the owner that owns the vertex buffers), b=clipRect, c=the current
+#   ARGB colour, and the two shorts d/e are that colour split for the shader: d = (c & 0xFF00) |
+#   (c >> 16 & 0xFF) = the red/green byte pair, e = (c >> 16 & 0xFF00) | (c & 0xFF) = blue/alpha
+#   -> colorRG / colorBA. a(int) is the colour setter (it caches the packed shorts) -> setColor ;
+#   a(ClipRect) -> setClipRect. The five a(...) draw overloads all funnel into the short one:
+#   (x, y, width, height, u, v, uvWidth, uvHeight, colour), with float/int/shape variants simply
+#   rounding or widening first - so all of them become draw(...). Verified against the shared body,
+#   which writes two triangles using (u,v)..(u+uw, v+vh).
+#
+# GlBuffer: a=GL target (GL_ARRAY_BUFFER / GL_ELEMENT_ARRAY_BUFFER), b=size in bytes,
+#   c=the direct NIO buffer, d=the GL name -> target/sizeBytes/data/bufferId. The private
+#   a(target, size, buffer, usage) creates and uploads -> upload ; c() binds -> bind ;
+#   d() re-uploads the whole buffer (glBufferSubData from 0) -> uploadAll ;
+#   a(offset, length) -> uploadRange ; e() unbinds -> unbind ; f() deletes the GL name -> dispose ;
+#   a()/b() are the size/data accessors -> getSize/getData.
+#
+# FrameBuffer: d=target, e=the GL framebuffer name, f/g=width/height, h=the attached GlTexture,
+#   i=the renderbuffer name -> target/framebufferId/width/height/texture/renderbufferId. The static
+#   a is the currently bound FrameBuffer (used to restore on unbind), b the default framebuffer name
+#   captured once, c the "captured" flag -> current/previousFramebuffer/previousFramebufferCaptured.
+#   f() checks glCheckFramebufferStatus and logs a readable error -> checkStatus ;
+#   a()/b() -> getWidth/getHeight ; c() binds and sets the viewport -> bind ;
+#   d()/a(boolean) restore the previous (or default) framebuffer -> unbind(boolean toDefault) ;
+#   e() deletes the renderbuffer and framebuffer -> dispose.
+#
+# No member here is reached by name (no reflection, no persistence): these are pure GL wrappers.
+com.desertstormfront.ui.ClipRect	F	a	I	left
+com.desertstormfront.ui.ClipRect	F	b	I	top
+com.desertstormfront.ui.ClipRect	F	c	I	right
+com.desertstormfront.ui.ClipRect	F	d	I	bottom
+com.desertstormfront.ui.ClipRect	M	a	()I	getLeft
+com.desertstormfront.ui.ClipRect	M	a	(I)V	setLeft
+com.desertstormfront.ui.ClipRect	M	b	()I	getTop
+com.desertstormfront.ui.ClipRect	M	b	(I)V	setTop
+com.desertstormfront.ui.ClipRect	M	c	()I	getRight
+com.desertstormfront.ui.ClipRect	M	c	(I)V	setRight
+com.desertstormfront.ui.ClipRect	M	d	()I	getBottom
+com.desertstormfront.ui.ClipRect	M	d	(I)V	setBottom
+com.desertstormfront.ui.FrameBuffer	F	a	Lcom/desertstormfront/ui/FrameBuffer;	current
+com.desertstormfront.ui.FrameBuffer	F	b	I	previousFramebuffer
+com.desertstormfront.ui.FrameBuffer	F	c	Z	previousFramebufferCaptured
+com.desertstormfront.ui.FrameBuffer	F	d	I	target
+com.desertstormfront.ui.FrameBuffer	F	e	I	framebufferId
+com.desertstormfront.ui.FrameBuffer	F	f	I	width
+com.desertstormfront.ui.FrameBuffer	F	g	I	height
+com.desertstormfront.ui.FrameBuffer	F	h	Lcom/desertstormfront/ui/GlTexture;	texture
+com.desertstormfront.ui.FrameBuffer	F	i	I	renderbufferId
+com.desertstormfront.ui.FrameBuffer	M	f	()V	checkStatus
+com.desertstormfront.ui.FrameBuffer	M	a	()I	getWidth
+com.desertstormfront.ui.FrameBuffer	M	b	()I	getHeight
+com.desertstormfront.ui.FrameBuffer	M	c	()V	bind
+com.desertstormfront.ui.FrameBuffer	M	d	()V	unbind
+com.desertstormfront.ui.FrameBuffer	M	a	(Z)V	unbind
+com.desertstormfront.ui.FrameBuffer	M	e	()V	dispose
+com.desertstormfront.ui.GlBuffer	F	a	I	target
+com.desertstormfront.ui.GlBuffer	F	b	I	sizeBytes
+com.desertstormfront.ui.GlBuffer	F	c	Ljava/nio/Buffer;	data
+com.desertstormfront.ui.GlBuffer	F	d	I	bufferId
+com.desertstormfront.ui.GlBuffer	M	a	(IILjava/nio/Buffer;I)V	upload
+com.desertstormfront.ui.GlBuffer	M	a	()I	getSize
+com.desertstormfront.ui.GlBuffer	M	b	()Ljava/nio/Buffer;	getData
+com.desertstormfront.ui.GlBuffer	M	c	()V	bind
+com.desertstormfront.ui.GlBuffer	M	d	()V	uploadAll
+com.desertstormfront.ui.GlBuffer	M	a	(II)V	uploadRange
+com.desertstormfront.ui.GlBuffer	M	e	()V	unbind
+com.desertstormfront.ui.GlBuffer	M	f	()V	dispose
+com.desertstormfront.ui.SpriteBatch	F	a	Lcom/desertstormfront/ui/BatchRenderer;	renderer
+com.desertstormfront.ui.SpriteBatch	F	b	Lcom/desertstormfront/ui/ClipRect;	clipRect
+com.desertstormfront.ui.SpriteBatch	F	c	I	color
+com.desertstormfront.ui.SpriteBatch	F	d	S	colorRG
+com.desertstormfront.ui.SpriteBatch	F	e	S	colorBA
+com.desertstormfront.ui.SpriteBatch	M	a	(I)V	setColor
+com.desertstormfront.ui.SpriteBatch	M	a	(Lcom/desertstormfront/ui/ClipRect;)V	setClipRect
+com.desertstormfront.ui.SpriteBatch	M	a	(FFIIIII)V	draw
+com.desertstormfront.ui.SpriteBatch	M	a	(IIIIIII)V	draw
+com.desertstormfront.ui.SpriteBatch	M	a	(FFFFIIIII)V	draw
+com.desertstormfront.ui.SpriteBatch	M	a	(IIIIIIIII)V	draw
+com.desertstormfront.ui.SpriteBatch	M	a	(SSSSSSSSI)V	draw

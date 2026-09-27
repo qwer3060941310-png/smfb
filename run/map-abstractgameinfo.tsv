@@ -1,0 +1,34 @@
+# AbstractGameInfo 抽象查询方法 → 语义名
+# 语义由 SubConfigDSF / SubConfigTSF 的硬编码字符串常量确定（见两实现类）。
+# 调用方仅：GameConfig（e.xxx()）与 AbstractGameInfo 自身（abstractGameInfo.xxx()）。
+# 保留：E()（void 辅助）、static a(AbstractGameInfo)（初始化辅助，按「不猜」原则不映射）。
+a	getGameCode
+b	getGameId
+c	getGameIdLite
+d	getDefaultMap
+e	getTutorials
+f	getTitle
+g	getTitleLite
+h	getKeywords
+i	getWebsiteUrl
+j	getForumUrl
+k	getCopyright
+l	getCompanyUrl
+m	getMissionDescriptions
+n	getCampaignMissionIndices
+o	getCampaignStory
+p	getCampaignCompleteMessage
+q	getCredits
+r	getTechInfo
+s	getLicenses
+t	getAppOverview
+u	getAppDescription
+v	getMiscFeatures
+w	getMiscNotes
+x	getMiscPromo
+y	getInformationUnits
+z	getInformationStructures
+A	getInformationMoveables
+B	getMusicFiles
+C	getBuyFullVersionText
+D	getBuyFullVersionDetails

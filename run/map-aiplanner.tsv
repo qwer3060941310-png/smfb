@@ -1,0 +1,34 @@
+# AIPlanner batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+# com.desertstormfront.ai.AIPlanner - orchestrates evaluator -> HTN plan -> behavior tree.
+#   fields: a=int phase ; b=int index ; c=UnitCommander->commander ; d=AIContext->context
+#           e=IntentEvaluator->evaluator ; f=PlanNodeList->planNodes ; g=PlanContextList->planContexts
+#           h=PlanNodeList->planNodePool ; i=PlanContextList->planContextPool
+#           j=BehaviorTreePool->behaviorTrees ; k=BlackboardPool->blackboards
+#           l=BehaviorTreePool->behaviorTreePool ; m=BlackboardPool->blackboardPool ; n=long slowThresholdNanos
+#   a()->getContext ; b()->getPlanNodes ; c()->getPlanContexts ; d()->update
+#   a(Intent)->allocatePlan ; e()->createPlanTree ; a(int)->recyclePlan
+#   a(Unit)->allocateTask ; f()->createBehaviorTree ; b(int)->recycleTask
+com.desertstormfront.ai.AIPlanner	F	a	I	phase
+com.desertstormfront.ai.AIPlanner	F	b	I	index
+com.desertstormfront.ai.AIPlanner	F	c	Lcom/desertstormfront/command/UnitCommander;	commander
+com.desertstormfront.ai.AIPlanner	F	d	Lcom/desertstormfront/ai/intent/AIContext;	context
+com.desertstormfront.ai.AIPlanner	F	e	Lcom/desertstormfront/ai/intent/IntentEvaluator;	evaluator
+com.desertstormfront.ai.AIPlanner	F	f	Lcom/desertstormfront/ai/plan/PlanNodeList;	planNodes
+com.desertstormfront.ai.AIPlanner	F	g	Lcom/desertstormfront/ai/plan/PlanContextList;	planContexts
+com.desertstormfront.ai.AIPlanner	F	h	Lcom/desertstormfront/ai/plan/PlanNodeList;	planNodePool
+com.desertstormfront.ai.AIPlanner	F	i	Lcom/desertstormfront/ai/plan/PlanContextList;	planContextPool
+com.desertstormfront.ai.AIPlanner	F	j	Lcom/desertstormfront/ai/behavior/BehaviorTreePool;	behaviorTrees
+com.desertstormfront.ai.AIPlanner	F	k	Lcom/desertstormfront/ai/behavior/BlackboardPool;	blackboards
+com.desertstormfront.ai.AIPlanner	F	l	Lcom/desertstormfront/ai/behavior/BehaviorTreePool;	behaviorTreePool
+com.desertstormfront.ai.AIPlanner	F	m	Lcom/desertstormfront/ai/behavior/BlackboardPool;	blackboardPool
+com.desertstormfront.ai.AIPlanner	F	n	J	slowThresholdNanos
+com.desertstormfront.ai.AIPlanner	M	a	()Lcom/desertstormfront/ai/intent/AIContext;	getContext
+com.desertstormfront.ai.AIPlanner	M	b	()Lcom/desertstormfront/ai/plan/PlanNodeList;	getPlanNodes
+com.desertstormfront.ai.AIPlanner	M	c	()Lcom/desertstormfront/ai/plan/PlanContextList;	getPlanContexts
+com.desertstormfront.ai.AIPlanner	M	d	()V	update
+com.desertstormfront.ai.AIPlanner	M	a	(Lcom/desertstormfront/ai/intent/Intent;)V	allocatePlan
+com.desertstormfront.ai.AIPlanner	M	e	()V	createPlanTree
+com.desertstormfront.ai.AIPlanner	M	a	(I)V	recyclePlan
+com.desertstormfront.ai.AIPlanner	M	a	(Lcom/desertstormfront/game/model/Unit;)V	allocateTask
+com.desertstormfront.ai.AIPlanner	M	f	()V	createBehaviorTree
+com.desertstormfront.ai.AIPlanner	M	b	(I)V	recycleTask

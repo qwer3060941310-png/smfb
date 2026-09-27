@@ -1,0 +1,31 @@
+# Player income + hud panel refresh batch
+#
+# Player: l() is multiplied by the player's building count and added to resources every tick
+#   (WorldSimulator: resources += buildings * owner.l()), and World difficulty scaling multiplies
+#   resources and l() by the same factor -> getIncomePerBuilding ; c(long) is its setter
+#   -> setIncomePerBuilding. (The other two long/int accessors, c() and o(), have no reader whose
+#   meaning is clear yet and stay obfuscated.)
+#
+# Panels: every UnitPanel subclass overrides a(Unit) to refresh itself from the selected unit, and
+#   the base declares it, so the whole family is setUnit. The dialogs take their payload the same
+#   way: ScoreDialog <- PlayerStatistics -> setStatistics ; SquadPanel <- UnitList + index
+#   -> setUnits ; MissionBriefingDialog / NationSelectDialog <- PlayerList -> setPlayers ;
+#   LoadingProgressDialog <- float/text -> setProgress/setMessage ; MessageDialog <- title / body /
+#   lines -> setTitle/setText/setLines ; InGameMenu builds a button from (x, y, label)
+#   -> createButton.
+com.desertstormfront.game.player.Player	M	l	()J	getIncomePerBuilding
+com.desertstormfront.game.player.Player	M	c	(J)V	setIncomePerBuilding
+com.desertstormfront.ui.hud.BuildingPanel	M	a	(Lcom/desertstormfront/game/model/Unit;)V	setUnit
+com.desertstormfront.ui.hud.CarrierUnitPanel	M	a	(Lcom/desertstormfront/game/model/Unit;)V	setUnit
+com.desertstormfront.ui.hud.InGameMenu	M	a	(IILjava/lang/String;)Lcom/desertstormfront/ui/Button;	createButton
+com.desertstormfront.ui.hud.LoadingProgressDialog	M	a	(F)V	setProgress
+com.desertstormfront.ui.hud.LoadingProgressDialog	M	a	(Ljava/lang/String;)V	setMessage
+com.desertstormfront.ui.hud.MessageDialog	M	a	(Ljava/lang/String;)V	setTitle
+com.desertstormfront.ui.hud.MessageDialog	M	b	(Ljava/lang/String;)V	setText
+com.desertstormfront.ui.hud.MessageDialog	M	a	([Ljava/lang/String;)V	setLines
+com.desertstormfront.ui.hud.MissionBriefingDialog	M	a	(Lcom/desertstormfront/game/player/PlayerList;)V	setPlayers
+com.desertstormfront.ui.hud.NationSelectDialog	M	a	(Lcom/desertstormfront/game/player/PlayerList;[Ljava/lang/String;)V	setPlayers
+com.desertstormfront.ui.hud.ScoreDialog	M	a	(Lcom/desertstormfront/game/player/PlayerStatistics;)V	setStatistics
+com.desertstormfront.ui.hud.SingleUnitPanel	M	a	(Lcom/desertstormfront/game/model/Unit;)V	setUnit
+com.desertstormfront.ui.hud.SquadPanel	M	a	(Lcom/desertstormfront/game/model/UnitList;I)V	setUnits
+com.desertstormfront.ui.hud.UnitPanelBase	M	a	(Lcom/desertstormfront/game/model/Unit;)V	setUnit

@@ -1,0 +1,43 @@
+# AIContext batch: owner <TAB> M <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# Terrain/path helpers are one-line delegations to TerrainGrid (hasPathToUnit, isAllLandTile, ...)
+# so they reuse those names. The cached lists are: l=own immobile, p=own mobile, r=l+p (all own),
+# m=visible enemies, n=visible enemies plus unowned, q=visible enemy mobile, d=visible enemies at
+# one tile, e=the unassigned pool that claimUnits() drains. Player.a(Player) is isEnemyOf
+# (this != other && different team), which fixes the polarity of that whole family.
+# Three rows stay blank on purpose: the int field n has no call site to confirm its meaning, and
+# s() is q()+m() where q is already a subset of m, so the intended semantics is unconfirmed.
+com.desertstormfront.ai.intent.AIContext	M	a	(Lcom/desertstormfront/command/UnitCommander;)Lcom/desertstormfront/ai/intent/AIContext;	create
+com.desertstormfront.ai.intent.AIContext	M	a	()Lcom/desertstormfront/game/player/Player;	getPlayer
+com.desertstormfront.ai.intent.AIContext	M	b	()Lcom/desertstormfront/ai/intent/IntentList;	getIntents
+com.desertstormfront.ai.intent.AIContext	M	c	()I	
+com.desertstormfront.ai.intent.AIContext	M	a	(I)V	
+com.desertstormfront.ai.intent.AIContext	M	d	()Lcom/desertstormfront/ai/intent/InfluenceMap;	getInfluenceMap
+com.desertstormfront.ai.intent.AIContext	M	e	()Lcom/desertstormfront/game/model/UnitList;	getUnassignedUnits
+com.desertstormfront.ai.intent.AIContext	M	a	(Lcom/desertstormfront/game/model/Unit;)Z	isUnitAssigned
+com.desertstormfront.ai.intent.AIContext	M	a	(Lcom/desertstormfront/game/model/UnitList;Lcom/desertstormfront/game/model/Unit;)I	claimUnits
+com.desertstormfront.ai.intent.AIContext	M	f	()Lcom/desertstormfront/map/MapDefinition;	getMapDefinition
+com.desertstormfront.ai.intent.AIContext	M	g	()F	getGameTime
+com.desertstormfront.ai.intent.AIContext	M	h	()Lcom/noblemaster/lib/util/FastRandom;	getRandom
+com.desertstormfront.ai.intent.AIContext	M	i	()Lcom/desertstormfront/game/mode/GameMode;	getGameMode
+com.desertstormfront.ai.intent.AIContext	M	j	()I	getTerrainWidth
+com.desertstormfront.ai.intent.AIContext	M	k	()I	getTerrainHeight
+com.desertstormfront.ai.intent.AIContext	M	a	(FF)Z	isInsideGrid
+com.desertstormfront.ai.intent.AIContext	M	a	(II)Z	isAllLandTile
+com.desertstormfront.ai.intent.AIContext	M	a	(Lcom/desertstormfront/world/Vec2;)Z	isAllLandTileAtPosition
+com.desertstormfront.ai.intent.AIContext	M	b	(II)Z	isAllWaterTile
+com.desertstormfront.ai.intent.AIContext	M	b	(Lcom/desertstormfront/world/Vec2;)[Lcom/desertstormfront/world/Vec2;	getSurroundingTiles
+com.desertstormfront.ai.intent.AIContext	M	a	(Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/model/Unit;)Z	hasPathToUnit
+com.desertstormfront.ai.intent.AIContext	M	a	(Lcom/desertstormfront/game/model/Unit;FF)Z	hasPathToPosition
+com.desertstormfront.ai.intent.AIContext	M	a	(Lcom/desertstormfront/game/model/Domain;FFFF)Z	hasPathForDomain
+com.desertstormfront.ai.intent.AIContext	M	b	(Lcom/desertstormfront/game/model/Domain;FFFF)Lcom/desertstormfront/world/Neighbor;	findNeighbor
+com.desertstormfront.ai.intent.AIContext	M	c	(II)Lcom/desertstormfront/game/model/Unit;	getUnitAtTile
+com.desertstormfront.ai.intent.AIContext	M	l	()Lcom/desertstormfront/game/model/UnitList;	getOwnImmobileUnits
+com.desertstormfront.ai.intent.AIContext	M	m	()Lcom/desertstormfront/game/model/UnitList;	getVisibleEnemyUnits
+com.desertstormfront.ai.intent.AIContext	M	n	()Lcom/desertstormfront/game/model/UnitList;	getVisibleEnemyOrNeutralUnits
+com.desertstormfront.ai.intent.AIContext	M	o	()Z	hasProducer
+com.desertstormfront.ai.intent.AIContext	M	p	()Lcom/desertstormfront/game/model/UnitList;	getOwnMobileUnits
+com.desertstormfront.ai.intent.AIContext	M	d	(II)Lcom/desertstormfront/game/model/UnitList;	getVisibleEnemyUnitsAtTile
+com.desertstormfront.ai.intent.AIContext	M	q	()Lcom/desertstormfront/game/model/UnitList;	getVisibleEnemyMobileUnits
+com.desertstormfront.ai.intent.AIContext	M	r	()Lcom/desertstormfront/game/model/UnitList;	getOwnUnits
+com.desertstormfront.ai.intent.AIContext	M	s	()Lcom/desertstormfront/game/model/UnitList;	

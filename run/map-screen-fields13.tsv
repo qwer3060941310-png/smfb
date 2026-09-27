@@ -1,0 +1,34 @@
+# screen field batch 13: GameScreen wrap-up.
+#
+# gameMode (f) is the SessionMode the screen drives (instanceof checks against Tutorial/Campaign/
+# Skirmish/Multiplayer throughout); tutorialHintBox (bI) is built only for TutorialGameMode and is
+# the source of every notifyStepEvent()/getActionCode() call; fpsLabel (bx) is the debug label set to
+# "FPS: " + Gdx.graphics.getFramesPerSecond().
+# Input state: dragging (bU) is set while a map/selection drag is in progress and is what makes the
+#   code ignore the <25px press distance test; domainCounts (bX) is one counter per Domain, filled
+#   while scanning the units under the pointer so the dominant domain can win; dragDx/dragDy (ca/cb)
+#   are the pointer delta converted to world units, normalised and applied as camera pan.
+# zPixelScale (ax = round(64/sqrt(2))) converts world heights to pixels: unitType.getMoveFactor() * ax
+#   for the unit footprint and volley/projectile z * ax for the altitude offset.
+# The water sparkle scheduler: waterSparkleTimes/waterSparkleX/waterSparkleY (cm/cn/co) are parallel
+#   arrays over a coarse grid (width*width/9); every second a cell picks a random all-water tile with
+#   no site and no units, and the draw pass renders the 7-frame 16x16 animation at that tile.
+#
+# Left unnamed - all of them are dead in this build (declared, never read; verified by searching every
+# occurrence): the constants b (25), c (0.2f), d (0.9f), w (1000000000L), L/M/N (0.5f/0.5f/1.0f),
+# cl (1000000000L), av/aw (the 128/64 tile pixel sizes, hard-coded as literals at the call sites),
+# aC ((short)16), ae (float), bJ (Integer.MIN_VALUE), bM (read as a "built 1s ago" flash window but
+# never written), at/au (computed in layout() and never read), X (Long.MIN_VALUE), plus cd/ce/cf (the
+# cached mouse/touch button states, whose three-way split cannot be told apart from the code) and
+# cp..cs (javac switch maps).
+com.desertstormfront.screen.GameScreen	F	f	Lcom/desertstormfront/session/SessionMode;	gameMode
+com.desertstormfront.screen.GameScreen	F	bI	Lcom/desertstormfront/ui/hud/TutorialHintBox;	tutorialHintBox
+com.desertstormfront.screen.GameScreen	F	bx	Lcom/desertstormfront/ui/Label;	fpsLabel
+com.desertstormfront.screen.GameScreen	F	bU	Z	dragging
+com.desertstormfront.screen.GameScreen	F	bX	[I	domainCounts
+com.desertstormfront.screen.GameScreen	F	ca	F	dragDx
+com.desertstormfront.screen.GameScreen	F	cb	F	dragDy
+com.desertstormfront.screen.GameScreen	F	ax	I	zPixelScale
+com.desertstormfront.screen.GameScreen	F	cm	[J	waterSparkleTimes
+com.desertstormfront.screen.GameScreen	F	cn	[I	waterSparkleX
+com.desertstormfront.screen.GameScreen	F	co	[I	waterSparkleY

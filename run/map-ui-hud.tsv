@@ -1,0 +1,42 @@
+# ui hud batch (GlErrorChecker / GroupBar / ResultBanner / TimeStatusBar / OkDialog / MinimapPanel)
+#
+# GlErrorChecker: a() reads glGetError and logs the symbolic name, defaulting the location to
+#   "unknown" -> check() ; the String overload reports that location -> check(String).
+#
+# GroupBar: k = the expanded/collapsed flag, l = the selected group index. a() collapses the bar
+#   (y back to 8, frame hidden, selection cleared) -> collapse ; b() expands it -> expand ;
+#   a(int) raises the given group button and shows its frame -> selectGroup ; c() reads the
+#   selection -> getSelectedGroup ; d() refreshes every slot (style by domain, unit count label,
+#   blink frame) -> refresh.
+#
+# ResultBanner: a = the victory flag; a(boolean) swaps the two banner regions and recentres the
+#   icon -> setVictory ; a() -> isVictory ; a(int,int) packs and applies the banner width
+#   -> resize.
+#
+# TimeStatusBar: the two labels are formatted through TextFormatter, one from a long (the match
+#   clock) -> setGameTime, one from a float (a resource total) -> setResourceAmount.
+#
+# OkDialog: a(String) writes the same text into both outline labels (the title) -> setTitle ;
+#   b(String) fills the scrolled body -> setMessage.
+#
+# MinimapPanel: a()/a(boolean) switch between the expanded and collapsed containers
+#   -> isExpanded/setExpanded ; b(boolean)/c(boolean) enable the two zoom buttons (data 101/102)
+#   -> setZoomInEnabled / setZoomOutEnabled.
+com.desertstormfront.ui.GlErrorChecker	M	a	()V	check
+com.desertstormfront.ui.GlErrorChecker	M	a	(Ljava/lang/String;)V	check
+com.desertstormfront.ui.hud.GroupBar	M	a	()V	collapse
+com.desertstormfront.ui.hud.GroupBar	M	b	()V	expand
+com.desertstormfront.ui.hud.GroupBar	M	a	(I)V	selectGroup
+com.desertstormfront.ui.hud.GroupBar	M	c	()I	getSelectedGroup
+com.desertstormfront.ui.hud.GroupBar	M	d	()V	refresh
+com.desertstormfront.ui.hud.MinimapPanel	M	a	()Z	isExpanded
+com.desertstormfront.ui.hud.MinimapPanel	M	a	(Z)V	setExpanded
+com.desertstormfront.ui.hud.MinimapPanel	M	b	(Z)V	setZoomInEnabled
+com.desertstormfront.ui.hud.MinimapPanel	M	c	(Z)V	setZoomOutEnabled
+com.desertstormfront.ui.hud.OkDialog	M	a	(Ljava/lang/String;)V	setTitle
+com.desertstormfront.ui.hud.OkDialog	M	b	(Ljava/lang/String;)V	setMessage
+com.desertstormfront.ui.hud.ResultBanner	M	a	(II)V	resize
+com.desertstormfront.ui.hud.ResultBanner	M	a	()Z	isVictory
+com.desertstormfront.ui.hud.ResultBanner	M	a	(Z)V	setVictory
+com.desertstormfront.ui.hud.TimeStatusBar	M	a	(J)V	setGameTime
+com.desertstormfront.ui.hud.TimeStatusBar	M	a	(F)V	setResourceAmount

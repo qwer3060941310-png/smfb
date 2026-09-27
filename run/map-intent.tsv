@@ -1,0 +1,21 @@
+# Intent batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+# com.desertstormfront.ai.intent.Intent - AI intent entity (target the AI wants to reach).
+#   fields: a=IntentType->type ; b=IntentGroupList->groupList ; c=UnitPosition->position ; d=bool hasTarget
+#   a(IntentType) static->create (factory) ; a()->getType ; a(IntentGroupList)->setGroupList
+#   a(float,float)->setTargetPosition ; a(Unit)->setTargetUnit ; b(IntentType)->setType
+#   b()->getGroupList ; c()->getTargetPosition (null if !hasTarget) ; d()->getTargetUnit (null if !hasTarget)
+#   e()->clearTarget
+com.desertstormfront.ai.intent.Intent	F	a	Lcom/desertstormfront/ai/intent/IntentType;	type
+com.desertstormfront.ai.intent.Intent	F	b	Lcom/desertstormfront/ai/intent/IntentGroupList;	groupList
+com.desertstormfront.ai.intent.Intent	F	c	Lcom/desertstormfront/world/UnitPosition;	position
+com.desertstormfront.ai.intent.Intent	F	d	Z	hasTarget
+com.desertstormfront.ai.intent.Intent	M	a	(Lcom/desertstormfront/ai/intent/IntentType;)Lcom/desertstormfront/ai/intent/Intent;	create
+com.desertstormfront.ai.intent.Intent	M	a	()Lcom/desertstormfront/ai/intent/IntentType;	getType
+com.desertstormfront.ai.intent.Intent	M	a	(Lcom/desertstormfront/ai/intent/IntentGroupList;)V	setGroupList
+com.desertstormfront.ai.intent.Intent	M	a	(FF)V	setTargetPosition
+com.desertstormfront.ai.intent.Intent	M	a	(Lcom/desertstormfront/game/model/Unit;)V	setTargetUnit
+com.desertstormfront.ai.intent.Intent	M	b	(Lcom/desertstormfront/ai/intent/IntentType;)V	setType
+com.desertstormfront.ai.intent.Intent	M	b	()Lcom/desertstormfront/ai/intent/IntentGroupList;	getGroupList
+com.desertstormfront.ai.intent.Intent	M	c	()Lcom/desertstormfront/world/Vec2;	getTargetPosition
+com.desertstormfront.ai.intent.Intent	M	d	()Lcom/desertstormfront/game/model/Unit;	getTargetUnit
+com.desertstormfront.ai.intent.Intent	M	e	()V	clearTarget

@@ -1,0 +1,117 @@
+# lib.net.match batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# Scope: com.noblemaster.lib.net.match (46 methods + 22 fields, 13 classes) - the match-making
+# protocol, the record it exchanges and the codec that serialises it. Evidence per symbol:
+#
+# MatchRecord: the field order is pinned by MatchCodec.writeBody/readBody, and the meaning of each
+#   field by two independent readers:
+#     - MatchMakingClientTest logs them explicitly:
+#         "ID = a" | "Timestamp = j" | "Local = e:f" | "External = g:h | open=i"
+#     - GameClient picks the connect target from the record: when the caller's own external address
+#       equals g it dials e:f (same LAN), otherwise g:h (over the internet).
+#   So: a=id, b=productId (the list/get filter string; GameServer passes GameConfig.getProductId()),
+#   c=title (the lobby Label text), d=label (a "type|name" string the lobby splits to tell LAN from
+#   internet games), e=localAddress, f=localPort, g=externalAddress, h=externalPort,
+#   i=portOpen (UPnP mapping succeeded), j=timestamp (the match server refreshes it on every
+#   update and drops records older than its expiry window).
+#   Getters/setters take the same names (getId/setId ... isPortOpen/setPortOpen).
+#
+# MatchCodec / MatchListCodec: four symmetric entry points. read/write carry the nullable flag,
+#   readBody/writeBody are the raw payload; the version int is already semantic (VERSION) and the
+#   T04 batch added the "Unsupported match record version" check that readBody now performs.
+#
+# MatchMakingClient: fields a/b are the match-server host and port. The opcode written before each
+#   request (0 create / 1 update / 2 get / 3 list) is how MatchRequestHandler dispatches, so the
+#   methods are named after those ops: createMatch, updateMatch, getMatch, listMatches - each with
+#   the public (instance) and private static (host, port, ...) form. The last private static
+#   a(Socket, DataReader, DataWriter) is the shared close helper -> closeQuietly.
+#
+# AddressProvider / DefaultAddressProvider: a()/b() are the local (NetworkInterface, site-local)
+#   and external (one of four "what is my IP" http services) address -> getLocalAddress /
+#   getExternalAddress. The private a(String url) that reads one line from a URL -> fetchUrl.
+#
+# IpHelper: a(String) is true for 10/8, 192.168/16, 172.16/12 and 127.0.0.1 -> isPrivateAddress.
+#
+# PortMappingCallback: a(String, int) maps a game port through UPnP and returns the address to
+#   advertise -> mapPort.
+#
+# MatchMakingServer: a=expirySeconds, b=matches (the shared live list, also handed to every
+#   MatchRequestHandler), c=queryBuffer (the second list is a reusable result buffer the handler
+#   clears and fills for opcode 3, which is why it is shared with the handlers), d=serverSocket,
+#   e=thread; a(port, backlog, expirySeconds) -> start, a() -> stop.
+#
+# MatchRequestHandler: a=socket, b=matches, c=queryBuffer (same three objects the server passes in).
+#
+# PortProbeServer: the synthetic outer reference a -> client, and b -> port (the UPnP probe port).
+#
+# Wire format note: nothing here is stored or looked up by member name - the protocol is a stream
+# of opcodes and primitives, and the save file uses the same codec - so renaming cannot change the
+# on-disk multiplayer.data or the network protocol.
+com.noblemaster.lib.net.match.AddressProvider	M	a	()Ljava/lang/String;	getLocalAddress
+com.noblemaster.lib.net.match.AddressProvider	M	b	()Ljava/lang/String;	getExternalAddress
+com.noblemaster.lib.net.match.DefaultAddressProvider	M	a	()Ljava/lang/String;	getLocalAddress
+com.noblemaster.lib.net.match.DefaultAddressProvider	M	b	()Ljava/lang/String;	getExternalAddress
+com.noblemaster.lib.net.match.DefaultAddressProvider	M	a	(Ljava/lang/String;)Ljava/lang/String;	fetchUrl
+com.noblemaster.lib.net.match.IpHelper	M	a	(Ljava/lang/String;)Z	isPrivateAddress
+com.noblemaster.lib.net.match.MatchCodec	M	a	(Lcom/noblemaster/lib/io/stream/DataReader;)Lcom/noblemaster/lib/net/match/MatchRecord;	read
+com.noblemaster.lib.net.match.MatchCodec	M	a	(Lcom/noblemaster/lib/io/stream/DataWriter;Lcom/noblemaster/lib/net/match/MatchRecord;)V	write
+com.noblemaster.lib.net.match.MatchCodec	M	a	(Lcom/noblemaster/lib/io/stream/DataReader;Lcom/noblemaster/lib/net/match/MatchRecord;)V	readBody
+com.noblemaster.lib.net.match.MatchCodec	M	b	(Lcom/noblemaster/lib/io/stream/DataWriter;Lcom/noblemaster/lib/net/match/MatchRecord;)V	writeBody
+com.noblemaster.lib.net.match.MatchListCodec	M	a	(Lcom/noblemaster/lib/io/stream/DataReader;)Lcom/noblemaster/lib/net/match/MatchList;	read
+com.noblemaster.lib.net.match.MatchListCodec	M	a	(Lcom/noblemaster/lib/io/stream/DataWriter;Lcom/noblemaster/lib/net/match/MatchList;)V	write
+com.noblemaster.lib.net.match.MatchListCodec	M	a	(Lcom/noblemaster/lib/io/stream/DataReader;Lcom/noblemaster/lib/net/match/MatchList;)V	readBody
+com.noblemaster.lib.net.match.MatchListCodec	M	b	(Lcom/noblemaster/lib/io/stream/DataWriter;Lcom/noblemaster/lib/net/match/MatchList;)V	writeBody
+com.noblemaster.lib.net.match.MatchMakingClient	F	a	Ljava/lang/String;	host
+com.noblemaster.lib.net.match.MatchMakingClient	F	b	I	port
+com.noblemaster.lib.net.match.MatchMakingClient	M	a	(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILcom/noblemaster/lib/net/match/AddressProvider;Lcom/noblemaster/lib/net/match/PortMappingCallback;)Lcom/noblemaster/lib/net/match/MatchRecord;	createMatch
+com.noblemaster.lib.net.match.MatchMakingClient	M	a	(Lcom/noblemaster/lib/net/match/MatchRecord;)V	updateMatch
+com.noblemaster.lib.net.match.MatchMakingClient	M	a	(Ljava/lang/String;J)Lcom/noblemaster/lib/net/match/MatchRecord;	getMatch
+com.noblemaster.lib.net.match.MatchMakingClient	M	a	(Ljava/lang/String;)Lcom/noblemaster/lib/net/match/MatchList;	listMatches
+com.noblemaster.lib.net.match.MatchMakingClient	M	a	(Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;ILcom/noblemaster/lib/net/match/AddressProvider;Lcom/noblemaster/lib/net/match/PortMappingCallback;)Lcom/noblemaster/lib/net/match/MatchRecord;	createMatch
+com.noblemaster.lib.net.match.MatchMakingClient	M	a	(Ljava/lang/String;ILcom/noblemaster/lib/net/match/MatchRecord;)V	updateMatch
+com.noblemaster.lib.net.match.MatchMakingClient	M	a	(Ljava/lang/String;ILjava/lang/String;J)Lcom/noblemaster/lib/net/match/MatchRecord;	getMatch
+com.noblemaster.lib.net.match.MatchMakingClient	M	a	(Ljava/lang/String;ILjava/lang/String;)Lcom/noblemaster/lib/net/match/MatchList;	listMatches
+com.noblemaster.lib.net.match.MatchMakingClient	M	a	(Lcom/badlogic/gdx/net/Socket;Lcom/noblemaster/lib/io/stream/DataReader;Lcom/noblemaster/lib/io/stream/DataWriter;)V	closeQuietly
+com.noblemaster.lib.net.match.MatchMakingServer	F	a	I	expirySeconds
+com.noblemaster.lib.net.match.MatchMakingServer	F	b	Lcom/noblemaster/lib/net/match/MatchList;	matches
+com.noblemaster.lib.net.match.MatchMakingServer	F	c	Lcom/noblemaster/lib/net/match/MatchList;	queryBuffer
+com.noblemaster.lib.net.match.MatchMakingServer	F	d	Ljava/net/ServerSocket;	serverSocket
+com.noblemaster.lib.net.match.MatchMakingServer	F	e	Ljava/lang/Thread;	thread
+com.noblemaster.lib.net.match.MatchMakingServer	M	a	(III)Lcom/noblemaster/lib/net/match/MatchMakingServer;	start
+com.noblemaster.lib.net.match.MatchMakingServer	M	a	()V	stop
+com.noblemaster.lib.net.match.MatchRecord	F	a	J	id
+com.noblemaster.lib.net.match.MatchRecord	F	b	Ljava/lang/String;	productId
+com.noblemaster.lib.net.match.MatchRecord	F	c	Ljava/lang/String;	title
+com.noblemaster.lib.net.match.MatchRecord	F	d	Ljava/lang/String;	label
+com.noblemaster.lib.net.match.MatchRecord	F	e	Ljava/lang/String;	localAddress
+com.noblemaster.lib.net.match.MatchRecord	F	f	I	localPort
+com.noblemaster.lib.net.match.MatchRecord	F	g	Ljava/lang/String;	externalAddress
+com.noblemaster.lib.net.match.MatchRecord	F	h	I	externalPort
+com.noblemaster.lib.net.match.MatchRecord	F	i	Z	portOpen
+com.noblemaster.lib.net.match.MatchRecord	F	j	J	timestamp
+com.noblemaster.lib.net.match.MatchRecord	M	a	()J	getId
+com.noblemaster.lib.net.match.MatchRecord	M	a	(J)V	setId
+com.noblemaster.lib.net.match.MatchRecord	M	b	()Ljava/lang/String;	getProductId
+com.noblemaster.lib.net.match.MatchRecord	M	a	(Ljava/lang/String;)V	setProductId
+com.noblemaster.lib.net.match.MatchRecord	M	c	()Ljava/lang/String;	getTitle
+com.noblemaster.lib.net.match.MatchRecord	M	b	(Ljava/lang/String;)V	setTitle
+com.noblemaster.lib.net.match.MatchRecord	M	d	()Ljava/lang/String;	getLabel
+com.noblemaster.lib.net.match.MatchRecord	M	c	(Ljava/lang/String;)V	setLabel
+com.noblemaster.lib.net.match.MatchRecord	M	e	()Ljava/lang/String;	getLocalAddress
+com.noblemaster.lib.net.match.MatchRecord	M	d	(Ljava/lang/String;)V	setLocalAddress
+com.noblemaster.lib.net.match.MatchRecord	M	f	()I	getLocalPort
+com.noblemaster.lib.net.match.MatchRecord	M	a	(I)V	setLocalPort
+com.noblemaster.lib.net.match.MatchRecord	M	g	()Ljava/lang/String;	getExternalAddress
+com.noblemaster.lib.net.match.MatchRecord	M	e	(Ljava/lang/String;)V	setExternalAddress
+com.noblemaster.lib.net.match.MatchRecord	M	h	()I	getExternalPort
+com.noblemaster.lib.net.match.MatchRecord	M	b	(I)V	setExternalPort
+com.noblemaster.lib.net.match.MatchRecord	M	i	()Z	isPortOpen
+com.noblemaster.lib.net.match.MatchRecord	M	a	(Z)V	setPortOpen
+com.noblemaster.lib.net.match.MatchRecord	M	j	()J	getTimestamp
+com.noblemaster.lib.net.match.MatchRecord	M	b	(J)V	setTimestamp
+com.noblemaster.lib.net.match.MatchRequestHandler	F	a	Ljava/net/Socket;	socket
+com.noblemaster.lib.net.match.MatchRequestHandler	F	b	Lcom/noblemaster/lib/net/match/MatchList;	matches
+com.noblemaster.lib.net.match.MatchRequestHandler	F	c	Lcom/noblemaster/lib/net/match/MatchList;	queryBuffer
+com.noblemaster.lib.net.match.PortMappingCallback	M	a	(Ljava/lang/String;I)Ljava/lang/String;	mapPort
+com.noblemaster.lib.net.match.PortProbeServer	F	a	Lcom/noblemaster/lib/net/match/MatchMakingClient;	client
+com.noblemaster.lib.net.match.PortProbeServer	F	b	I	port

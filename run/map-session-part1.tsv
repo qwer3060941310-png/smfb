@@ -1,0 +1,30 @@
+# session batch 1 (public entry points whose call sites pin them)
+#
+# NetworkOpcode / ServerState: enums carrying a wire code; the byte accessor and its inverse lookup
+#   -> getCode / fromCode (same shape as the other byte-coded enums in this tree).
+#
+# GameClient: MultiplayerGameMode pins four entry points - GameClient.a(AddressProvider,
+#   MatchRecord) is the factory -> create ; a() starts the connection thread -> start ;
+#   e() is handed to saveStore.saveWorld -> getWorld ; h() is called from disconnect()
+#   -> disconnect.
+#
+# GameServer: a(World) is the factory -> create ; a(AddressProvider, PortMappingCallback) registers
+#   the match and opens the server socket -> start ; b(World) forwards to shareTerrainFrom
+#   -> shareTerrain ; a() is the MatchRecord MultiplayerGameMode reuses -> getMatchRecord.
+#
+# Everything else in this package (the rest of GameClient/GameServer, the synthetic accessors that
+# exist only for ServerTickThread/ServerClientSession, ServerClientSession itself, the mode
+# subclasses' d/e/f hooks) is left obfuscated for now: each needs its own call-site study, and the
+# network code has no automated test beyond the boot smoke check.
+com.desertstormfront.session.impl.GameClient	M	a	(Lcom/noblemaster/lib/net/match/AddressProvider;Lcom/noblemaster/lib/net/match/MatchRecord;)Lcom/desertstormfront/session/impl/GameClient;	create
+com.desertstormfront.session.impl.GameClient	M	a	()V	start
+com.desertstormfront.session.impl.GameClient	M	e	()Lcom/desertstormfront/game/World;	getWorld
+com.desertstormfront.session.impl.GameClient	M	h	()V	disconnect
+com.desertstormfront.session.impl.GameServer	M	a	(Lcom/desertstormfront/game/World;)Lcom/desertstormfront/session/impl/GameServer;	create
+com.desertstormfront.session.impl.GameServer	M	a	(Lcom/noblemaster/lib/net/match/AddressProvider;Lcom/noblemaster/lib/net/match/PortMappingCallback;)V	start
+com.desertstormfront.session.impl.GameServer	M	b	(Lcom/desertstormfront/game/World;)V	shareTerrain
+com.desertstormfront.session.impl.GameServer	M	a	()Lcom/noblemaster/lib/net/match/MatchRecord;	getMatchRecord
+com.desertstormfront.session.impl.NetworkOpcode	M	a	()B	getCode
+com.desertstormfront.session.impl.NetworkOpcode	M	a	(B)Lcom/desertstormfront/session/impl/NetworkOpcode;	fromCode
+com.desertstormfront.session.impl.ServerState	M	a	()B	getCode
+com.desertstormfront.session.impl.ServerState	M	a	(B)Lcom/desertstormfront/session/impl/ServerState;	fromCode

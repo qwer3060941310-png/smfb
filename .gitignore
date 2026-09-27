@@ -1,0 +1,38 @@
+# Build outputs
+build/
+dist/
+appbuild/
+*.class
+
+# Logs
+*.log
+run/smoke-out.log
+run/smoke-err.log
+
+# IDE
+.idea/
+*.iws
+*.iml
+
+# Agent / tooling caches
+.codebuddy/
+.gradle/
+
+# Documentation (Markdown) — excluded from source commits per project policy
+*.md
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ---------------------------------------------------------------------------
+# Foreign trees that sit inside this checkout but are NOT part of the Desert
+# Stormfront reconstruction. Keep them out of every commit: app/ is an unrelated
+# Android game project (TalkingData / CCPLAY / Tnet SDKs, 2179 java files),
+# stubs/ is its Android support-library shim, and 新建文件夹/ holds extracted
+# original assets. Nothing here is referenced by run\*.ps1.
+# ---------------------------------------------------------------------------
+/app/
+/stubs/
+/gradle/
+/新建文件夹/

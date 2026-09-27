@@ -1,0 +1,21 @@
+# Vec3 batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+# com.desertstormfront.world.Vec3 - 3D vector (x,y,z) with component accessors, normalize,
+# set/copy/add/equalsComponents/copy. Semantics confirmed from implementations; matches LibGDX Vector3 API.
+#   a/b/c fields -> x/y/z ; b()/c()/d() -> getX/getY/getZ ; a(float)/b(float)/c(float) -> setX/setY/setZ
+#   a() -> normalize ; a(Vec3)/a(float,float,float) -> set (two overloads) ; b(fff) -> add
+#   c(fff) -> equalsComponents (component-wise ==, distinct from equals(Object)) ; e() -> copy (used by clone())
+com.desertstormfront.world.Vec3	F	a	F	x
+com.desertstormfront.world.Vec3	F	b	F	y
+com.desertstormfront.world.Vec3	F	c	F	z
+com.desertstormfront.world.Vec3	M	a	()V	normalize
+com.desertstormfront.world.Vec3	M	b	()F	getX
+com.desertstormfront.world.Vec3	M	a	(F)V	setX
+com.desertstormfront.world.Vec3	M	c	()F	getY
+com.desertstormfront.world.Vec3	M	b	(F)V	setY
+com.desertstormfront.world.Vec3	M	d	()F	getZ
+com.desertstormfront.world.Vec3	M	c	(F)V	setZ
+com.desertstormfront.world.Vec3	M	a	(Lcom/desertstormfront/world/Vec3;)V	set
+com.desertstormfront.world.Vec3	M	a	(FFF)V	set
+com.desertstormfront.world.Vec3	M	b	(FFF)V	add
+com.desertstormfront.world.Vec3	M	c	(FFF)Z	equalsComponents
+com.desertstormfront.world.Vec3	M	e	()Lcom/desertstormfront/world/Vec3;	copy

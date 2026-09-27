@@ -1,0 +1,47 @@
+# Skeleton for com.desertstormfront.screen (package-wide) - fill in the LAST column (semantic name), then:
+#   powershell -File run\deobf-rename.ps1 -Map run\map-screen-remain.tsv            # dry-run (also validates the map)
+#   powershell -File run\deobf-rename.ps1 -Map run\map-screen-remain.tsv -Apply    # write
+# Descriptors come from javap: do not edit them, the renamer matches on them.
+# A row with a BLANK last column must keep its trailing tab, or it loses a column and is
+# misparsed as a different layout (see 26, pitfall 10).
+# 278 already-semantic method(s) omitted; use -All to include them.
+# Columns: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> new
+com.desertstormfront.screen.BaseScreen	M	y	()V	
+com.desertstormfront.screen.BriefingAcceptListener	M	a	(Lcom/desertstormfront/ui/Widget;)V	
+com.desertstormfront.screen.BuildPanelListener	M	a	(Lcom/desertstormfront/ui/Widget;)V	
+com.desertstormfront.screen.CampaignScreen	M	j	()V	
+com.desertstormfront.screen.CampaignScreen	M	k	()V	
+com.desertstormfront.screen.GameEventSoundListener	M	a	(Lcom/desertstormfront/game/player/Player;)V	
+com.desertstormfront.screen.GameEventSoundListener	M	a	(Lcom/desertstormfront/game/model/Unit;)V	
+com.desertstormfront.screen.GameEventSoundListener	M	b	(Lcom/desertstormfront/game/model/Unit;)V	
+com.desertstormfront.screen.GameEventSoundListener	M	a	(Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/player/Player;)V	
+com.desertstormfront.screen.GameEventSoundListener	M	a	(Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/player/Player;)V	
+com.desertstormfront.screen.GameEventSoundListener	M	c	(Lcom/desertstormfront/game/model/Unit;)V	
+com.desertstormfront.screen.GameEventSoundListener	M	b	(Lcom/desertstormfront/game/player/Player;)V	
+com.desertstormfront.screen.GameEventSoundListener	M	c	(Lcom/desertstormfront/game/player/Player;)V	
+com.desertstormfront.screen.GameEventSoundListener	M	a	()V	
+com.desertstormfront.screen.GameOverDismissListener	M	a	(Lcom/desertstormfront/ui/Widget;)V	
+com.desertstormfront.screen.GameScene	M	a	()Z	
+com.desertstormfront.screen.GameScene	M	b	()Z	
+com.desertstormfront.screen.GameScreen	M	l	(Lcom/desertstormfront/screen/GameScreen;)F	
+com.desertstormfront.screen.GameScreen	M	b	(Lcom/desertstormfront/screen/GameScreen;F)V	
+com.desertstormfront.screen.GameScreen	M	r	(Lcom/desertstormfront/screen/GameScreen;)J	
+com.desertstormfront.screen.GameScreen	M	a	(Lcom/desertstormfront/screen/GameScreen;J)V	
+com.desertstormfront.screen.GameScreen	M	C	(Lcom/desertstormfront/screen/GameScreen;)J	
+com.desertstormfront.screen.GameScreen	M	b	(Lcom/desertstormfront/screen/GameScreen;J)V	
+com.desertstormfront.screen.GameScreen	M	E	(Lcom/desertstormfront/screen/GameScreen;)Lcom/desertstormfront/game/model/UnitList;	
+com.desertstormfront.screen.GameScreen	M	j	()[I	
+com.desertstormfront.screen.GameScreen	M	k	()[I	
+com.desertstormfront.screen.InGameMenuButtonListener	M	a	(Lcom/desertstormfront/ui/Widget;)V	
+com.desertstormfront.screen.LanNoticeListener	M	a	(Lcom/desertstormfront/ui/Widget;)V	
+com.desertstormfront.screen.MenuActionListener	M	a	(Lcom/desertstormfront/ui/Widget;)V	
+com.desertstormfront.screen.MenuDialogListener	M	a	(Lcom/desertstormfront/ui/Widget;)V	
+com.desertstormfront.screen.MultiSelectPanelListener	M	a	(Lcom/desertstormfront/ui/Widget;)V	
+com.desertstormfront.screen.PauseMenuListener	M	a	(Lcom/desertstormfront/ui/Widget;)V	
+com.desertstormfront.screen.PlayerSlotListener	M	a	(Lcom/desertstormfront/ui/Widget;)V	
+com.desertstormfront.screen.ProductionPanelListener	M	a	(Lcom/desertstormfront/ui/Widget;)V	
+com.desertstormfront.screen.QuitConfirmListener	M	a	(Lcom/desertstormfront/ui/Widget;)V	
+com.desertstormfront.screen.RestartConfirmListener	M	a	(Lcom/desertstormfront/ui/Widget;)V	
+com.desertstormfront.screen.SquadBarListener	M	a	(Lcom/desertstormfront/ui/Widget;)V	
+com.desertstormfront.screen.UnitPanelListener	M	a	(Lcom/desertstormfront/ui/Widget;)V	
+com.desertstormfront.screen.ZoomButtonListener	M	a	(Lcom/desertstormfront/ui/Widget;)V	

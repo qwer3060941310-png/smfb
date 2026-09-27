@@ -1,0 +1,42 @@
+# UnitTypeSlots batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# Slot order is fixed by the constructor, so the two rulesets that build it name every slot:
+#   DsfRuleset: general, humvee, battleTank, artillery, missileTank, fourByFour, baseStation,
+#               shipyard, airfield, oilField, transport, carrier, chinnook, fighterPlane,
+#               helicopter, cruiser, submarine, gunboat, mechanic, hovercraft, truck
+#   TsfRuleset: general, battleTank, battleTank, artillery, missileTank, null, baseStation,
+#               shipyard, airfield, null, transport, carrier, airship, fighterPlane,
+#               helicopter, cruiser, submarine, destroyer, null, null, null
+# Slots the two rulesets fill differently keep the Desert Stormfront name (slot 2 humvee vs
+# battleTank, slot 18 gunboat vs destroyer); the class JavaDoc records the Tsf counterpart.
+# Cross-check: IntentEvaluator compares getUnitTypeSlots().t() against IntentType.Truck, so the
+# last getter (which returns field u) is the truck. Field t (hovercraft) has no getter.
+# Nothing reads these slots by name - ModRuleset builds them from a positional JSON array, so
+# renaming cannot change saved data or mod behaviour.
+com.desertstormfront.game.model.UnitTypeSlots	F	a	Lcom/desertstormfront/game/model/UnitType;	general
+com.desertstormfront.game.model.UnitTypeSlots	F	b	Lcom/desertstormfront/game/model/UnitType;	humvee
+com.desertstormfront.game.model.UnitTypeSlots	F	c	Lcom/desertstormfront/game/model/UnitType;	battleTank
+com.desertstormfront.game.model.UnitTypeSlots	F	d	Lcom/desertstormfront/game/model/UnitType;	artillery
+com.desertstormfront.game.model.UnitTypeSlots	F	e	Lcom/desertstormfront/game/model/UnitType;	missileTank
+com.desertstormfront.game.model.UnitTypeSlots	F	f	Lcom/desertstormfront/game/model/UnitType;	fourByFour
+com.desertstormfront.game.model.UnitTypeSlots	F	g	Lcom/desertstormfront/game/model/UnitType;	baseStation
+com.desertstormfront.game.model.UnitTypeSlots	F	h	Lcom/desertstormfront/game/model/UnitType;	shipyard
+com.desertstormfront.game.model.UnitTypeSlots	F	i	Lcom/desertstormfront/game/model/UnitType;	airfield
+com.desertstormfront.game.model.UnitTypeSlots	F	j	Lcom/desertstormfront/game/model/UnitType;	oilField
+com.desertstormfront.game.model.UnitTypeSlots	F	k	Lcom/desertstormfront/game/model/UnitType;	transport
+com.desertstormfront.game.model.UnitTypeSlots	F	l	Lcom/desertstormfront/game/model/UnitType;	carrier
+com.desertstormfront.game.model.UnitTypeSlots	F	m	Lcom/desertstormfront/game/model/UnitType;	airTransport
+com.desertstormfront.game.model.UnitTypeSlots	F	n	Lcom/desertstormfront/game/model/UnitType;	fighterPlane
+com.desertstormfront.game.model.UnitTypeSlots	F	o	Lcom/desertstormfront/game/model/UnitType;	helicopter
+com.desertstormfront.game.model.UnitTypeSlots	F	p	Lcom/desertstormfront/game/model/UnitType;	cruiser
+com.desertstormfront.game.model.UnitTypeSlots	F	q	Lcom/desertstormfront/game/model/UnitType;	submarine
+com.desertstormfront.game.model.UnitTypeSlots	F	r	Lcom/desertstormfront/game/model/UnitType;	gunboat
+com.desertstormfront.game.model.UnitTypeSlots	F	s	Lcom/desertstormfront/game/model/UnitType;	mechanic
+com.desertstormfront.game.model.UnitTypeSlots	F	t	Lcom/desertstormfront/game/model/UnitType;	hovercraft
+com.desertstormfront.game.model.UnitTypeSlots	F	u	Lcom/desertstormfront/game/model/UnitType;	truck
+com.desertstormfront.game.model.UnitTypeSlots	M	b	()Lcom/desertstormfront/game/model/UnitType;	getHumvee
+com.desertstormfront.game.model.UnitTypeSlots	M	f	()Lcom/desertstormfront/game/model/UnitType;	getFourByFour
+com.desertstormfront.game.model.UnitTypeSlots	M	j	()Lcom/desertstormfront/game/model/UnitType;	getOilField
+com.desertstormfront.game.model.UnitTypeSlots	M	r	()Lcom/desertstormfront/game/model/UnitType;	getGunboat
+com.desertstormfront.game.model.UnitTypeSlots	M	s	()Lcom/desertstormfront/game/model/UnitType;	getMechanic
+com.desertstormfront.game.model.UnitTypeSlots	M	t	()Lcom/desertstormfront/game/model/UnitType;	getTruck

@@ -1,0 +1,46 @@
+# Player batch: owner <TAB> M <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# Getter letters do NOT match field letters here, so every entry was named from the field the
+# body actually touches: a=int id, b=Controller, c=long ?, d=bool alive, e=Faction, f=Team,
+# g=long money (buildUnit subtracts and cancel refunds cost), h=long ?, i=UnitTypeList,
+# j=FogOfWar, k=UnitGroupSet, l=bool exploration, m=bool fog, n=int ?, o=PlayerStatistics.
+# Evidence: World.runSetup scales player.g() and player.l() by AI difficulty; AnnihilationMode
+# counts only players where d() is true (isAlive); SkirmishSetupScreen offers "Exploration +
+# Fog / Exploration Only / Fog Only", and setupPlayers feeds fogOfWar.a(!m()) / .b(!n()),
+# which fixes l=exploration and m=fog.
+# Six rows stay blank on purpose: the long c, the long h (100 at creation, difficulty-scaled,
+# used as a per-structure strength weight) and the int n appear only in WorldSerializer, with
+# no call site or label to establish their meaning.
+com.desertstormfront.game.player.Player	M	a	(ILcom/desertstormfront/game/player/Faction;Lcom/desertstormfront/game/player/Team;JJZZLcom/desertstormfront/game/model/UnitTypeList;Lcom/desertstormfront/game/player/FogOfWar;)Lcom/desertstormfront/game/player/Player;	create
+com.desertstormfront.game.player.Player	M	a	()I	getId
+com.desertstormfront.game.player.Player	M	a	(I)V	setId
+com.desertstormfront.game.player.Player	M	b	()Lcom/desertstormfront/game/player/Controller;	getController
+com.desertstormfront.game.player.Player	M	a	(Lcom/desertstormfront/game/player/Controller;)V	setController
+com.desertstormfront.game.player.Player	M	c	()J	
+com.desertstormfront.game.player.Player	M	a	(J)V	
+com.desertstormfront.game.player.Player	M	d	()Z	isAlive
+com.desertstormfront.game.player.Player	M	a	(Z)V	setAlive
+com.desertstormfront.game.player.Player	M	e	()Lcom/desertstormfront/game/player/Faction;	getFaction
+com.desertstormfront.game.player.Player	M	a	(Lcom/desertstormfront/game/player/Faction;)V	setFaction
+com.desertstormfront.game.player.Player	M	f	()Lcom/desertstormfront/game/player/Team;	getTeam
+com.desertstormfront.game.player.Player	M	a	(Lcom/desertstormfront/game/player/Team;)V	setTeam
+com.desertstormfront.game.player.Player	M	a	(Lcom/desertstormfront/game/player/Player;)Z	isEnemyOf
+com.desertstormfront.game.player.Player	M	g	()J	getResources
+com.desertstormfront.game.player.Player	M	b	(J)V	setResources
+com.desertstormfront.game.player.Player	M	h	()Lcom/desertstormfront/game/model/UnitTypeList;	getAvailableUnitTypes
+com.desertstormfront.game.player.Player	M	a	(Lcom/desertstormfront/game/model/UnitTypeList;)V	setAvailableUnitTypes
+com.desertstormfront.game.player.Player	M	i	()Lcom/desertstormfront/game/player/FogOfWar;	getFogOfWar
+com.desertstormfront.game.player.Player	M	a	(Lcom/desertstormfront/game/player/FogOfWar;)V	setFogOfWar
+com.desertstormfront.game.player.Player	M	j	()Lcom/desertstormfront/game/player/UnitGroupSet;	getUnitGroups
+com.desertstormfront.game.player.Player	M	a	(Lcom/desertstormfront/game/player/UnitGroupSet;)V	setUnitGroups
+com.desertstormfront.game.player.Player	M	k	()Ljava/lang/String;	getName
+com.desertstormfront.game.player.Player	M	l	()J	
+com.desertstormfront.game.player.Player	M	c	(J)V	
+com.desertstormfront.game.player.Player	M	m	()Z	isExplorationEnabled
+com.desertstormfront.game.player.Player	M	b	(Z)V	setExplorationEnabled
+com.desertstormfront.game.player.Player	M	n	()Z	isFogEnabled
+com.desertstormfront.game.player.Player	M	c	(Z)V	setFogEnabled
+com.desertstormfront.game.player.Player	M	o	()I	
+com.desertstormfront.game.player.Player	M	b	(I)V	
+com.desertstormfront.game.player.Player	M	p	()Lcom/desertstormfront/game/player/PlayerStatistics;	getStatistics
+com.desertstormfront.game.player.Player	M	a	(Lcom/desertstormfront/game/player/PlayerStatistics;)V	setStatistics

@@ -1,0 +1,49 @@
+# TerrainGrid batch: owner | M | old | descriptor | semantic name
+#
+# Derived from the bodies: c[] is the per-corner "land" flag (true = land), so g() = all four
+# corners land, h() = no corner land, i() = coast (mixed), and the domain entry rules read
+# deliberately as: Ground needs not-water, Water needs not-all-land, Amphibian only needs
+# an unblocked cell. i[]/j[] are the per-domain adjusted centres precomputed in buildTerrain.
+# Descriptors come from javap - do not edit them.
+com.desertstormfront.world.TerrainGrid	M	a	(Lcom/desertstormfront/app/support/ProgressCallback;)V	buildTerrain
+com.desertstormfront.world.TerrainGrid	M	a	(Lcom/desertstormfront/world/PathFinder;Lcom/desertstormfront/app/support/ProgressCallback;)V	buildTerrainWithPathFinder
+com.desertstormfront.world.TerrainGrid	M	a	(Lcom/desertstormfront/world/TerrainGrid;)V	shareFrom
+com.desertstormfront.world.TerrainGrid	M	a	()I	getWidth
+com.desertstormfront.world.TerrainGrid	M	b	()I	getHeight
+com.desertstormfront.world.TerrainGrid	M	a	(II)Lcom/desertstormfront/world/Vec2;	getCenter
+com.desertstormfront.world.TerrainGrid	M	b	(II)Lcom/desertstormfront/world/RoadTile;	getRoadTile
+com.desertstormfront.world.TerrainGrid	M	a	(IILcom/desertstormfront/world/RoadTile;)V	setRoadTile
+com.desertstormfront.world.TerrainGrid	M	c	(II)Lcom/desertstormfront/game/model/Site;	getSite
+com.desertstormfront.world.TerrainGrid	M	a	(IILcom/desertstormfront/game/model/TerrainType;I)V	setSite
+com.desertstormfront.world.TerrainGrid	M	a	(Lcom/desertstormfront/world/Vec2;)Lcom/desertstormfront/game/model/Unit;	getUnitAtPosition
+com.desertstormfront.world.TerrainGrid	M	d	(II)Lcom/desertstormfront/game/model/Unit;	getUnitAtTile
+com.desertstormfront.world.TerrainGrid	M	a	(Lcom/desertstormfront/world/Vec2;Lcom/desertstormfront/game/model/Unit;)V	setUnitAtPosition
+com.desertstormfront.world.TerrainGrid	M	a	(IILcom/desertstormfront/game/model/Unit;)V	setUnitAtTile
+com.desertstormfront.world.TerrainGrid	M	a	(Lcom/desertstormfront/world/Vec2;Lcom/desertstormfront/game/model/Domain;)Lcom/desertstormfront/world/Vec2;	getDomainPosition
+com.desertstormfront.world.TerrainGrid	M	a	(IILcom/desertstormfront/game/model/Domain;)Lcom/desertstormfront/world/Vec2;	getDomainPositionAtTile
+com.desertstormfront.world.TerrainGrid	M	e	(II)Lcom/desertstormfront/game/model/UnitList;	getUnitsAtTile
+com.desertstormfront.world.TerrainGrid	M	a	(Lcom/desertstormfront/game/model/Unit;)V	addUnitToTile
+com.desertstormfront.world.TerrainGrid	M	b	(Lcom/desertstormfront/game/model/Unit;)V	removeUnitFromTile
+com.desertstormfront.world.TerrainGrid	M	a	(FF)Z	isInsideGrid
+com.desertstormfront.world.TerrainGrid	M	b	(FF)Z	isCellBlocked
+com.desertstormfront.world.TerrainGrid	M	f	(II)Z	isCornerLand
+com.desertstormfront.world.TerrainGrid	M	a	(IIZ)V	setCornerLand
+com.desertstormfront.world.TerrainGrid	M	b	(Lcom/desertstormfront/world/Vec2;)Z	isAllLandTileAtPosition
+com.desertstormfront.world.TerrainGrid	M	g	(II)Z	isAllLandTile
+com.desertstormfront.world.TerrainGrid	M	c	(Lcom/desertstormfront/world/Vec2;)Z	isAllWaterTileAtPosition
+com.desertstormfront.world.TerrainGrid	M	h	(II)Z	isAllWaterTile
+com.desertstormfront.world.TerrainGrid	M	i	(II)Z	isCoastTile
+com.desertstormfront.world.TerrainGrid	M	c	(FF)Z	isLandAtPoint
+com.desertstormfront.world.TerrainGrid	M	j	(II)F	getCoastAngle
+com.desertstormfront.world.TerrainGrid	M	a	([FLcom/desertstormfront/game/model/Domain;FF)V	clampPositionToDomain
+com.desertstormfront.world.TerrainGrid	M	a	(Lcom/desertstormfront/game/model/Domain;II)Z	canDomainEnter
+com.desertstormfront.world.TerrainGrid	M	a	(Lcom/desertstormfront/game/model/Domain;IIII)Z	canDomainMoveBetween
+com.desertstormfront.world.TerrainGrid	M	a	(IIII)I	getMovementCost
+com.desertstormfront.world.TerrainGrid	M	d	(Lcom/desertstormfront/world/Vec2;)[Lcom/desertstormfront/world/Vec2;	getSurroundingTiles
+com.desertstormfront.world.TerrainGrid	M	a	(Lcom/desertstormfront/world/Vec2;Lcom/desertstormfront/world/Vec2;)Lcom/desertstormfront/world/Vec2;	getNearestSurroundingTile
+com.desertstormfront.world.TerrainGrid	M	a	(Lcom/desertstormfront/game/model/Unit;Lcom/desertstormfront/game/model/Unit;)Z	hasPathToUnit
+com.desertstormfront.world.TerrainGrid	M	a	(Lcom/desertstormfront/game/model/Unit;FF)Z	hasPathToPosition
+com.desertstormfront.world.TerrainGrid	M	a	(Lcom/desertstormfront/game/model/Domain;FFFF)Z	hasPathForDomain
+com.desertstormfront.world.TerrainGrid	M	b	(Lcom/desertstormfront/game/model/Domain;FFFF)Lcom/desertstormfront/world/Neighbor;	findNeighbor
+com.desertstormfront.world.TerrainGrid	M	c	(Lcom/desertstormfront/game/model/Domain;FFFF)Lcom/desertstormfront/world/Neighbor;	findReachableNeighbor
+com.desertstormfront.world.TerrainGrid	M	c	()[I	getDomainSwitchMap

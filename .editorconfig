@@ -1,0 +1,40 @@
+# EditorConfig: https://editorconfig.org
+#
+# The source tree is UTF-8 without BOM and CRLF, and the build scripts are deliberately
+# ASCII-only (PowerShell -File decodes them as ANSI/GBK, so non-ASCII literals corrupt).
+# Keep those two properties stable or run\build.ps1 and friends will fail in confusing ways.
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.java]
+indent_style = space
+indent_size = 4
+
+# Scripts must stay ASCII-only: no non-ASCII literals, not even in comments.
+[*.ps1]
+indent_style = space
+indent_size = 4
+charset = ascii
+
+[*.bat]
+indent_style = space
+indent_size = 4
+charset = ascii
+
+[*.{json,yml,yaml}]
+indent_style = space
+indent_size = 2
+
+# Mapping tables are consumed by the rename tools: one entry per line, TAB separated.
+[*.tsv]
+indent_style = tab
+insert_final_newline = false
+
+# Markdown uses hard line breaks in places; do not strip the trailing spaces.
+[*.md]
+trim_trailing_whitespace = false

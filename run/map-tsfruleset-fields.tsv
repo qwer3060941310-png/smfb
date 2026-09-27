@@ -1,0 +1,34 @@
+# TsfRuleset fields (kind F), same evidence as the Dsf map: the UnitType fields carry their own
+# name in the inline constructor call, and the rest are named by their accessors
+# (getTerrainTypes, getUnitTypes, getUnitTypeSlots, getCostMatrix, getCargoUnits, and the six
+# String[][] template getters w..B).
+#
+# Left blank: the two FactionList fields a and b - no accessor returns them directly.
+com.desertstormfront.map.TsfRuleset	F	a	Lcom/desertstormfront/game/player/FactionList;	
+com.desertstormfront.map.TsfRuleset	F	b	Lcom/desertstormfront/game/player/FactionList;	
+com.desertstormfront.map.TsfRuleset	F	c	Lcom/desertstormfront/game/model/TerrainTypeList;	terrainTypes
+com.desertstormfront.map.TsfRuleset	F	d	Lcom/desertstormfront/game/model/UnitType;	general
+com.desertstormfront.map.TsfRuleset	F	e	Lcom/desertstormfront/game/model/UnitType;	battleTank
+com.desertstormfront.map.TsfRuleset	F	f	Lcom/desertstormfront/game/model/UnitType;	artillery
+com.desertstormfront.map.TsfRuleset	F	g	Lcom/desertstormfront/game/model/UnitType;	missileTank
+com.desertstormfront.map.TsfRuleset	F	h	Lcom/desertstormfront/game/model/UnitType;	fighterPlane
+com.desertstormfront.map.TsfRuleset	F	i	Lcom/desertstormfront/game/model/UnitType;	helicopter
+com.desertstormfront.map.TsfRuleset	F	j	Lcom/desertstormfront/game/model/UnitType;	destroyer
+com.desertstormfront.map.TsfRuleset	F	k	Lcom/desertstormfront/game/model/UnitType;	submarine
+com.desertstormfront.map.TsfRuleset	F	l	Lcom/desertstormfront/game/model/UnitType;	cruiser
+com.desertstormfront.map.TsfRuleset	F	m	Lcom/desertstormfront/game/model/UnitType;	airship
+com.desertstormfront.map.TsfRuleset	F	n	Lcom/desertstormfront/game/model/UnitType;	carrier
+com.desertstormfront.map.TsfRuleset	F	o	Lcom/desertstormfront/game/model/UnitType;	transport
+com.desertstormfront.map.TsfRuleset	F	p	Lcom/desertstormfront/game/model/UnitType;	baseStation
+com.desertstormfront.map.TsfRuleset	F	q	Lcom/desertstormfront/game/model/UnitType;	shipyard
+com.desertstormfront.map.TsfRuleset	F	r	Lcom/desertstormfront/game/model/UnitType;	airfield
+com.desertstormfront.map.TsfRuleset	F	s	Lcom/desertstormfront/game/model/UnitTypeList;	unitTypes
+com.desertstormfront.map.TsfRuleset	F	t	Lcom/desertstormfront/game/model/UnitTypeSlots;	unitTypeSlots
+com.desertstormfront.map.TsfRuleset	F	u	[[I	costMatrix
+com.desertstormfront.map.TsfRuleset	F	v	[Lcom/desertstormfront/game/model/UnitTypeList;	cargoUnits
+com.desertstormfront.map.TsfRuleset	F	w	[[Ljava/lang/String;	playerStartTemplates
+com.desertstormfront.map.TsfRuleset	F	x	[[Ljava/lang/String;	captureTheFlagTemplates
+com.desertstormfront.map.TsfRuleset	F	y	[[Ljava/lang/String;	survivalTemplates
+com.desertstormfront.map.TsfRuleset	F	z	[[Ljava/lang/String;	playerBaseTemplates
+com.desertstormfront.map.TsfRuleset	F	A	[[Ljava/lang/String;	rarePropTemplates
+com.desertstormfront.map.TsfRuleset	F	B	[[Ljava/lang/String;	commonPropTemplates

@@ -1,0 +1,21 @@
+# UnitList batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+# com.desertstormfront.game.model.UnitList - an ArrayList<Unit> with domain predicates/aggregates.
+# Field a is the next unit-id counter. All members nameable from their bodies, no collisions.
+#   a/int -> nextId ; a()->getNextId ; a(int)->setNextId
+#   a(UnitType,Player)->addUnit ; a(Player)->hasGeneral ; a(UnitType)->containsType
+#   b()->hasCapturingUnit ; b(Player)->hasBuilding ; b(UnitType)->countOfType ; b(int)->getUnitById
+#   c()->getActiveCount ; c(UnitType)->getUnitsOfType ; d()->getTotalHealth ; e()->getGeneralCount ; f()->getBuildingCount
+com.desertstormfront.game.model.UnitList	F	a	I	nextId
+com.desertstormfront.game.model.UnitList	M	a	()I	getNextId
+com.desertstormfront.game.model.UnitList	M	a	(Lcom/desertstormfront/game/model/UnitType;Lcom/desertstormfront/game/player/Player;)Lcom/desertstormfront/game/model/Unit;	addUnit
+com.desertstormfront.game.model.UnitList	M	a	(Lcom/desertstormfront/game/player/Player;)Z	hasGeneral
+com.desertstormfront.game.model.UnitList	M	a	(Lcom/desertstormfront/game/model/UnitType;)Z	containsType
+com.desertstormfront.game.model.UnitList	M	b	()Z	hasCapturingUnit
+com.desertstormfront.game.model.UnitList	M	b	(Lcom/desertstormfront/game/player/Player;)Z	hasBuilding
+com.desertstormfront.game.model.UnitList	M	b	(Lcom/desertstormfront/game/model/UnitType;)I	countOfType
+com.desertstormfront.game.model.UnitList	M	b	(I)Lcom/desertstormfront/game/model/Unit;	getUnitById
+com.desertstormfront.game.model.UnitList	M	c	()I	getActiveCount
+com.desertstormfront.game.model.UnitList	M	c	(Lcom/desertstormfront/game/model/UnitType;)Lcom/desertstormfront/game/model/UnitList;	getUnitsOfType
+com.desertstormfront.game.model.UnitList	M	d	()J	getTotalHealth
+com.desertstormfront.game.model.UnitList	M	e	()I	getGeneralCount
+com.desertstormfront.game.model.UnitList	M	f	()I	getBuildingCount

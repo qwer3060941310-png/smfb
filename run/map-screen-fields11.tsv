@@ -1,0 +1,43 @@
+# screen field batch 11: GameScreen, slice 3 - the frame loop state, the AI ticker and the
+# fog/marker buffers.
+#
+# frame loop: sessionStartTime (e, set in createGlResources and consumed by dispose() to add
+#   (now - e)/1000 to UserConfig.playingTime); loadingComplete (j, set once BackgroundTask.isDone()
+#   and the scene moves from GameScene.e to f, and used to gate both "center camera on my player"
+#   and the hotkeys); frameCount (Q, ++ every render and used as a blink phase, (Q & 0xF) == 0);
+#   lastTapTime/doubleTap (x/y, y = now - x < 0.4s, i.e. the double-tap test); pointerHeld (z, set on
+#   press and read by the 1-second long-press branch); keyboardScrolling (cc, set only in the
+#   "MoveMap" key-scroll branch); actionKeyCode (cg, the UserConfig.getActionKey* value currently
+#   pressed, -1 when none); pointerDown (bN, the cached isTouchDown/left-button state).
+# camera: targetCameraZoom (P, cameraZoom follows it and both start at 1.0f).
+# AI: aiElapsedTime/aiUpdateCount (s/r) drive `if (aiUpdateCount < 30 * aiElapsedTime) { aiPlanners[
+#   aiUpdateCount % length].update(); ++aiUpdateCount; }` - at most 30 planner updates per second.
+# spectatingSince (l, Float.MAX_VALUE until the first frame the game mode no longer contains the
+#   local player, then gameTime; read for 2 seconds afterwards to shake the camera) and
+#   escortTargetArea (m, EscortMode.getTargetArea(), drawn as a marker).
+# buffers: fogVertexBuffer/fogIndexBuffer (aU/aV, written by updateFogOfWarGeometry and bound before
+#   the fog pass) and markerVertexBuffer/markerIndexBuffer (aW/aX, the dynamic geometry for the
+#   guard/click markers). playerColors (a) are the eight colors indexed by AI planner in the debug
+#   text pass.
+#
+# Left unnamed: the unused constants b (25), c (0.2f) and d (0.9f) - nothing reads them - and X
+# (Long.MIN_VALUE, written once and never read).
+com.desertstormfront.screen.GameScreen	F	e	J	sessionStartTime
+com.desertstormfront.screen.GameScreen	F	j	Z	loadingComplete
+com.desertstormfront.screen.GameScreen	F	l	F	spectatingSince
+com.desertstormfront.screen.GameScreen	F	m	Lcom/desertstormfront/world/Vec2;	escortTargetArea
+com.desertstormfront.screen.GameScreen	F	P	F	targetCameraZoom
+com.desertstormfront.screen.GameScreen	F	Q	I	frameCount
+com.desertstormfront.screen.GameScreen	F	r	I	aiUpdateCount
+com.desertstormfront.screen.GameScreen	F	s	F	aiElapsedTime
+com.desertstormfront.screen.GameScreen	F	x	J	lastTapTime
+com.desertstormfront.screen.GameScreen	F	y	Z	doubleTap
+com.desertstormfront.screen.GameScreen	F	z	Z	pointerHeld
+com.desertstormfront.screen.GameScreen	F	cc	Z	keyboardScrolling
+com.desertstormfront.screen.GameScreen	F	cg	I	actionKeyCode
+com.desertstormfront.screen.GameScreen	F	bN	Z	pointerDown
+com.desertstormfront.screen.GameScreen	F	a	[I	playerColors
+com.desertstormfront.screen.GameScreen	F	aU	Lcom/desertstormfront/ui/GlBuffer;	fogVertexBuffer
+com.desertstormfront.screen.GameScreen	F	aV	Lcom/desertstormfront/ui/GlBuffer;	fogIndexBuffer
+com.desertstormfront.screen.GameScreen	F	aW	Lcom/desertstormfront/ui/GlBuffer;	markerVertexBuffer
+com.desertstormfront.screen.GameScreen	F	aX	Lcom/desertstormfront/ui/GlBuffer;	markerIndexBuffer

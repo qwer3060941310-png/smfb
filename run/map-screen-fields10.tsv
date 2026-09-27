@@ -1,0 +1,57 @@
+# screen field batch 10: GameScreen, slice 2 - the GL pipeline, the camera and the pointer state.
+#
+# createGlResources() names the program plumbing: spriteShaderProgram's "a_position"/"a_texCoord"
+# attribute locations (aE/aF), its "u_translate"/"s_texture"/"u_mvpMatrix" uniforms (aG/aH/aI), the
+# binding of the two shared textures (aA = getTilesTexture(), aB = getUnitsTexture()), the one
+# BatchRenderer of the screen (aZ = getHudRenderer(), whose texture feeds MinimapPanel) and
+# useFloatVertices (aJ, true on Desktop/WebGL, selecting the float stride 16 vertex layout instead of
+# the packed-short stride 6 one).
+# The buffers: terrainVertexBuffer/terrainIndexBuffer (aK/aL, built once from the grid),
+# spriteVertexData (aM, the 1536-short scratch block) with spriteVertexOffset/spriteVertexCapacity
+# (aN/aO) and the ring of eight spriteVertexBuffers/spriteIndexBuffers (aQ/aR) rotated by
+# spriteBufferIndex (aP, (aP+1) % length after each flush), plus the lineVertexBuffer/lineIndexBuffer
+# pair (aS/aT) that drawLine() binds.
+# render() pins the camera/pointer fields: cameraPosition (as, the Vec3 whose x/y are the scroll
+# offset), cameraZoom (O; at 0.5 the camera snaps to even coordinates), the pointer tile
+# pointerTileX/pointerTileY (B/C, from IsoMathHelper.toTileX/Y), the click marker clickedUnit (E)
+# with its screen position clickMarkerScreenX/Y (F/G) shown until clickMarkerUntilTime (D, set to
+# gameTime + 0.2f), the visible tile rectangle visibleMinTileX/visibleMinTileY/visibleMaxTileX/
+# visibleMaxTileY (H/I/J/K, -cameraOffset .. + viewport / cameraZoom + 1) and the camera position
+# remembered when a drag starts, dragStartCameraX/dragStartCameraY (bY/bZ).
+# minimapWidth/minimapHeight (ay/az) are the full map extent in pixels on the minimap texture
+# (128 and 64 pixels per tile for width and height).
+com.desertstormfront.screen.GameScreen	F	as	Lcom/desertstormfront/world/Vec3;	cameraPosition
+com.desertstormfront.screen.GameScreen	F	O	F	cameraZoom
+com.desertstormfront.screen.GameScreen	F	B	F	pointerTileX
+com.desertstormfront.screen.GameScreen	F	C	F	pointerTileY
+com.desertstormfront.screen.GameScreen	F	D	F	clickMarkerUntilTime
+com.desertstormfront.screen.GameScreen	F	E	Lcom/desertstormfront/game/model/Unit;	clickedUnit
+com.desertstormfront.screen.GameScreen	F	F	I	clickMarkerScreenX
+com.desertstormfront.screen.GameScreen	F	G	I	clickMarkerScreenY
+com.desertstormfront.screen.GameScreen	F	H	I	visibleMinTileX
+com.desertstormfront.screen.GameScreen	F	I	I	visibleMinTileY
+com.desertstormfront.screen.GameScreen	F	J	I	visibleMaxTileX
+com.desertstormfront.screen.GameScreen	F	K	I	visibleMaxTileY
+com.desertstormfront.screen.GameScreen	F	bY	F	dragStartCameraX
+com.desertstormfront.screen.GameScreen	F	bZ	F	dragStartCameraY
+com.desertstormfront.screen.GameScreen	F	aA	Lcom/desertstormfront/ui/GlTexture;	tilesTexture
+com.desertstormfront.screen.GameScreen	F	aB	Lcom/desertstormfront/ui/GlTexture;	unitsTexture
+com.desertstormfront.screen.GameScreen	F	aE	I	positionAttribute
+com.desertstormfront.screen.GameScreen	F	aF	I	texCoordAttribute
+com.desertstormfront.screen.GameScreen	F	aG	I	translateUniform
+com.desertstormfront.screen.GameScreen	F	aH	I	textureUniform
+com.desertstormfront.screen.GameScreen	F	aI	I	mvpMatrixUniform
+com.desertstormfront.screen.GameScreen	F	aJ	Z	useFloatVertices
+com.desertstormfront.screen.GameScreen	F	aZ	Lcom/desertstormfront/ui/BatchRenderer;	hudRenderer
+com.desertstormfront.screen.GameScreen	F	aK	Lcom/desertstormfront/ui/GlBuffer;	terrainVertexBuffer
+com.desertstormfront.screen.GameScreen	F	aL	Lcom/desertstormfront/ui/GlBuffer;	terrainIndexBuffer
+com.desertstormfront.screen.GameScreen	F	aM	[S	spriteVertexData
+com.desertstormfront.screen.GameScreen	F	aN	I	spriteVertexOffset
+com.desertstormfront.screen.GameScreen	F	aO	I	spriteVertexCapacity
+com.desertstormfront.screen.GameScreen	F	aP	I	spriteBufferIndex
+com.desertstormfront.screen.GameScreen	F	aQ	[Lcom/desertstormfront/ui/GlBuffer;	spriteVertexBuffers
+com.desertstormfront.screen.GameScreen	F	aR	[Lcom/desertstormfront/ui/GlBuffer;	spriteIndexBuffers
+com.desertstormfront.screen.GameScreen	F	aS	Lcom/desertstormfront/ui/GlBuffer;	lineVertexBuffer
+com.desertstormfront.screen.GameScreen	F	aT	Lcom/desertstormfront/ui/GlBuffer;	lineIndexBuffer
+com.desertstormfront.screen.GameScreen	F	ay	I	minimapWidth
+com.desertstormfront.screen.GameScreen	F	az	I	minimapHeight

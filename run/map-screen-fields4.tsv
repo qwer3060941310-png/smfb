@@ -1,0 +1,28 @@
+# screen field batch 4: MultiplayerLobbyScreen (all 13 fields are read by this file only).
+#
+# initialMessage: the constructor argument shown once as a dialog and then cleared;
+# backgroundImage/scrollPane/contentContainer: the fixed three-widget frame every menu screen sets
+#   up (same roles as in CreditsScreen/ManualScreen);
+# lobbyButtons/lobbyLabels/lobbyDetailLabels: the 64 parallel rows - buttons, the title label and
+#   the "LAN/Internet Game: ..." detail label, all indexed identically;
+# statusLabel: the centred "Scanning for Games..." / "No Games Found" line;
+# externalAddress: written by the scan thread from getAddressProvider().getExternalAddress() and
+#   compared with each match record to decide LAN vs Internet;
+# lock: guards matchList between the scan thread and update();
+# hasScanned: set once the first listMatches() succeeded, switching the status text to
+#   "No Games Found - Scanning...";
+# matchList: the snapshot the scan thread publishes every 5s;
+# scanThread: the thread running this Runnable, stopped by nulling it.
+com.desertstormfront.screen.MultiplayerLobbyScreen	F	a	Ljava/lang/String;	initialMessage
+com.desertstormfront.screen.MultiplayerLobbyScreen	F	b	Lcom/desertstormfront/ui/NinePatchImage;	backgroundImage
+com.desertstormfront.screen.MultiplayerLobbyScreen	F	c	Lcom/desertstormfront/ui/ScrollPane;	scrollPane
+com.desertstormfront.screen.MultiplayerLobbyScreen	F	d	Lcom/desertstormfront/ui/Container;	contentContainer
+com.desertstormfront.screen.MultiplayerLobbyScreen	F	e	Ljava/util/List;	lobbyButtons
+com.desertstormfront.screen.MultiplayerLobbyScreen	F	f	Ljava/util/List;	lobbyLabels
+com.desertstormfront.screen.MultiplayerLobbyScreen	F	g	Ljava/util/List;	lobbyDetailLabels
+com.desertstormfront.screen.MultiplayerLobbyScreen	F	h	Lcom/desertstormfront/ui/Label;	statusLabel
+com.desertstormfront.screen.MultiplayerLobbyScreen	F	i	Ljava/lang/String;	externalAddress
+com.desertstormfront.screen.MultiplayerLobbyScreen	F	j	Ljava/lang/Object;	lock
+com.desertstormfront.screen.MultiplayerLobbyScreen	F	k	Z	hasScanned
+com.desertstormfront.screen.MultiplayerLobbyScreen	F	l	Lcom/noblemaster/lib/net/match/MatchList;	matchList
+com.desertstormfront.screen.MultiplayerLobbyScreen	F	m	Ljava/lang/Thread;	scanThread

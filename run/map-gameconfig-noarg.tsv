@@ -1,0 +1,45 @@
+# GameConfig no-arg methods: old<TAB>new
+# Every entry is a delegation/forwarder whose return value is a hardcoded
+# string/object in SubConfigDSF/TSF or a known field (see GameConfig.java + 25).
+# The 6 genuinely-unknown overloads are intentionally LEFT OUT:
+#   n()  -> int[] {1,7,18,24} (meaning unclear)
+#   C()  -> boolean h (configure 4th param, unknown)
+#   E()  -> boolean r (set by a(boolean), unknown)
+#   F()  -> int j (configure 6th param, unknown)
+#   G()  -> int k (configure 7th param, unknown)
+#   a(boolean) -> setter for r, kept obfuscated alongside E()
+a	getGameInfo
+b	getDataFileResolver
+c	getSharedDir
+d	getConfigDir
+e	getMapDefinition
+f	getTutorialTexts
+g	isDarkTheme
+h	getTitle
+i	getSubtitle
+j	getWebsiteUrl
+k	getForumUrl
+l	getAboutText
+m	getMissionDescriptions
+o	getCampaignStory
+p	getCampaignCompleteText
+q	getCreditsText
+r	getTechText
+s	getLicenseText
+t	getAppOverview
+u	getUnitsInfo
+v	getStructuresInfo
+w	getMoveablesInfo
+x	getMusicTracks
+y	getBuyFullVersionText
+z	getBuyFullVersionDetails
+A	getVersion
+B	getBuildDate
+D	isLiteMode
+H	getTutorialGameMode
+I	getTestScenarioGameMode
+J	getCampaignGameMode
+K	getSkirmishGameMode
+L	getMultiplayerGameMode
+M	getMatchMakingClient
+N	getProductId

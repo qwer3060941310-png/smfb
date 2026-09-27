@@ -1,0 +1,49 @@
+# KeyCode batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# Evidence is on the declaration line itself: every constant carries its own libGDX key code and
+# its own display label, e.g. a(29,"A"), z(54,"Z"), A(62,"SPACE"), B(21,"LEFT"). 29..54 are the
+# libGDX Input.Keys codes for A..Z, so the 26 lowercase constants are KEY_A..KEY_Z and the five
+# uppercase ones are SPACE/LEFT/RIGHT/UP/DOWN. Prefixing the letters keeps them distinct from the
+# five direction constants, which the batch renames in the same pass.
+# Fields and methods are pinned by their bodies:
+#   F is the int compared with UserConfig.getActionKey*() -> keyCode
+#   G is the string shown in the options list boxes       -> label
+#   a() returns F -> getKeyCode   b() returns G -> getLabel
+# No reference is name-based: every call site is KeyCode.values()[i], and the config stores the
+# int key code, so renaming cannot change saved data. Requires RenameAst to accept
+# ElementKind.ENUM_CONSTANT (extended for this batch).
+com.desertstormfront.ui.KeyCode	F	a	Lcom/desertstormfront/ui/KeyCode;	KEY_A
+com.desertstormfront.ui.KeyCode	F	b	Lcom/desertstormfront/ui/KeyCode;	KEY_B
+com.desertstormfront.ui.KeyCode	F	c	Lcom/desertstormfront/ui/KeyCode;	KEY_C
+com.desertstormfront.ui.KeyCode	F	d	Lcom/desertstormfront/ui/KeyCode;	KEY_D
+com.desertstormfront.ui.KeyCode	F	e	Lcom/desertstormfront/ui/KeyCode;	KEY_E
+com.desertstormfront.ui.KeyCode	F	f	Lcom/desertstormfront/ui/KeyCode;	KEY_F
+com.desertstormfront.ui.KeyCode	F	g	Lcom/desertstormfront/ui/KeyCode;	KEY_G
+com.desertstormfront.ui.KeyCode	F	h	Lcom/desertstormfront/ui/KeyCode;	KEY_H
+com.desertstormfront.ui.KeyCode	F	i	Lcom/desertstormfront/ui/KeyCode;	KEY_I
+com.desertstormfront.ui.KeyCode	F	j	Lcom/desertstormfront/ui/KeyCode;	KEY_J
+com.desertstormfront.ui.KeyCode	F	k	Lcom/desertstormfront/ui/KeyCode;	KEY_K
+com.desertstormfront.ui.KeyCode	F	l	Lcom/desertstormfront/ui/KeyCode;	KEY_L
+com.desertstormfront.ui.KeyCode	F	m	Lcom/desertstormfront/ui/KeyCode;	KEY_M
+com.desertstormfront.ui.KeyCode	F	n	Lcom/desertstormfront/ui/KeyCode;	KEY_N
+com.desertstormfront.ui.KeyCode	F	o	Lcom/desertstormfront/ui/KeyCode;	KEY_O
+com.desertstormfront.ui.KeyCode	F	p	Lcom/desertstormfront/ui/KeyCode;	KEY_P
+com.desertstormfront.ui.KeyCode	F	q	Lcom/desertstormfront/ui/KeyCode;	KEY_Q
+com.desertstormfront.ui.KeyCode	F	r	Lcom/desertstormfront/ui/KeyCode;	KEY_R
+com.desertstormfront.ui.KeyCode	F	s	Lcom/desertstormfront/ui/KeyCode;	KEY_S
+com.desertstormfront.ui.KeyCode	F	t	Lcom/desertstormfront/ui/KeyCode;	KEY_T
+com.desertstormfront.ui.KeyCode	F	u	Lcom/desertstormfront/ui/KeyCode;	KEY_U
+com.desertstormfront.ui.KeyCode	F	v	Lcom/desertstormfront/ui/KeyCode;	KEY_V
+com.desertstormfront.ui.KeyCode	F	w	Lcom/desertstormfront/ui/KeyCode;	KEY_W
+com.desertstormfront.ui.KeyCode	F	x	Lcom/desertstormfront/ui/KeyCode;	KEY_X
+com.desertstormfront.ui.KeyCode	F	y	Lcom/desertstormfront/ui/KeyCode;	KEY_Y
+com.desertstormfront.ui.KeyCode	F	z	Lcom/desertstormfront/ui/KeyCode;	KEY_Z
+com.desertstormfront.ui.KeyCode	F	A	Lcom/desertstormfront/ui/KeyCode;	SPACE
+com.desertstormfront.ui.KeyCode	F	B	Lcom/desertstormfront/ui/KeyCode;	LEFT
+com.desertstormfront.ui.KeyCode	F	C	Lcom/desertstormfront/ui/KeyCode;	RIGHT
+com.desertstormfront.ui.KeyCode	F	D	Lcom/desertstormfront/ui/KeyCode;	UP
+com.desertstormfront.ui.KeyCode	F	E	Lcom/desertstormfront/ui/KeyCode;	DOWN
+com.desertstormfront.ui.KeyCode	F	F	I	keyCode
+com.desertstormfront.ui.KeyCode	F	G	Ljava/lang/String;	label
+com.desertstormfront.ui.KeyCode	M	a	()I	getKeyCode
+com.desertstormfront.ui.KeyCode	M	b	()Ljava/lang/String;	getLabel

@@ -1,0 +1,49 @@
+# UnitType FIELDS (kind F): owner <TAB> F <TAB> old <TAB> type descriptor <TAB> new
+#
+# The 16 renamed fields are exactly the rows of ModLoader.ALIASES, whose meaning doc 17 derived
+# from the getters. The new names are the ALIASES semantic keys on purpose, so after this batch
+# a JSON key and the Java field share one name and ALIASES only has to keep the legacy letters
+# working (see the atomic ModLoader/ModFieldAliasTest update in the same commit).
+#
+# Every field here is private, so the blast radius is UnitType.java itself plus the two
+# reflective users. Case matters: D is the float sight range and d the String name, H is the
+# capacity and h the building flag - a case-insensitive lookup would silently swap them.
+#
+# Left blank: a/b (type list + damage matrix), c (id), o (computed vertical offset), p/q (flag
+# bits), u (salvo), v, w/x/y/z/A/B/C/E/F/G/I/J - doc 17 records these as unconfirmed.
+com.desertstormfront.game.model.UnitType	F	a	Lcom/desertstormfront/game/model/UnitTypeList;	
+com.desertstormfront.game.model.UnitType	F	b	[[I	
+com.desertstormfront.game.model.UnitType	F	c	I	
+com.desertstormfront.game.model.UnitType	F	d	Ljava/lang/String;	name
+com.desertstormfront.game.model.UnitType	F	e	Ljava/lang/String;	key
+com.desertstormfront.game.model.UnitType	F	f	C	code
+com.desertstormfront.game.model.UnitType	F	g	J	health
+com.desertstormfront.game.model.UnitType	F	h	Z	building
+com.desertstormfront.game.model.UnitType	F	i	Lcom/desertstormfront/game/model/Layer;	layer
+com.desertstormfront.game.model.UnitType	F	j	Lcom/desertstormfront/game/model/Domain;	domain
+com.desertstormfront.game.model.UnitType	F	k	F	size
+com.desertstormfront.game.model.UnitType	F	l	F	moveFactor
+com.desertstormfront.game.model.UnitType	F	m	F	speed
+com.desertstormfront.game.model.UnitType	F	n	F	flyHeight
+com.desertstormfront.game.model.UnitType	F	o	F	
+com.desertstormfront.game.model.UnitType	F	p	Z	
+com.desertstormfront.game.model.UnitType	F	q	Z	
+com.desertstormfront.game.model.UnitType	F	r	Lcom/desertstormfront/game/model/AmmoType;	ammo
+com.desertstormfront.game.model.UnitType	F	s	F	damage
+com.desertstormfront.game.model.UnitType	F	t	F	range
+com.desertstormfront.game.model.UnitType	F	u	I	
+com.desertstormfront.game.model.UnitType	F	v	F	
+com.desertstormfront.game.model.UnitType	F	w	Z	
+com.desertstormfront.game.model.UnitType	F	x	Z	
+com.desertstormfront.game.model.UnitType	F	y	Z	
+com.desertstormfront.game.model.UnitType	F	z	Z	
+com.desertstormfront.game.model.UnitType	F	A	Z	
+com.desertstormfront.game.model.UnitType	F	B	I	
+com.desertstormfront.game.model.UnitType	F	C	I	
+com.desertstormfront.game.model.UnitType	F	D	F	sightRange
+com.desertstormfront.game.model.UnitType	F	E	Lcom/desertstormfront/game/model/UnitType;	
+com.desertstormfront.game.model.UnitType	F	F	Lcom/desertstormfront/game/model/UnitTypeList;	
+com.desertstormfront.game.model.UnitType	F	G	Lcom/desertstormfront/game/model/UnitTypeList;	
+com.desertstormfront.game.model.UnitType	F	H	I	capacity
+com.desertstormfront.game.model.UnitType	F	I	Z	
+com.desertstormfront.game.model.UnitType	F	J	I	

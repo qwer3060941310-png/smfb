@@ -1,0 +1,22 @@
+# AIContext fields (kind F), named after the accessors: getPlayer, getOwnImmobileUnits,
+# getVisibleEnemyUnits, getIntents, getInfluenceMap, getUnassignedUnits. b is the World; there is
+# no getter for it but it is the single World this context wraps.
+#
+# Left blank: the seven UnitList fields c..i and l, which are per-plan scratch lists whose role is
+# not pinned by any accessor yet, plus n (int, read by the obfuscated c()).
+com.desertstormfront.ai.intent.AIContext	F	a	Lcom/desertstormfront/game/player/Player;	player
+com.desertstormfront.ai.intent.AIContext	F	b	Lcom/desertstormfront/game/World;	world
+com.desertstormfront.ai.intent.AIContext	F	c	Lcom/desertstormfront/game/model/UnitList;	
+com.desertstormfront.ai.intent.AIContext	F	d	Lcom/desertstormfront/game/model/UnitList;	
+com.desertstormfront.ai.intent.AIContext	F	e	Lcom/desertstormfront/game/model/UnitList;	
+com.desertstormfront.ai.intent.AIContext	F	f	Lcom/desertstormfront/game/model/UnitList;	
+com.desertstormfront.ai.intent.AIContext	F	g	Lcom/desertstormfront/game/model/UnitList;	
+com.desertstormfront.ai.intent.AIContext	F	h	Lcom/desertstormfront/game/model/UnitList;	
+com.desertstormfront.ai.intent.AIContext	F	i	Lcom/desertstormfront/game/model/UnitList;	
+com.desertstormfront.ai.intent.AIContext	F	j	Lcom/desertstormfront/game/model/UnitList;	ownImmobileUnits
+com.desertstormfront.ai.intent.AIContext	F	k	Lcom/desertstormfront/game/model/UnitList;	visibleEnemyUnits
+com.desertstormfront.ai.intent.AIContext	F	l	Lcom/desertstormfront/game/model/UnitList;	
+com.desertstormfront.ai.intent.AIContext	F	m	Lcom/desertstormfront/ai/intent/IntentList;	intents
+com.desertstormfront.ai.intent.AIContext	F	n	I	
+com.desertstormfront.ai.intent.AIContext	F	o	Lcom/desertstormfront/ai/intent/InfluenceMap;	influenceMap
+com.desertstormfront.ai.intent.AIContext	F	p	Lcom/desertstormfront/game/model/UnitList;	unassignedUnits

@@ -1,0 +1,62 @@
+# DateTime batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# com.noblemaster.lib.data.DateTime - a date/time value wrapped around a long millisecond count.
+# Evidence is on the declaration/body plus the format tokens it substitutes:
+#   static a/b = DateTime.a(-1000000,..)/.a(1000000,..) bounds -> MIN / MAX
+#   c = -62135596800000L, the millisecond value of year 1, used as a BC/AD floor -> yearOneMillis
+#   d/e = {31,28,...}/{31,29,...} month lengths -> daysInMonthNormal / daysInMonthLeap
+#   f = the stored instant in ms -> timeMillis
+#   g/h = cached java.util.Date for the local (r) and utc (s) views -> localDate / utcDate
+# Constructors/setters: c(int*7) uses Date.UTC -> setUtc; d(int*7) uses a local Date -> setLocal;
+#   static a(int*7) calls setUtc -> create; static b(int*7) calls setLocal -> createLocal.
+# Getters come in two families feeding the two cached Dates: c()/e()/g()/i()/k()/m()/o() read r()
+#   (local, the view toString/format use) -> getYear/getMonth/getDay/getHour/getMinute/getSecond/
+#   getMillisecond; d()/f()/h()/j()/l()/n()/p() read s() (utc) with the Utc suffix.
+# Other members: a()=now, a(long)=setTimeMillis, b()=getMillis, b(int)=addDays (24*3600*1000 ms),
+#   a(int)=isLeapYear (the 4/100/400 rule), a(DateTime)=isAfter, a(int,int,int)=isSameDate,
+#   a(int,int)=isSameMonthDay, a(String)=format, b(String)=formatUtc, a(String,String)=parse,
+#   private a(String,7 ints)=formatImpl (substitutes yyyy MM dd hh mm ss SSS),
+#   e(int*7)=validate (the range checks), q()=copy (clone target). No reflection/serialization
+#   touches DateTime (only UnitType does), so renaming is safe.
+com.noblemaster.lib.data.DateTime	F	a	Lcom/noblemaster/lib/data/DateTime;	MIN
+com.noblemaster.lib.data.DateTime	F	b	Lcom/noblemaster/lib/data/DateTime;	MAX
+com.noblemaster.lib.data.DateTime	F	c	J	yearOneMillis
+com.noblemaster.lib.data.DateTime	F	d	[I	daysInMonthNormal
+com.noblemaster.lib.data.DateTime	F	e	[I	daysInMonthLeap
+com.noblemaster.lib.data.DateTime	F	f	J	timeMillis
+com.noblemaster.lib.data.DateTime	F	g	Ljava/util/Date;	localDate
+com.noblemaster.lib.data.DateTime	F	h	Ljava/util/Date;	utcDate
+com.noblemaster.lib.data.DateTime	M	a	()Lcom/noblemaster/lib/data/DateTime;	now
+com.noblemaster.lib.data.DateTime	M	a	(J)V	setTimeMillis
+com.noblemaster.lib.data.DateTime	M	a	(III)Z	isSameDate
+com.noblemaster.lib.data.DateTime	M	a	(II)Z	isSameMonthDay
+com.noblemaster.lib.data.DateTime	M	a	(Ljava/lang/String;)Ljava/lang/String;	format
+com.noblemaster.lib.data.DateTime	M	a	(Ljava/lang/String;Ljava/lang/String;)Lcom/noblemaster/lib/data/DateTime;	parse
+com.noblemaster.lib.data.DateTime	M	a	(IIIIIII)Lcom/noblemaster/lib/data/DateTime;	create
+com.noblemaster.lib.data.DateTime	M	a	(I)Z	isLeapYear
+com.noblemaster.lib.data.DateTime	M	a	(Lcom/noblemaster/lib/data/DateTime;)Z	isAfter
+com.noblemaster.lib.data.DateTime	M	a	(Ljava/lang/String;IIIIIII)Ljava/lang/String;	formatImpl
+com.noblemaster.lib.data.DateTime	M	b	()J	getMillis
+com.noblemaster.lib.data.DateTime	M	b	(Ljava/lang/String;)Ljava/lang/String;	formatUtc
+com.noblemaster.lib.data.DateTime	M	b	(IIIIIII)Lcom/noblemaster/lib/data/DateTime;	createLocal
+com.noblemaster.lib.data.DateTime	M	b	(I)V	addDays
+com.noblemaster.lib.data.DateTime	M	c	(IIIIIII)V	setUtc
+com.noblemaster.lib.data.DateTime	M	c	()I	getYear
+com.noblemaster.lib.data.DateTime	M	d	(IIIIIII)V	setLocal
+com.noblemaster.lib.data.DateTime	M	d	()I	getYearUtc
+com.noblemaster.lib.data.DateTime	M	e	()I	getMonth
+com.noblemaster.lib.data.DateTime	M	e	(IIIIIII)V	validate
+com.noblemaster.lib.data.DateTime	M	f	()I	getMonthUtc
+com.noblemaster.lib.data.DateTime	M	g	()I	getDay
+com.noblemaster.lib.data.DateTime	M	h	()I	getDayUtc
+com.noblemaster.lib.data.DateTime	M	i	()I	getHour
+com.noblemaster.lib.data.DateTime	M	j	()I	getHourUtc
+com.noblemaster.lib.data.DateTime	M	k	()I	getMinute
+com.noblemaster.lib.data.DateTime	M	l	()I	getMinuteUtc
+com.noblemaster.lib.data.DateTime	M	m	()I	getSecond
+com.noblemaster.lib.data.DateTime	M	n	()I	getSecondUtc
+com.noblemaster.lib.data.DateTime	M	o	()I	getMillisecond
+com.noblemaster.lib.data.DateTime	M	p	()I	getMillisecondUtc
+com.noblemaster.lib.data.DateTime	M	q	()Lcom/noblemaster/lib/data/DateTime;	copy
+com.noblemaster.lib.data.DateTime	M	r	()Ljava/util/Date;	getLocalDate
+com.noblemaster.lib.data.DateTime	M	s	()Ljava/util/Date;	getUtcDate

@@ -1,0 +1,5 @@
+# UnitCommander / NetworkedUnitCommander follow-up: the two rows left blank in the 2026-09-18 batches,
+# now that Unit.g() is named isImmobile (it returns UnitType.isImmobile()).
+# owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+com.desertstormfront.command.UnitCommander	M	m	(Lcom/desertstormfront/game/World;Lcom/desertstormfront/game/player/Player;Lcom/desertstormfront/game/model/Unit;)Z	isImmobile
+com.desertstormfront.command.NetworkedUnitCommander	M	o	(Lcom/desertstormfront/game/model/Unit;)Z	isImmobile

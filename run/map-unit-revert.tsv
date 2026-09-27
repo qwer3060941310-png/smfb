@@ -1,0 +1,49 @@
+# Unit revert map: new<TAB>old  (inverse of map-unit-noarg.tsv)
+#
+# Purpose: undo the Unit no-arg batch as ONE operation, so a failed batch never needs
+# hand-editing again. Use with the symbol-resolved tool, not with regexes:
+#
+#   powershell -File run\deobf-rename.ps1 -Map run\map-unit-revert.tsv ^
+#            -Owner com.desertstormfront.game.model.Unit -Apply
+#   powershell -File run\dev.ps1 test      (must be 8/8)
+#
+# The tool also renames the override family, so reversing getSortValue() puts
+# Sortable.c() / PositionedSortable.c() / Site.c() back together with Unit.c().
+# Prior batches (UserConfig / GameConfig / AbstractGameInfo) are untouched.
+getId	d
+getUnitType	e
+getSortValue	c
+getOwner	h
+getAngle	i
+getDirection	j
+getPosition	k
+isGuarding	l
+getGuardPositionOrNull	m
+getRallyPositionOrNull	n
+executeOrder	o
+stopGuarding	p
+clearRally	q
+getOrderMode	u
+isCountZero	w
+isCountFull	x
+getCount	y
+getProgress	z
+getHealth	A
+isDestroyed	C
+getSubUnits	G
+hasMoveTarget	I
+getMoveTargetPosition	J
+clearMoveTarget	K
+getSortProxy	M
+isGuardingActive	N
+getGuardFollowers	O
+getUnitGroup	P
+getActiveVolley	Q
+isVolleyActive	R
+clearVolley	S
+getActiveEffectTimer	U
+isEffectActive	V
+activateEffectTimer	W
+deactivateEffectTimer	X
+hasRally	ab
+getRallyPosition	ac

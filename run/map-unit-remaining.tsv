@@ -1,0 +1,5 @@
+# Unit remaining batch: owner <TAB> old <TAB> descriptor <TAB> semantic name
+# g() returns this.b.isImmobile() (b = the UnitType field): the unit type cannot move, i.e.
+# buildings / rally-capable units. Confirmed by its uses: canSetRallyPoint requires it, UN-RALLY
+# clears the move target only for immobile units, and target checks treat immobile enemies specially.
+com.desertstormfront.game.model.Unit	g	()Z	isImmobile

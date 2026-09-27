@@ -1,0 +1,51 @@
+# Unit no-arg methods: old<TAB>new
+# Scope: NO-arg methods only (overloaded setters a/b/c/d/e/f/g/j are deferred -
+# they require a descriptor-aware / type-aware rename, unsafe via plain text).
+# Receiver-safe: only Unit./this./unit. call sites + declarations are touched,
+# so same-named methods on other obfuscated classes are NOT affected.
+#
+# Some names are INFERRED from local field usage + UnitType semantics; marked (inf).
+# Left obfuscated on purpose (uncertain / interface stubs / duplicate getters):
+#   a() b()   -> Sortable overrides returning false (meaning unclear)
+#   g()       -> b.k() (UnitType.k() meaning unclear; also collides w/ g(Unit))
+#   B()       -> complex computed flag (o==1000 && ...)
+#   r() s() t()-> subtle combat-relationship checks (uncertain)
+#   v D E F H L T -> ambiguous single-purpose getters
+#   Y Z aa ad ae af ag ah ai aj ak -> duplicate getters of an already-named field
+d	getId
+e	getUnitType
+c	getSortValue
+h	getOwner
+i	getAngle
+j	getDirection
+k	getPosition
+l	isGuarding
+m	getGuardPositionOrNull
+n	getRallyPositionOrNull
+o	executeOrder
+p	stopGuarding
+q	clearRally
+u	getOrderMode
+w	isCountZero
+x	isCountFull
+y	getCount
+z	getProgress
+A	getHealth
+C	isDestroyed
+G	getSubUnits
+I	hasMoveTarget
+J	getMoveTargetPosition
+K	clearMoveTarget
+M	getSortProxy
+N	isGuardingActive
+O	getGuardFollowers
+P	getUnitGroup
+Q	getActiveVolley
+R	isVolleyActive
+S	clearVolley
+U	getActiveEffectTimer
+V	isEffectActive
+W	activateEffectTimer
+X	deactivateEffectTimer
+ab	hasRally
+ac	getRallyPosition

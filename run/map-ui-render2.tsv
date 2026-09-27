@@ -1,0 +1,37 @@
+# ui render/style batch (GlTexture / ShaderProgram / style copies / Checkbox)
+#
+# GlTexture: a = optional libgdx Texture, b = the GL texture name, c/d = width/height.
+#   The private a(FileHandle) reads a whole file into a Pixmap -> loadPixmap ;
+#   a() returns the GL name (and throws for the libgdx-backed case) -> getGlId ;
+#   b()/c() -> getWidth/getHeight (FrameBuffer passes them to its constructor) ;
+#   d() binds -> bind ; e() disposes -> dispose.
+#
+# ShaderProgram: a/b = vertex/fragment shader names, c = program name. The string overloads resolve
+#   GL locations (glGetAttribLocation / glGetUniformLocation) -> getAttributeLocation /
+#   getUniformLocation ; the private a(int,String) compiles one shader -> compileShader ;
+#   the private a(int,int) links two shaders -> linkProgram ; a() -> bind (glUseProgram) ;
+#   b() -> dispose (delete program and shaders).
+#
+# ButtonStyle / CheckboxStyle / ScrollBarStyle / TextureRegion / NinePatch: each a() deep-copies
+#   every array and scalar into a fresh instance; the synthetic clone() bridges to it, so the real
+#   body is named copy().
+#
+# Checkbox: the single accessor writes the checked flag that handleInput toggles -> setChecked.
+com.desertstormfront.ui.ButtonStyle	M	a	()Lcom/desertstormfront/ui/ButtonStyle;	copy
+com.desertstormfront.ui.Checkbox	M	b	(Z)V	setChecked
+com.desertstormfront.ui.CheckboxStyle	M	a	()Lcom/desertstormfront/ui/CheckboxStyle;	copy
+com.desertstormfront.ui.GlTexture	M	a	(Lcom/badlogic/gdx/files/FileHandle;)Lcom/badlogic/gdx/graphics/Pixmap;	loadPixmap
+com.desertstormfront.ui.GlTexture	M	a	()I	getGlId
+com.desertstormfront.ui.GlTexture	M	b	()I	getWidth
+com.desertstormfront.ui.GlTexture	M	c	()I	getHeight
+com.desertstormfront.ui.GlTexture	M	d	()V	bind
+com.desertstormfront.ui.GlTexture	M	e	()V	dispose
+com.desertstormfront.ui.NinePatch	M	a	()Lcom/desertstormfront/ui/NinePatch;	copy
+com.desertstormfront.ui.ScrollBarStyle	M	a	()Lcom/desertstormfront/ui/ScrollBarStyle;	copy
+com.desertstormfront.ui.ShaderProgram	M	a	(Ljava/lang/String;)I	getAttributeLocation
+com.desertstormfront.ui.ShaderProgram	M	b	(Ljava/lang/String;)I	getUniformLocation
+com.desertstormfront.ui.ShaderProgram	M	a	()V	bind
+com.desertstormfront.ui.ShaderProgram	M	b	()V	dispose
+com.desertstormfront.ui.ShaderProgram	M	a	(ILjava/lang/String;)I	compileShader
+com.desertstormfront.ui.ShaderProgram	M	a	(II)I	linkProgram
+com.desertstormfront.ui.TextureRegion	M	a	()Lcom/desertstormfront/ui/TextureRegion;	copy

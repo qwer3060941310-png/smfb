@@ -1,0 +1,44 @@
+# DsfRuleset fields (kind F). Each UnitType field is initialised inline with its own name,
+# e.g. "private UnitType e = new UnitType(0, "General[i18n]: General", "GENERAL", ...)", so the
+# name is not inferred - it is written in the declaration. The remaining names come from the
+# accessors: getTerrainTypes(d), getUnitTypes(z), getUnitTypeSlots(A), getCostMatrix(a),
+# getCargoUnits(int) indexes B, and the six String[][] template getters name C..H in order.
+#
+# "4x4" becomes fourByFour (a digit cannot start an identifier) and "Chinnook" keeps the games
+# own spelling so the field still matches its "CHINNOOK" key.
+#
+# Left blank: the two FactionList fields b and c, which have no accessor of their own.
+com.desertstormfront.map.DsfRuleset	F	b	Lcom/desertstormfront/game/player/FactionList;	
+com.desertstormfront.map.DsfRuleset	F	c	Lcom/desertstormfront/game/player/FactionList;	
+com.desertstormfront.map.DsfRuleset	F	d	Lcom/desertstormfront/game/model/TerrainTypeList;	terrainTypes
+com.desertstormfront.map.DsfRuleset	F	e	Lcom/desertstormfront/game/model/UnitType;	general
+com.desertstormfront.map.DsfRuleset	F	f	Lcom/desertstormfront/game/model/UnitType;	humvee
+com.desertstormfront.map.DsfRuleset	F	g	Lcom/desertstormfront/game/model/UnitType;	battleTank
+com.desertstormfront.map.DsfRuleset	F	h	Lcom/desertstormfront/game/model/UnitType;	artillery
+com.desertstormfront.map.DsfRuleset	F	i	Lcom/desertstormfront/game/model/UnitType;	missileTank
+com.desertstormfront.map.DsfRuleset	F	j	Lcom/desertstormfront/game/model/UnitType;	fourByFour
+com.desertstormfront.map.DsfRuleset	F	k	Lcom/desertstormfront/game/model/UnitType;	mechanic
+com.desertstormfront.map.DsfRuleset	F	l	Lcom/desertstormfront/game/model/UnitType;	truck
+com.desertstormfront.map.DsfRuleset	F	m	Lcom/desertstormfront/game/model/UnitType;	fighterPlane
+com.desertstormfront.map.DsfRuleset	F	n	Lcom/desertstormfront/game/model/UnitType;	helicopter
+com.desertstormfront.map.DsfRuleset	F	o	Lcom/desertstormfront/game/model/UnitType;	gunboat
+com.desertstormfront.map.DsfRuleset	F	p	Lcom/desertstormfront/game/model/UnitType;	submarine
+com.desertstormfront.map.DsfRuleset	F	q	Lcom/desertstormfront/game/model/UnitType;	cruiser
+com.desertstormfront.map.DsfRuleset	F	r	Lcom/desertstormfront/game/model/UnitType;	chinnook
+com.desertstormfront.map.DsfRuleset	F	s	Lcom/desertstormfront/game/model/UnitType;	carrier
+com.desertstormfront.map.DsfRuleset	F	t	Lcom/desertstormfront/game/model/UnitType;	transport
+com.desertstormfront.map.DsfRuleset	F	u	Lcom/desertstormfront/game/model/UnitType;	hovercraft
+com.desertstormfront.map.DsfRuleset	F	v	Lcom/desertstormfront/game/model/UnitType;	baseStation
+com.desertstormfront.map.DsfRuleset	F	w	Lcom/desertstormfront/game/model/UnitType;	shipyard
+com.desertstormfront.map.DsfRuleset	F	x	Lcom/desertstormfront/game/model/UnitType;	airfield
+com.desertstormfront.map.DsfRuleset	F	y	Lcom/desertstormfront/game/model/UnitType;	oilField
+com.desertstormfront.map.DsfRuleset	F	z	Lcom/desertstormfront/game/model/UnitTypeList;	unitTypes
+com.desertstormfront.map.DsfRuleset	F	A	Lcom/desertstormfront/game/model/UnitTypeSlots;	unitTypeSlots
+com.desertstormfront.map.DsfRuleset	F	a	[[I	costMatrix
+com.desertstormfront.map.DsfRuleset	F	B	[Lcom/desertstormfront/game/model/UnitTypeList;	cargoUnits
+com.desertstormfront.map.DsfRuleset	F	C	[[Ljava/lang/String;	playerStartTemplates
+com.desertstormfront.map.DsfRuleset	F	D	[[Ljava/lang/String;	captureTheFlagTemplates
+com.desertstormfront.map.DsfRuleset	F	E	[[Ljava/lang/String;	survivalTemplates
+com.desertstormfront.map.DsfRuleset	F	F	[[Ljava/lang/String;	playerBaseTemplates
+com.desertstormfront.map.DsfRuleset	F	G	[[Ljava/lang/String;	rarePropTemplates
+com.desertstormfront.map.DsfRuleset	F	H	[[Ljava/lang/String;	commonPropTemplates

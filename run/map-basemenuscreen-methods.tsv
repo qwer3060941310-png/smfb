@@ -1,0 +1,30 @@
+# BaseMenuScreen batch: menu chrome + widget factories (all 23 rows named).
+# Abstract hooks are the menu contract: isBackEnabled decides the Back/Exit label (line 297),
+# createContent fills the content container from layout(), handleWidgetAction and handleAction
+# map a widget or an action id onto the next screen.
+# a(Container,NinePatchImage,ScrollPane[,int[,boolean]]) and its Widget overload are one
+# overload family (setupScrollPane). d()/e() reveal the Website+Forums and Purchase buttons
+# unless the market is ChinaMobile/iWin/JoyMoa or the license is already bought.
+com.desertstormfront.screen.BaseMenuScreen	M	a	(Lcom/desertstormfront/ui/Container;)Z	isBackEnabled
+com.desertstormfront.screen.BaseMenuScreen	M	b	(Lcom/desertstormfront/ui/Container;)V	createContent
+com.desertstormfront.screen.BaseMenuScreen	M	a	(Lcom/desertstormfront/ui/Container;Lcom/desertstormfront/ui/NinePatchImage;Lcom/desertstormfront/ui/ScrollPane;)V	setupScrollPane
+com.desertstormfront.screen.BaseMenuScreen	M	a	(Lcom/desertstormfront/ui/Container;Lcom/desertstormfront/ui/NinePatchImage;Lcom/desertstormfront/ui/ScrollPane;I)V	setupScrollPane
+com.desertstormfront.screen.BaseMenuScreen	M	a	(Lcom/desertstormfront/ui/Container;Lcom/desertstormfront/ui/NinePatchImage;Lcom/desertstormfront/ui/ScrollPane;IZ)V	setupScrollPane
+com.desertstormfront.screen.BaseMenuScreen	M	a	(Lcom/desertstormfront/ui/Container;Lcom/desertstormfront/ui/NinePatchImage;Lcom/desertstormfront/ui/Widget;I)V	setupScrollPane
+com.desertstormfront.screen.BaseMenuScreen	M	a	(Lcom/desertstormfront/ui/Widget;)Lcom/desertstormfront/screen/BaseScreen;	handleWidgetAction
+com.desertstormfront.screen.BaseMenuScreen	M	a	(ILjava/lang/String;Ljava/lang/String;[Ljava/lang/String;)V	showDialog
+com.desertstormfront.screen.BaseMenuScreen	M	a	(II)Lcom/desertstormfront/screen/BaseScreen;	handleAction
+com.desertstormfront.screen.BaseMenuScreen	M	a	(I)Lcom/desertstormfront/screen/BaseScreen;	showPurchaseDialog
+com.desertstormfront.screen.BaseMenuScreen	M	b	(I)Lcom/desertstormfront/screen/BaseScreen;	handlePurchaseAction
+com.desertstormfront.screen.BaseMenuScreen	M	b	(II)Lcom/desertstormfront/ui/Label;	createLabel
+com.desertstormfront.screen.BaseMenuScreen	M	a	(IILjava/lang/String;)Lcom/desertstormfront/ui/Label;	createLabel
+com.desertstormfront.screen.BaseMenuScreen	M	a	(IILjava/lang/String;I)Lcom/desertstormfront/ui/Label;	createLabel
+com.desertstormfront.screen.BaseMenuScreen	M	a	(IIILjava/lang/String;)Lcom/desertstormfront/ui/Button;	createButton
+com.desertstormfront.screen.BaseMenuScreen	M	a	(III)Lcom/desertstormfront/ui/Checkbox;	createCheckbox
+com.desertstormfront.screen.BaseMenuScreen	M	b	(III)Lcom/desertstormfront/ui/ListBox;	createListBox
+com.desertstormfront.screen.BaseMenuScreen	M	d	()V	showWebsiteAndForumButtons
+com.desertstormfront.screen.BaseMenuScreen	M	e	()V	showPurchaseButton
+com.desertstormfront.screen.BaseMenuScreen	M	a	(ILjava/lang/String;)Lcom/desertstormfront/ui/Container;	createMenuItemContainer
+com.desertstormfront.screen.BaseMenuScreen	M	a	(Lcom/desertstormfront/screen/BaseMenuScreen;Lcom/desertstormfront/screen/BaseScreen;)V	setNextScreen
+com.desertstormfront.screen.BaseMenuScreen	M	a	(Lcom/desertstormfront/screen/BaseMenuScreen;)Lcom/desertstormfront/ui/hud/MessageDialog;	getMessageDialog
+com.desertstormfront.screen.BaseMenuScreen	M	b	(Lcom/desertstormfront/screen/BaseMenuScreen;)I	getPendingAction

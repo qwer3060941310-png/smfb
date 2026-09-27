@@ -1,0 +1,26 @@
+# screen field batch 2: BaseScreen.
+#
+# Pinned by the class's own member names: getWidth/getHeight -> width/height; the six synthetic
+# accessors ScreenInputProcessor calls give the pointer state (frameCounter, touchDown +
+# touchDownFrame/touchDownUntilFrame, touchUp + touchUpFrame/touchUpUntilFrame, touchX/touchY - the
+# last two are what getTouchX/getTouchY return). The static caches are named by their getters:
+# setApplication stores the GameApplication; getHudRenderer caches the GUI-atlas renderer per font
+# suffix (b is that suffix); getMenuBackgroundRenderer/getTilesTexture/getUnitsTexture build the
+# three shared resources from menu_background.png / texture_tiles.png / texture_units.png.
+com.desertstormfront.screen.BaseScreen	F	a	Lcom/desertstormfront/app/GameApplication;	application
+com.desertstormfront.screen.BaseScreen	F	b	Ljava/lang/String;	hudRendererFontSuffix
+com.desertstormfront.screen.BaseScreen	F	c	Lcom/desertstormfront/ui/BatchRenderer;	hudRenderer
+com.desertstormfront.screen.BaseScreen	F	d	I	width
+com.desertstormfront.screen.BaseScreen	F	e	I	height
+com.desertstormfront.screen.BaseScreen	F	f	I	frameCounter
+com.desertstormfront.screen.BaseScreen	F	g	Z	touchDown
+com.desertstormfront.screen.BaseScreen	F	h	I	touchDownFrame
+com.desertstormfront.screen.BaseScreen	F	i	I	touchDownUntilFrame
+com.desertstormfront.screen.BaseScreen	F	j	Z	touchUp
+com.desertstormfront.screen.BaseScreen	F	k	I	touchUpFrame
+com.desertstormfront.screen.BaseScreen	F	l	I	touchUpUntilFrame
+com.desertstormfront.screen.BaseScreen	F	m	I	touchX
+com.desertstormfront.screen.BaseScreen	F	n	I	touchY
+com.desertstormfront.screen.BaseScreen	F	o	Lcom/desertstormfront/ui/BatchRenderer;	menuBackgroundRenderer
+com.desertstormfront.screen.BaseScreen	F	p	Lcom/desertstormfront/ui/GlTexture;	tilesTexture
+com.desertstormfront.screen.BaseScreen	F	q	Lcom/desertstormfront/ui/GlTexture;	unitsTexture

@@ -1,0 +1,25 @@
+# Normalise line endings so a clone behaves like the working tree.
+#
+# Java sources and the PowerShell/batch entry points are CRLF on Windows and the tooling
+# (run\*.ps1, javac -encoding UTF-8) assumes that. Binary artefacts must never be converted.
+* text=auto eol=lf
+
+# The decompiled sources are LF and always were: CFR writes LF, and the rename tool reads a file
+# and writes it back unchanged. Declaring eol=crlf here only made git re-normalise on every commit
+# and print "LF will be replaced by CRLF" for each touched file. Windows scripts stay CRLF.
+*.java  text eol=lf
+*.md    text eol=lf
+*.json  text eol=lf
+*.tsv   text eol=lf
+*.ps1   text eol=crlf
+*.bat   text eol=crlf
+
+*.jar   binary
+*.dll   binary
+*.exe   binary
+*.class binary
+*.png   binary
+*.jpg   binary
+*.wav   binary
+*.mp3   binary
+*.world binary

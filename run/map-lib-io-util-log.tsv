@@ -1,0 +1,106 @@
+# lib.io + lib.util + lib.log batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+#
+# Scope: com.noblemaster.lib.io (40 methods + 9 fields), com.noblemaster.lib.util (7 methods +
+# 1 field) and com.noblemaster.lib.log (5 methods). Evidence per symbol:
+#
+# GameFile (the single point every resource goes through, including the v5 mod override):
+#   a = FileLocation, b = the relative name -> location / name. a() delegates to the FileHandle
+#   -> exists ; b() answers which libGDX Files.FileType the path maps to -> getFileType ;
+#   c() returns the resolved path string -> getPath ; d() returns the FileHandle itself (the
+#   method every caller uses, .read()/.readBytes()/.exists()) -> getFileHandle ; the static e()
+#   is Gdx.files.isExternalStorageAvailable() -> isExternalStorageAvailable.
+#
+# DataFileResolver: a = the external user directory prefix -> externalDir ; a(String) resolves an
+#   internal (data/) file -> getInternal ; b(String) resolves an external one -> getExternal ;
+#   a() forwards GameFile.isExternalStorageAvailable() -> isExternalStorageAvailable.
+#
+# FileUtils: a(File,File) is the streaming file copy (FileChannel.transferTo in 64K chunks)
+#   -> copyFile ; b(File,File) recurses over a directory, copying files and descending into
+#   subdirectories -> copyDirectory.
+#
+# DataReader/DataWriter + their stream implementations: the interface order and the
+#   DataInputStream/DataOutputStream calls in StreamDataReader/StreamDataWriter are one-to-one:
+#   a() -> readString (a null flag, a short chunk count, then 21845-char UTF chunks) / writeString
+#   (same chunking, because DataOutputStream.writeUTF is limited to 65535 bytes per string);
+#   b()/c()/d()/e()/f() -> readBoolean/readByte/readInt/readLong/readFloat and their write
+#   counterparts; g() -> close (reader) ; a()/b() -> flush/close (writer). AbstractDataReader/
+#   AbstractDataWriter add nothing, they only mark the hierarchy.
+#
+# FileLocation: the enum constants are already semantic, but its two private booleans (d, e) are
+#   never read anywhere in the tree, so they are left unnamed rather than guessed.
+#
+# FastRandom (48-bit LCG): a = the state -> seed ; a() -> getSeed ; the private b(int bits)
+#   advances the state and returns the top bits -> nextBits ; b() -> nextBoolean (1 bit) ;
+#   a(int bound) -> nextInt(bound) ; c() -> nextFloat (0..1).
+#
+# HashUtils: a(int) -> hash(value) (the xorshift/multiply avalanche), a(int,int) -> hash(x,y)
+#   (mixes the two coordinates; GameScreen uses it for deterministic per-tile variation).
+#
+# OsfLog: a(String) dumps the JRE/OS/user environment -> logSystemInfo ; b(String) is a println
+#   that is skipped on iOS -> print ; c(String)/d(String) map to Gdx.app.log/error -> info/error ;
+#   a(Throwable) prints the stack trace, also skipped on iOS -> logException.
+#
+# No member here is reached by name: files are addressed by path, the mod override is a plain
+# java.io probe, and no serializer stores member names. Renaming cannot change saved data.
+com.noblemaster.lib.io.DataFileResolver	F	a	Ljava/lang/String;	externalDir
+com.noblemaster.lib.io.DataFileResolver	M	a	(Ljava/lang/String;)Lcom/noblemaster/lib/io/GameFile;	getInternal
+com.noblemaster.lib.io.DataFileResolver	M	b	(Ljava/lang/String;)Lcom/noblemaster/lib/io/GameFile;	getExternal
+com.noblemaster.lib.io.DataFileResolver	M	a	()Z	isExternalStorageAvailable
+com.noblemaster.lib.io.FileLocation	F	d	Z	
+com.noblemaster.lib.io.FileLocation	F	e	Z	
+com.noblemaster.lib.io.FileUtils	M	a	(Ljava/io/File;Ljava/io/File;)V	copyFile
+com.noblemaster.lib.io.FileUtils	M	b	(Ljava/io/File;Ljava/io/File;)V	copyDirectory
+com.noblemaster.lib.io.GameFile	F	a	Lcom/noblemaster/lib/io/FileLocation;	location
+com.noblemaster.lib.io.GameFile	F	b	Ljava/lang/String;	name
+com.noblemaster.lib.io.GameFile	M	a	()Z	exists
+com.noblemaster.lib.io.GameFile	M	b	()Lcom/badlogic/gdx/Files$FileType;	getFileType
+com.noblemaster.lib.io.GameFile	M	c	()Ljava/lang/String;	getPath
+com.noblemaster.lib.io.GameFile	M	d	()Lcom/badlogic/gdx/files/FileHandle;	getFileHandle
+com.noblemaster.lib.io.GameFile	M	e	()Z	isExternalStorageAvailable
+com.noblemaster.lib.io.stream.DataReader	M	a	()Ljava/lang/String;	readString
+com.noblemaster.lib.io.stream.DataReader	M	b	()Z	readBoolean
+com.noblemaster.lib.io.stream.DataReader	M	c	()B	readByte
+com.noblemaster.lib.io.stream.DataReader	M	d	()I	readInt
+com.noblemaster.lib.io.stream.DataReader	M	e	()J	readLong
+com.noblemaster.lib.io.stream.DataReader	M	f	()F	readFloat
+com.noblemaster.lib.io.stream.DataReader	M	g	()V	close
+com.noblemaster.lib.io.stream.DataWriter	M	a	(Ljava/lang/String;)V	writeString
+com.noblemaster.lib.io.stream.DataWriter	M	a	(Z)V	writeBoolean
+com.noblemaster.lib.io.stream.DataWriter	M	a	(B)V	writeByte
+com.noblemaster.lib.io.stream.DataWriter	M	a	(I)V	writeInt
+com.noblemaster.lib.io.stream.DataWriter	M	a	(J)V	writeLong
+com.noblemaster.lib.io.stream.DataWriter	M	a	(F)V	writeFloat
+com.noblemaster.lib.io.stream.DataWriter	M	a	()V	flush
+com.noblemaster.lib.io.stream.DataWriter	M	b	()V	close
+com.noblemaster.lib.io.stream.impl.StreamDataReader	F	a	Ljava/io/InputStream;	inputStream
+com.noblemaster.lib.io.stream.impl.StreamDataReader	F	b	Lcom/noblemaster/lib/io/stream/impl/StreamDataReader$UncheckedDataInputStream;	dataInput
+com.noblemaster.lib.io.stream.impl.StreamDataReader	M	a	()Ljava/lang/String;	readString
+com.noblemaster.lib.io.stream.impl.StreamDataReader	M	b	()Z	readBoolean
+com.noblemaster.lib.io.stream.impl.StreamDataReader	M	c	()B	readByte
+com.noblemaster.lib.io.stream.impl.StreamDataReader	M	d	()I	readInt
+com.noblemaster.lib.io.stream.impl.StreamDataReader	M	e	()J	readLong
+com.noblemaster.lib.io.stream.impl.StreamDataReader	M	f	()F	readFloat
+com.noblemaster.lib.io.stream.impl.StreamDataReader	M	g	()V	close
+com.noblemaster.lib.io.stream.impl.StreamDataWriter	F	a	Ljava/io/OutputStream;	outputStream
+com.noblemaster.lib.io.stream.impl.StreamDataWriter	F	b	Lcom/noblemaster/lib/io/stream/impl/StreamDataWriter$UncheckedDataOutputStream;	dataOutput
+com.noblemaster.lib.io.stream.impl.StreamDataWriter	M	a	(Ljava/lang/String;)V	writeString
+com.noblemaster.lib.io.stream.impl.StreamDataWriter	M	a	(Z)V	writeBoolean
+com.noblemaster.lib.io.stream.impl.StreamDataWriter	M	a	(B)V	writeByte
+com.noblemaster.lib.io.stream.impl.StreamDataWriter	M	a	(I)V	writeInt
+com.noblemaster.lib.io.stream.impl.StreamDataWriter	M	a	(J)V	writeLong
+com.noblemaster.lib.io.stream.impl.StreamDataWriter	M	a	(F)V	writeFloat
+com.noblemaster.lib.io.stream.impl.StreamDataWriter	M	a	()V	flush
+com.noblemaster.lib.io.stream.impl.StreamDataWriter	M	b	()V	close
+com.noblemaster.lib.log.OsfLog	M	a	(Ljava/lang/String;)V	logSystemInfo
+com.noblemaster.lib.log.OsfLog	M	b	(Ljava/lang/String;)V	print
+com.noblemaster.lib.log.OsfLog	M	c	(Ljava/lang/String;)V	info
+com.noblemaster.lib.log.OsfLog	M	d	(Ljava/lang/String;)V	error
+com.noblemaster.lib.log.OsfLog	M	a	(Ljava/lang/Throwable;)V	logException
+com.noblemaster.lib.util.FastRandom	F	a	J	seed
+com.noblemaster.lib.util.FastRandom	M	a	()J	getSeed
+com.noblemaster.lib.util.FastRandom	M	b	(I)J	nextBits
+com.noblemaster.lib.util.FastRandom	M	b	()Z	nextBoolean
+com.noblemaster.lib.util.FastRandom	M	a	(I)I	nextInt
+com.noblemaster.lib.util.FastRandom	M	c	()F	nextFloat
+com.noblemaster.lib.util.HashUtils	M	a	(I)I	hash
+com.noblemaster.lib.util.HashUtils	M	a	(II)I	hash

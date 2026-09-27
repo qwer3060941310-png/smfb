@@ -1,0 +1,28 @@
+# BitmapFont batch: owner <TAB> kind <TAB> old <TAB> descriptor <TAB> semantic name
+# com.desertstormfront.ui.BitmapFont - bitmap font metrics loader (AngelCode BMFont format).
+# Semantics from parser: lineHeight/base/capHeight(x=cap height via glyph.c of M)/ascent=capHeight-base/
+# spaceWidth(x glyph advance+j)/xHeight(x glyph height)/glyphs(list)/glyphTable(2D lookup)/textMetrics(shared).
+#   a(char)->getGlyph ; a(CharSequence)->measure ; a(CharSequence,int,int)->measure(range) ;
+#   a(String,int)->measureWrapped (line-wrap by max width) ; a(String,int,int,int)->fitWidth (chars fitting) ;
+#   a(CharSequence,char,int)->indexOfChar ; a()->getLineHeight ; a(int)->setLineHeight ;
+#   b()->getAscent ; b(int)->setAscent
+com.desertstormfront.ui.BitmapFont	F	a	Ljava/lang/String;	imageFileName
+com.desertstormfront.ui.BitmapFont	F	b	I	lineHeight
+com.desertstormfront.ui.BitmapFont	F	c	I	base
+com.desertstormfront.ui.BitmapFont	F	d	I	capHeight
+com.desertstormfront.ui.BitmapFont	F	e	I	ascent
+com.desertstormfront.ui.BitmapFont	F	f	I	spaceWidth
+com.desertstormfront.ui.BitmapFont	F	g	I	xHeight
+com.desertstormfront.ui.BitmapFont	F	h	Ljava/util/List;	glyphs
+com.desertstormfront.ui.BitmapFont	F	i	[[Lcom/desertstormfront/ui/Glyph;	glyphTable
+com.desertstormfront.ui.BitmapFont	F	j	Lcom/desertstormfront/ui/TextMetrics;	textMetrics
+com.desertstormfront.ui.BitmapFont	M	a	(C)Lcom/desertstormfront/ui/Glyph;	getGlyph
+com.desertstormfront.ui.BitmapFont	M	a	(Ljava/lang/CharSequence;)Lcom/desertstormfront/ui/TextMetrics;	measure
+com.desertstormfront.ui.BitmapFont	M	a	(Ljava/lang/CharSequence;II)Lcom/desertstormfront/ui/TextMetrics;	measure
+com.desertstormfront.ui.BitmapFont	M	a	(Ljava/lang/String;I)Lcom/desertstormfront/ui/TextMetrics;	measureWrapped
+com.desertstormfront.ui.BitmapFont	M	a	(Ljava/lang/String;III)I	fitWidth
+com.desertstormfront.ui.BitmapFont	M	a	(Ljava/lang/CharSequence;CI)I	indexOfChar
+com.desertstormfront.ui.BitmapFont	M	a	()I	getLineHeight
+com.desertstormfront.ui.BitmapFont	M	a	(I)V	setLineHeight
+com.desertstormfront.ui.BitmapFont	M	b	()I	getAscent
+com.desertstormfront.ui.BitmapFont	M	b	(I)V	setAscent
